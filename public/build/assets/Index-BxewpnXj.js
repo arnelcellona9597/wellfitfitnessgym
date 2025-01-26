@@ -1,0 +1,1 @@
+import{j as e}from"./app-DLNc0_6q.js";function i(){return e.jsxs("div",{children:[e.jsx("h1",{children:"Welcome to the Default Page"}),e.jsx("p",{children:"This is a simple default page built with React."})]})}export{i as default};
