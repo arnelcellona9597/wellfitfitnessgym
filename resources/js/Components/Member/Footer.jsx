@@ -134,11 +134,7 @@ export default function Footer() {
               {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
               Copyright © All rights reserved | Developed by &nbsp;
               <a href="https://www.facebook.com/lesteraidan" target="_blank">
-                Lester Aidan
-              </a>
-              &nbsp; and &nbsp;
-              <a href="https://www.facebook.com/100009449851414/" target="_blank">
-                Priscilla Presente
+                Lester Aidan & Priscilla Presente
               </a>
               {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
             </p>

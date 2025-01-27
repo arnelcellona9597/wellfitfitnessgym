@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,6 +37,14 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Index');
+});
+
+Route::get('/signin', function () {
+    return Inertia::render('Signin');
+});
+
+Route::get('/signup', function () {
+    return Inertia::render('Signup');
 });
 
 Route::get('/admin', function () {

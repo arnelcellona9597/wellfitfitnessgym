@@ -36,11 +36,11 @@ export default function Header() {
                 </nav>
                 <div id="mobile-menu-wrap" />
                 <div className="to-social">
-                        <a href="#">
-                            <i className="fa fa-sign-in" />&nbsp;Login
+                        <a href="/signin">
+                            <i className="fa fa-sign-in" />&nbsp;Sign In
                         </a> <br/>
-                        <a href="#">
-                            <i className="fa fa-plus" />&nbsp;Register
+                        <a href="/signup">
+                            <i className="fa fa-plus" />&nbsp;Sign Up
                         </a>
                         {/* <a href="#">
                             <i className="fa fa-youtube-play" />
@@ -92,12 +92,11 @@ export default function Header() {
                         <i className="fa fa-search" />
                         </div> */}
                         <div className="to-social">
-                        <a href="#">
-                            <i className="fa fa-sign-in" />&nbsp;Login
-                        </a>
-                        <a href="#">
-                            <i className="fa fa-plus" />&nbsp;Register
-                        </a>
+                        <a href="/signin">
+                            <i className="fa fa-sign-in" />&nbsp;Sign In
+                        </a> 
+                        <a href="/signup">
+                            <i className="fa fa-plus" />&nbsp;Sign Up</a>
                         {/* <a href="#">
                             <i className="fa fa-youtube-play" />
                         </a>
