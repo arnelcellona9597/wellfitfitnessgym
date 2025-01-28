@@ -1,6 +1,7 @@
 <?php
 
-// use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,6 +46,12 @@ Route::get('/signin', function () {
 
 Route::get('/signup', function () {
     return Inertia::render('Signup');
+});
+
+Route::post('/signup', [UserController::class, 'createUser']);
+
+Route::get('/forgot', function () {
+    return Inertia::render('Forgot');
 });
 
 Route::get('/admin', function () {

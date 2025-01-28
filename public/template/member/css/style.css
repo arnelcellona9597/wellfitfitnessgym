@@ -128,6 +128,15 @@ ol {
 	display: block;
 }
 
+.bg-img-v-3 {
+	min-height: 100vh;
+	background-image: url(/template/member/img/breadcrumb-bg.jpg);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	display: block;
+}
+
 .fs-20{
 	font-size: 20px !important;
 }
@@ -2736,7 +2745,7 @@ ol {
 }
 
 .text-404 h1 {
-	font-size: 200px;
+	font-size: 80px;
 	color: #ffffff;
 	font-weight: 700;
 	letter-spacing: 2px;
@@ -2794,18 +2803,30 @@ ol {
 }
 
 .text-404 .search-404 button {
-	font-size: 16px;
 	color: #ffffff;
 	background: transparent;
-	border: none;
-	position: absolute;
-	right: 0;
-	top: 0;
-	padding: 11px 20px 11px;
+	border: 1px solid #f36100;
+    border-radius: 20px 0 20px 0;
+    padding: 6px 35px 6px 35px;
+    margin-top: 20px;
+	transition: all .4s ease;
+	font-size: 16px !important;
 }
 
+.text-404 .search-404 button:hover {
+	color: #f36100 !important;
+	border: 1px solid #fff;
+ 
+}
+
+.text-404 .search-404 button:hover i:before{
+	color: #f36100 !important;
+	transition: all .4s ease;
+}
+ 
+
 .text-404 a {
-	font-size: 15px;
+	font-size: 14px;
 	color: #ffffff;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -3311,13 +3332,13 @@ ol {
 		padding: 15px !important;
 	}
 	.text-404 h1 {
-		font-size: 160px;
+		font-size: 70px;
 	}
 	.breadcrumb-text h2 {
 		font-size: 38px;
 	}
 	.text-404 h1 {
-		font-size: 80px;
+		font-size: 70px;
 	}
 	.blog-details-text .blog-details-author {
 		padding: 70px 15px 35px;

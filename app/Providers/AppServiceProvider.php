@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Components\Services\User\IUserService;
+use App\Components\Services\User\Impl\UserService;
+use App\Components\Repository\UserRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->app->singleton(IUserService::class, function ($app) {
+            return new UserService($app->make(UserRepository::class));
+        });
     }
 }
