@@ -1,6 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Signup() {
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        type: 'Member'
+    });
+
+    const [errors, setErrors] = useState({});
+    const [successMessage, setSuccessMessage] = useState('');
+    const [showForm, setShowForm] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false); // ✅ Prevent multiple submissions
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrors({});
+        setSuccessMessage('');
+        setIsSubmitting(true); // ✅ Disable submit button
+
+        try {
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+            console.log("response: "+response); 
+            console.log("result: "+result); 
+
+            setSuccessMessage('User created successfully! Try to Sign In...');
+            setFormData({
+                first_name: '',
+                last_name: '',
+                email: '',
+                password: '',
+                type: 'Member'
+            });
+
+            // ✅ Hide form and show success message
+            setShowForm(false);
+
+
+        } 
+        catch (error) {
+            setErrors({ general: 'Email already exist, Try to create new one.' });
+            // console.log("error: "+error); 
+        }  
+        finally {
+            setIsSubmitting(false); // ✅ Re-enable submit button
+        }
+
+      
+
+
+
+    };
+
     return (
         <>  
             <span className='bg-img-v-2'>
@@ -12,33 +77,38 @@ export default function Signup() {
                                     <h1>Sign Up</h1>
                                     <h3>Create Your Fitness Account Today</h3>
                                     <p>Sign up now to start your fitness journey, access personalized plans, and unlock exclusive member benefits.</p>
-                                    <form action="/signup" method="POST" className="search-404">
-                                        {/* CSRF token (necessary for Laravel backend) */}
-                                        <input
-                                            type="hidden"
-                                            name="_token"
-                                            value={document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')}
-                                        />
-                                        <input type="text" name="first_name" placeholder="Enter your First Name" required />
-                                        <input type="text" name="last_name" placeholder="Enter your Last Name" required />
-                                        <input type="email" name="email" placeholder="Enter your Email" required />
-                                        <input type="password" name="password" placeholder="Create a Password" required />
-                                        <br />
-                                        <button className="color-white">
-                                            <i className="fa fa-plus"></i> Sign Up
-                                        </button>
-                                    </form>
-                                    <a href="/signin" className="fs-11 color-orange">
-                                        <i className="fa fa-sign-in"></i> Already have an account? Sign In
-                                    </a>
+
+                                    {errors.general && <p className="alert alert-danger">{errors.general}</p>}
+                                    {successMessage && <p className="alert alert-success">{successMessage}</p>}
+                                    
+                                    {showForm && (
+                                        <form onSubmit={handleSubmit} className="search-404">
+                                            <input type="hidden" name="type" value={formData.type} />
+
+                                            <input type="text" name="first_name" placeholder="Enter your First Name" value={formData.first_name} onChange={handleChange} required />
+                                            {errors.first_name && <p className="text-danger">{errors.first_name}</p>}
+
+                                            <input type="text" name="last_name" placeholder="Enter your Last Name" value={formData.last_name} onChange={handleChange} required />
+                                            {errors.last_name && <p className="text-danger">{errors.last_name}</p>}
+
+                                            <input type="email" name="email" placeholder="Enter your Email" value={formData.email} onChange={handleChange} required />
+                                            {errors.email && <p className="text-danger">{errors.email}</p>}
+
+                                            <input type="password" name="password" placeholder="Create a Password" value={formData.password} onChange={handleChange} required />
+                                            {errors.password && <p className="text-danger">{errors.password}</p>}
+
+                                            <br />
+                                            <button type="submit" className="color-white" disabled={isSubmitting}>
+                                                <i className="fa fa-plus"></i> {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+                                            </button>
+                                        </form>
+                                    )}
+                                    
+                                    <a href="/signin" className="fs-11 color-orange"><i className="fa fa-sign-in"></i> Already have an account? Sign In</a>
                                     <br />
-                                    <a href="/forgot" className="fs-11 color-orange">
-                                        <i className="fa fa-question"></i> Forgot Account?
-                                    </a>
+                                    <a href="/forgot" className="fs-11 color-orange"><i className="fa fa-question"></i> Forgot Account?</a>
                                     <br />
-                                    <a href="/" className="fs-11 color-orange">
-                                        <i className="fa fa-home"></i> Home Page
-                                    </a>
+                                    <a href="/" className="fs-11 color-orange"><i className="fa fa-home"></i> Home Page</a>
                                 </div>
                             </div>
                         </div>

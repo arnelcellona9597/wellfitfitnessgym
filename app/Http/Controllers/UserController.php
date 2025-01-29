@@ -18,14 +18,22 @@ class UserController extends Controller
 
     public function createUser(Request $request)
     {
+        $validated = $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'password' => 'required|min:6',
+            'type' => 'required|string'
+            
+        ]);
+    
         try {
-            $data = $request->only(['first_name', 'last_name', 'email', 'password']);
-            $this->UserService->createUser($data);
-            return redirect('/success')->with('success', 'User created successfully!');
+            $this->UserService->createUser($validated);
+            return response()->json(['message' => 'User created successfully!'], 201);
         } catch (\Exception $e) {
-            \Log::error($e->getMessage()); // Log the error for debugging
-            return redirect('/fail')->with('error', 'Something went wrong!');
+            // Log::error('User creation failed: ' . $e->getMessage());
+            return response()->json(['message' => 'Server error, please try again later.'], 500);
         }
-    }    
+    }
     
 }
