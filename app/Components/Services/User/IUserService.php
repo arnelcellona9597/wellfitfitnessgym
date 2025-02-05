@@ -3,5 +3,6 @@ namespace App\Components\Services\User;
 
 interface IUserService
 {
-    public function CreateUser( $data );
+    public function createUser( $data );
+    public function activateAccount( $data );
 } 

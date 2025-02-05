@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 
 export default function Signup() {
+
+    const generateVerificationCode = () => {
+        return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    };
+
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
         email: '',
         password: '',
-        type: 'Member'
+        type: 'Member',
+        verification_code: generateVerificationCode()
     });
 
     const [errors, setErrors] = useState({});
@@ -38,7 +44,7 @@ export default function Signup() {
             console.log("response: "+response); 
             console.log("result: "+result); 
 
-            setSuccessMessage('User created successfully! Try to Sign In...');
+            setSuccessMessage('Check your email to activate your account...');
             setFormData({
                 first_name: '',
                 last_name: '',
@@ -83,7 +89,12 @@ export default function Signup() {
                                     
                                     {showForm && (
                                         <form onSubmit={handleSubmit} className="search-404">
+
+
                                             <input type="hidden" name="type" value={formData.type} />
+                                            <input type="hidden" name="type" value={formData.verification_code} />
+
+
 
                                             <input type="text" name="first_name" placeholder="Enter your First Name" value={formData.first_name} onChange={handleChange} required />
                                             {errors.first_name && <p className="text-danger">{errors.first_name}</p>}

@@ -23,8 +23,8 @@ class UserController extends Controller
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'password' => 'required|min:6',
-            'type' => 'required|string'
-            
+            'type' => 'required|string',
+            'verification_code' => 'required|string'
         ]);
     
         try {
@@ -35,5 +35,25 @@ class UserController extends Controller
             return response()->json(['message' => 'Server error, please try again later.'], 500);
         }
     }
+
+
+
+    public function activateAccount(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email|exists:users,email',  // Ensures email exists in the database
+            'verification_code' => 'required|string'
+        ]);
+
+        try {
+            $this->UserService->activateAccount($validated);
+            return response()->json(['message' => 'Account activated successfully!'], 200); // Return 200 OK
+        } catch (\Exception $e) {
+            // Log the exception if necessary
+            return response()->json(['message' => $e->getMessage()], 400); // Return 400 Bad Request for validation issues
+        }
+    }
+
+    
     
 }

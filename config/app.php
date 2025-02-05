@@ -185,4 +185,7 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+
+    'page_account_activation' => env('PAGE_ACCOUNT_ACTIVATION', 'http://127.0.0.1:8000/activate-account'),
+    
 ];
