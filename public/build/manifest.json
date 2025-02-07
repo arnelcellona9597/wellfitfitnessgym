@@ -1,6 +1,30 @@
 {
+  "_GetInTouch-BStK3Edx.js": {
+    "file": "assets/GetInTouch-BStK3Edx.js",
+    "name": "GetInTouch",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_Head-C5cMY0X9.js": {
+    "file": "assets/Head-C5cMY0X9.js",
+    "name": "Head",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/ActivateAccount.jsx": {
+    "file": "assets/ActivateAccount-H-ZcT6A3.js",
+    "name": "ActivateAccount",
+    "src": "resources/js/Pages/ActivateAccount.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Head-C5cMY0X9.js"
+    ]
+  },
   "resources/js/Pages/Admin/Index.jsx": {
-    "file": "assets/Index-1PSXiUv8.js",
+    "file": "assets/Index-D_st9wgU.js",
     "name": "Index",
     "src": "resources/js/Pages/Admin/Index.jsx",
     "isDynamicEntry": true,
@@ -8,36 +32,74 @@
       "resources/js/app.jsx"
     ]
   },
+  "resources/js/Pages/Forgot.jsx": {
+    "file": "assets/Forgot-0kN6uo7D.js",
+    "name": "Forgot",
+    "src": "resources/js/Pages/Forgot.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Head-C5cMY0X9.js"
+    ]
+  },
   "resources/js/Pages/Index.jsx": {
-    "file": "assets/Index-BxewpnXj.js",
+    "file": "assets/Index-Djp5awDO.js",
     "name": "Index",
     "src": "resources/js/Pages/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/app.jsx"
+      "resources/js/app.jsx",
+      "_Head-C5cMY0X9.js",
+      "_GetInTouch-BStK3Edx.js"
     ]
   },
   "resources/js/Pages/Member/Index.jsx": {
-    "file": "assets/Index-jlhCZuu8.js",
+    "file": "assets/Index-BBwGiQMH.js",
     "name": "Index",
     "src": "resources/js/Pages/Member/Index.jsx",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/app.jsx"
+      "resources/js/app.jsx",
+      "_Head-C5cMY0X9.js",
+      "_GetInTouch-BStK3Edx.js"
+    ]
+  },
+  "resources/js/Pages/Signin.jsx": {
+    "file": "assets/Signin-DrdXcE0i.js",
+    "name": "Signin",
+    "src": "resources/js/Pages/Signin.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Head-C5cMY0X9.js"
+    ]
+  },
+  "resources/js/Pages/Signup.jsx": {
+    "file": "assets/Signup-D3VoyZdV.js",
+    "name": "Signup",
+    "src": "resources/js/Pages/Signup.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Head-C5cMY0X9.js"
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-DLNc0_6q.js",
+    "file": "assets/app-CRffOHJW.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
     "dynamicImports": [
+      "resources/js/Pages/ActivateAccount.jsx",
       "resources/js/Pages/Admin/Index.jsx",
+      "resources/js/Pages/Forgot.jsx",
       "resources/js/Pages/Index.jsx",
-      "resources/js/Pages/Member/Index.jsx"
+      "resources/js/Pages/Member/Index.jsx",
+      "resources/js/Pages/Signin.jsx",
+      "resources/js/Pages/Signup.jsx"
     ],
     "css": [
-      "assets/app-DkxsK5_7.css"
+      "assets/app-BGzxdU08.css"
     ]
   }
 }

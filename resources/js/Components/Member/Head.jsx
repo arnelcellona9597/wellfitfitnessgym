@@ -25,7 +25,7 @@ const MemberHead = () => {
             <link rel="stylesheet" href="/template/member/css/style.css" type="text/css" />
 
             {/* JavaScript */}
-            <script src="/template/member/js/jquery-3.3.1.min.js" defer ></script> 
+            <script src="/template/member/js/jquery-3.3.1.min.js" assync defer ></script> 
             <script src="/template/member/js/bootstrap.min.js" defer></script> 
             <script src="/template/member/js/jquery.magnific-popup.min.js" defer></script>
             <script src="/template/member/js/owl.carousel.min.js" defer></script>

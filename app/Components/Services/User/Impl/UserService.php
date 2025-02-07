@@ -24,5 +24,10 @@ class UserService implements IUserService
     {
         return $this->userRepository->activateAccount( $data );
     }
+
+    public function login( $data ) 
+    {
+        return $this->userRepository->login( $data );
+    }
  
 } 

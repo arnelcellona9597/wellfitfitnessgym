@@ -1,6 +1,6 @@
 import React from 'react';
 import MemberHead from '@/Components/Member/Head';
-import MemberHeader from '@/Components/Member/Header';
+import LoggedInMemberHeader from '@/Components/LoggedInMember/Header';
 import MemberMainBanner from '@/Components/Member/MainBanner';
 import MemberPlan from '@/Components/Member/Plan';
 import MemberFacilities from '@/Components/Member/Facilities';
@@ -15,7 +15,7 @@ export default function Index() {
     return (
     <>
       <MemberHead />
-      <MemberHeader />
+      <LoggedInMemberHeader />
       <MemberMainBanner />
       <MemberPlan />
       <MemberGallery />

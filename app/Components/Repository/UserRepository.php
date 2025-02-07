@@ -7,6 +7,7 @@ use App\Mail\UserRegisteredMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
@@ -44,6 +45,38 @@ class UserRepository
         // Update email_verified_at to current timestamp
         $user->email_verified_at = Carbon::now();
         $user->save();
+    }
+
+
+    public function login(array $data)
+    {
+
+        $user = User::where('email', $data['email'])
+                    ->where('password', $data['password']) // Direct password comparison (not recommended)
+                    ->first();
+    
+        if (!$user) {
+            throw new \Exception('Email or password is incorrect.');
+        }
+
+        $email_verified_at = $user->email_verified_at;
+
+        // Add indication to the response if $user->email_verified_at is null....
+        if (  $email_verified_at == NULL ) {
+            $message = "Account not verified!";
+        }
+        else {
+            $message = "Logged In";
+            Cookie::queue(Cookie::forget('cu_user_id'));
+            Cookie::queue(Cookie::make('cu_user_id', $user->id, 10080, null, null, false, false));
+        }
+
+        return [
+            'email_verified_at' =>  $email_verified_at
+        ];
+
+
+
     }
 
 }

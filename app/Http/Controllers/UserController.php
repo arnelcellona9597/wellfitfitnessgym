@@ -22,7 +22,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'password' => 'required|min:6',
+            'password' => 'required|string',
             'type' => 'required|string',
             'verification_code' => 'required|string'
         ]);
@@ -53,6 +53,29 @@ class UserController extends Controller
             return response()->json(['message' => $e->getMessage()], 400); // Return 400 Bad Request for validation issues
         }
     }
+
+    public function login(Request $request)
+    {
+        $validated = $request->validate([
+           'email' => 'required|email|exists:users,email',
+            'password' => 'required|string'
+        ]);
+    
+        try {
+            $response = $this->UserService->login($validated);
+
+            return response()->json([
+                'email_verified_at' => $response['email_verified_at']
+            ], 200);
+
+
+        } catch (\Exception $e) {
+            Log::error('User creation failed: ' . $e->getMessage());
+            return response()->json(['message' => 'Server error, please try again later.'], 400);
+        }
+    }
+
+    
 
     
     

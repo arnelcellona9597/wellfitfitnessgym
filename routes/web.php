@@ -27,11 +27,12 @@ Route::get('/', function () {
 Route::get('/signin', function () {
     return Inertia::render('Signin');
 });
+Route::post('/signin', [UserController::class, 'login']);
+
 
 Route::get('/signup', function () {
     return Inertia::render('Signup');
 });
-
 Route::post('/signup', [UserController::class, 'createUser']);
 
 
