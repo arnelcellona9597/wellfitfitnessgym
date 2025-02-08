@@ -2,7 +2,9 @@
 namespace App\Components\Repository;
 
 use App\Models\User;
+
 use App\Mail\UserRegisteredMail;
+use App\Mail\UserForgotPasswordMail;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cookie;
@@ -21,7 +23,7 @@ class UserRepository
         // Create user
         $user = User::create($data);
         Mail::to($user->email)->queue(new UserRegisteredMail($data));
-
+   
         // Clear the PHP cookie called "Email"
         Cookie::queue(Cookie::forget('email'));
         Cookie::queue(Cookie::forget('verification_code'));
@@ -74,9 +76,63 @@ class UserRepository
         return [
             'email_verified_at' =>  $email_verified_at
         ];
-
-
-
     }
+
+    public function forgotPassword(array $data) {
+        $user = User::where('email', $data['email'])
+                    ->first();
+    
+        if (!$user) {
+            throw new \Exception('Email or password is incorrect.');
+        }
+
+        $email_verified_at = $user->email_verified_at;
+
+        if (  $email_verified_at == NULL ) {
+            $message = "Account not verified!";
+        }
+        else {
+            $message = "Successs";
+
+            Mail::to($user->email)->queue(new UserForgotPasswordMail($data));
+            Cookie::queue(Cookie::forget('email'));
+            Cookie::queue(Cookie::make('email', $user->email, 10080, null, null, false, false));
+            
+        }
+
+        return [
+            'email_verified_at' =>  $email_verified_at
+        ];
+    }
+
+
+    public function resetPassword(array $data)
+    {
+        $user = User::where('email', $data['email'])
+                    ->first();
+    
+        if (!$user) {
+            throw new \Exception('Email or password is incorrect.');
+        }
+
+        $email_verified_at = $user->email_verified_at;
+
+        // Add indication to the response if $user->email_verified_at is null....
+        if (  $email_verified_at == NULL ) {
+            $message = "Account not verified!";
+        }
+        else {
+            $message = "Logged In";
+
+            $user->password =  $data['password'];
+            $user->save();
+
+        }
+
+        return [
+            'email_verified_at' =>  $email_verified_at
+        ];
+    }
+    
 
 }

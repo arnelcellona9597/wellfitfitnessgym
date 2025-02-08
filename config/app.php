@@ -187,5 +187,6 @@ return [
 
 
     'page_account_activation' => env('PAGE_ACCOUNT_ACTIVATION', 'http://127.0.0.1:8000/activate-account'),
+    'page_reset_password' => env('PAGE_RESET_PASSWORD', 'http://127.0.0.1:8000/reset-password'),
     
 ];

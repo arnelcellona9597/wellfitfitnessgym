@@ -29,5 +29,15 @@ class UserService implements IUserService
     {
         return $this->userRepository->login( $data );
     }
+
+    public function forgotPassword( $data ) 
+    {
+        return $this->userRepository->forgotPassword( $data );
+    }
+
+    public function resetPassword( $data ) 
+    {
+        return $this->userRepository->resetPassword( $data );
+    }
  
 } 

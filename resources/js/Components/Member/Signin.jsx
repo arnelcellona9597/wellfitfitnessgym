@@ -105,12 +105,12 @@ export default function Signin() {
 
                                             <br />
                                             <button type="submit" className="color-white" disabled={isSubmitting}>
-                                                <i className="fa fa-plus"></i> {isSubmitting ? 'Authenticating ...' : 'Activate Account'}
+                                                <i className="fa fa-plus"></i> {isSubmitting ? 'Authenticating ...' : 'Signin'}
                                             </button>
                                         </form>
                                     )}
 
-                                    <a href="./index.html" className="mb-3 fs-20 color-white"><i className="fa fa-sign-in "></i> Sign In</a> <br/>
+                                    
                                     <a href="/signup"  className="fs-11 color-orange mb-3"><i className="fa fa-plus"></i> Don't have an account? Sign Up</a> <br/>
                                     <a href="/forgot"  className="fs-11 color-orange mb-3"><i className="fa fa-question"></i> Forgot Account?</a><br/>
                                     <a href="/"  className="fs-11 color-orange"><i className="fa fa-home"></i> Home Page </a>

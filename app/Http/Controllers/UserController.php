@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Components\Services\User\IUserService;
 
+ 
+
 class UserController extends Controller
 {
     //
@@ -75,8 +77,48 @@ class UserController extends Controller
         }
     }
 
+    public function forgotPassword(Request $request)
+    {
+        $validated = $request->validate([
+           'email' => 'required|email|exists:users,email'
+        ]);
     
+        try {
+            $response = $this->UserService->forgotPassword($validated);
 
+            return response()->json([
+                'email_verified_at' => $response['email_verified_at']
+            ], 200);
+
+
+        } catch (\Exception $e) {
+            Log::error('User creation failed: ' . $e->getMessage());
+            return response()->json(['message' => 'Server error, please try again later.'], 400);
+        }
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $validated = $request->validate([
+           'email' => 'required|email|exists:users,email',
+           'password' => 'required|string'
+        ]);
+    
+        try {
+            $response = $this->UserService->resetPassword($validated);
+
+            return response()->json([
+                'email_verified_at' => $response['email_verified_at']
+            ], 200);
+
+
+        } catch (\Exception $e) {
+            Log::error('User creation failed: ' . $e->getMessage());
+            return response()->json(['message' => 'Server error, please try again later.'], 400);
+        }
+    }
+    
+    
     
     
 }

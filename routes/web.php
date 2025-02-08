@@ -22,12 +22,23 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return Inertia::render('Index');
+}); 
+
+
+Route::get('/reset-password', function (Request $request) {
+    return Inertia::render('ResetPassword', [
+         'email' => $request->cookie('email'),
+    ]);
 });
+Route::post('/reset-password', [UserController::class, 'resetPassword']);
 
 Route::get('/signin', function () {
     return Inertia::render('Signin');
 });
 Route::post('/signin', [UserController::class, 'login']);
+
+
+
 
 
 Route::get('/signup', function () {
@@ -43,12 +54,19 @@ Route::get('/activate-account', function (Request $request) {
         'verification_code' => $request->cookie('verification_code'),
     ]);
 });
-
 Route::post('/activate-account', [UserController::class, 'activateAccount']);
 
-Route::get('/forgot', function () {
-    return Inertia::render('Forgot');
+
+Route::get('/forgot', function (Request $request) {
+    return Inertia::render('Forgot', [
+        'email' => $request->cookie('email'),
+    ]);
 });
+Route::post('/forgot', [UserController::class, 'forgotPassword']);
+
+
+
+
 
 Route::get('/admin', function () {
     return Inertia::render('Admin/Index');
@@ -69,4 +87,4 @@ Route::get('/member', function () {
 
 
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
