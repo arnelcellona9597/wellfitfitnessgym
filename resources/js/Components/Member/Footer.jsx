@@ -20,7 +20,7 @@ export default function Footer() {
         <div className="col-lg-4">
           <div className="fs-about">
             <div className="fa-logo">
-              <a href="#">
+              <a href="/">
                 <img src="/template/member/img/logo.png" alt="" />
               </a>
             </div>
@@ -51,16 +51,16 @@ export default function Footer() {
             <h4>Useful links</h4>
             <ul>
               <li>
-                <a href="#">About</a>
+                <a href="/about">About</a>
               </li>
               <li>
-                <a href="#">Book Trainor</a>
+                <a href="/trainor">Book Trainor</a>
               </li>
               <li>
-                <a href="#">Customer Reviews</a>
+                <a href="/reviews">Customer Reviews</a>
               </li>
               <li>
-                <a href="#">Contact Us</a>
+                <a href="/contact">Contact Us</a>
               </li>
             </ul>
           </div>
@@ -70,16 +70,16 @@ export default function Footer() {
             <h4>Membership</h4>
             <ul>
               <li>
-                <a href="#">Starter Fit Plan</a>
+                <a href="/plans">Starter Fit Plan</a>
               </li>
               <li>
-                <a href="#">Flex Pro Plan</a>
+                <a href="/plans">Flex Pro Plan</a>
               </li>
               <li>
-                <a href="#">Commit to Fit Plan</a>
+                <a href="/plans">Commit to Fit Plan</a>
               </li>
               <li>
-                <a href="#">Ultimate Fit Plan</a>
+                <a href="/plans">Ultimate Fit Plan</a>
               </li>
             </ul>
 
@@ -90,7 +90,7 @@ export default function Footer() {
             <h4>Customer Reviews</h4>
             <div className="fw-recent">
               <h6>
-                <a href="#">
+                <a href="/reviews">
                   Physical fitness may help prevent depression, anxiety
                 </a>
               </h6>
@@ -108,7 +108,7 @@ export default function Footer() {
             </div>
             <div className="fw-recent">
               <h6>
-                <a href="#">
+              <a href="/reviews">
                   Fitness: The best exercise to lose belly fat and tone up...
                 </a>
               </h6>

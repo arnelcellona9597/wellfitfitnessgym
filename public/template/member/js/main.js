@@ -10,14 +10,15 @@
 'use strict';
 
 (function ($) {
+     
 
     /*------------------
         Preloader
     --------------------*/
-    $(window).on('load', function () {
-        $(".loader").fadeOut();
-        $("#preloder").delay(200).fadeOut("slow");
-    });
+    // $(window).on('load', function () {
+    //     $(".loader").fadeOut();
+    //     $("#preloder").delay(200).fadeOut("slow");
+    // });
 
     /*------------------
         Background Set
@@ -125,16 +126,16 @@
     /*------------------
         Image Popup
     --------------------*/
-    $('.image-popup').magnificPopup({
-        type: 'image'
-    });
+    // $('.image-popup').magnificPopup({
+    //     type: 'image'
+    // });
 
     /*------------------
         Video Popup
     --------------------*/
-    $('.video-popup').magnificPopup({
-        type: 'iframe'
-    });
+    // $('.video-popup').magnificPopup({
+    //     type: 'iframe'
+    // });
 
     /*------------------
         Barfiller
@@ -170,5 +171,5 @@
             }
         });
     });
-
+ 
 })(jQuery);

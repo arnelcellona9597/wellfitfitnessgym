@@ -9,11 +9,12 @@ import MemberGallery from '@/Components/Member/Gallery';
 import MemberTrainor from '@/Components/Member/Trainor';
 import MemberFooter from '@/Components/Member/Footer';
 import MemberGetInTouch from '@/Components/Member/GetInTouch';
-
+import MemberReviews from '@/Components/Member/Reviews';
 
 export default function Index() {
     return (
     <>
+    
       <MemberHead />
       <MemberHeader />
       <MemberMainBanner />
@@ -23,7 +24,9 @@ export default function Index() {
       <MemberWhyChooseUs />
       <MemberTrainor/>
       <MemberGetInTouch />
+            <MemberReviews />
       <MemberFooter />
+
     </>
     );
 }  

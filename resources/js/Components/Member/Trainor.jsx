@@ -13,9 +13,9 @@ export default function Trainor() {
           <span>Our Trainors</span>
           <h2>TRAIN WITH EXPERTS</h2>
         </div>
-        <a href="#" className="primary-btn btn-normal appoinment-btn">
+        {/* <a href="/trainor" className="primary-btn btn-normal appoinment-btn">
           Book Trainor
-        </a>
+        </a> */}
       </div>
     </div>
   </div>
@@ -25,8 +25,8 @@ export default function Trainor() {
         <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-1.jpg">
           <div className="ts_text">
             <h4>Athart Rachel</h4>
-            <span>Gym Trainer</span>
-            <a href="#" class="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <span>Gym Trainor</span>
+            <a href="#" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -34,8 +34,8 @@ export default function Trainor() {
         <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-2.jpg">
           <div className="ts_text">
             <h4>Athart Rachel</h4>
-            <span>Gym Trainer</span>
-            <a href="#" class="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <span>Gym Trainor</span>
+            <a href="#" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -43,8 +43,8 @@ export default function Trainor() {
         <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-3.jpg">
           <div className="ts_text">
             <h4>Athart Rachel</h4>
-            <span>Gym Trainer</span>
-            <a href="#" class="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <span>Gym Trainor</span>
+            <a href="#" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -52,8 +52,8 @@ export default function Trainor() {
         <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-4.jpg">
           <div className="ts_text">
             <h4>Athart Rachel</h4>
-            <span>Gym Trainer</span>
-            <a href="#" class="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <span>Gym Trainor</span>
+            <a href="#" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -61,8 +61,8 @@ export default function Trainor() {
         <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-5.jpg">
           <div className="ts_text">
             <h4>Athart Rachel</h4>
-            <span>Gym Trainer</span>
-            <a href="#" class="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <span>Gym Trainor</span>
+            <a href="#" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -71,8 +71,8 @@ export default function Trainor() {
           <div className="ts_text">
 
             <h4>Athart Rachel</h4>
-            <span>Gym Trainer</span>
-            <a href="#" class="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <span>Gym Trainor</span>
+            <a href="#" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
 
           </div>
         </div>

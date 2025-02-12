@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,16 +66,53 @@ Route::get('/forgot', function (Request $request) {
 Route::post('/forgot', [UserController::class, 'forgotPassword']);
 
 
+Route::get('/about', function (Request $request) {
+    return Inertia::render('About', [
+        'cu_user_id' => $request->cookie('cu_user_id'),
+    ]);
+});
 
+Route::get('/plans', function (Request $request) {
+    return Inertia::render('Plans', [
+        'cu_user_id' => $request->cookie('cu_user_id'),
+    ]);
+});
+
+Route::get('/trainor', function (Request $request) {
+    return Inertia::render('Trainor', [
+        'cu_user_id' => $request->cookie('cu_user_id'),
+    ]);
+});
+
+Route::get('/reviews', function (Request $request) {
+    return Inertia::render('Reviews', [
+        'cu_user_id' => $request->cookie('cu_user_id'),
+    ]);
+});
+
+Route::get('/contact', function (Request $request) {
+    return Inertia::render('Contact', [
+        'cu_user_id' => $request->cookie('cu_user_id'),
+    ]);
+});
 
 
 Route::get('/admin', function () {
     return Inertia::render('Admin/Index');
 });
 
-Route::get('/member', function () {
-    return Inertia::render('Member/Index');
+// Route::get('/member', function () {
+//     return Inertia::render('Member/Index');
+// });
+
+Route::get('/member', function (Request $request) {
+    return Inertia::render('Member/Index', [
+        'cu_user_id' => $request->cookie('cu_user_id'),
+    ]);
 });
+
+
+
 
 
 // Route::get('/test-email', function () {

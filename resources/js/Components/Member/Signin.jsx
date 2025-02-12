@@ -95,7 +95,7 @@ export default function Signin() {
                                                 required
                                             />
                                             <input
-                                                type="text"
+                                                type="password"
                                                 name="password"
                                                 value={formData.password}
                                                 onChange={handleChange}

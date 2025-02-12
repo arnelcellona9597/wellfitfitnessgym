@@ -12,7 +12,7 @@ export default function GetInTouch() {
                     <div className="bt-tips">
                     Where fitness, health, and beauty come together.
                     </div>
-                    <a href="#" className="primary-btn  btn-normal">
+                    <a href="/contact" className="primary-btn  btn-normal">
                         Contact Us
                     </a>
                     </div>

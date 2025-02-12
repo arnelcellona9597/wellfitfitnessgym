@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 
 export default function Header() {
+
+   
     return (
         <>
         <div className="offcanvas-menu-overlay" />
@@ -13,25 +16,25 @@ export default function Header() {
                 </div> */}
                 <nav className="canvas-menu mobile-menu">
                 <ul>
-                    <li>
-                    <a href="./index.html">Home</a>
-                    </li>
-                    <li>
-                    <a href="./about-us.html">About Us</a>
-                    </li>
-                    <li>
-                    <a href="./classes.html">Membership Plans</a>
-                    </li>
-                    <li>
-                    <a href="./services.html">Trainors</a>
-                    </li>
-                    <li>
-                    <a href="./team.html">Customer Reviews</a>
-                    </li>
-                     
-                    <li>
-                    <a href="./contact.html">Contact Us</a>
-                    </li>
+                      <li>
+                        <a href="/">Home</a>
+                        </li>
+                        <li>
+                        <a href="/about">About</a>
+                        </li>
+                        <li>
+                        <a href="/plans">Plans</a>
+                        </li>
+                        <li>
+                        <a href="/trainor">Trainor</a>
+                        </li>
+                        <li>
+                        <a href="/reviews">Reviews</a>
+                        </li>
+                        
+                        <li>
+                        <a href="/contact">Contact</a>
+                        </li>
                 </ul>
                 </nav>
                 <div id="mobile-menu-wrap" />
@@ -56,7 +59,7 @@ export default function Header() {
                 <div className="row">
                     <div className="col-lg-3">
                     <div className="logo">
-                        <a href="./index.html">
+                        <a href="/">
                         <img src="/template/member/img/logo.png" alt="" />
                         </a>
                     </div>
@@ -64,24 +67,25 @@ export default function Header() {
                     <div className="col-lg-6">
                     <nav className="nav-menu">
                     <ul>
-                        <li>
-                        <a href="./index.html">Home</a>
+                    <li>
+                   
+                        <a href="/">Home</a>
                         </li>
                         <li>
-                        <a href="./about-us.html">About Us</a>
+                        <a href="/about">About</a>
                         </li>
                         <li>
-                        <a href="./classes.html">Membership Plans</a>
+                        <a href="/plans">Plans</a>
                         </li>
                         <li>
-                        <a href="./services.html">Book Trainor</a>
+                        <a href="/trainor">Trainor</a>
                         </li>
                         <li>
-                        <a href="./team.html">Customer Reviews</a>
+                        <a href="/reviews">Reviews</a>
                         </li>
                         
                         <li>
-                        <a href="./contact.html">Contact Us</a>
+                        <a href="/contact">Contact</a>
                         </li>
                     </ul>
                     </nav>
@@ -97,12 +101,7 @@ export default function Header() {
                         </a> 
                         <a href="/signup">
                             <i className="fa fa-plus" />&nbsp;Sign Up</a>
-                        {/* <a href="#">
-                            <i className="fa fa-youtube-play" />
-                        </a>
-                        <a href="#">
-                            <i className="fa fa-instagram" />
-                        </a> */}
+    
                         </div>
                     </div>
                     </div>
