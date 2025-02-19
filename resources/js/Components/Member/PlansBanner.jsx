@@ -15,7 +15,7 @@ export default function PlansBanner() {
                 <div className="breadcrumb-text">
                     <h2>Plans</h2>
                     <div className="bt-option">
-                    <a href="/">Home</a>
+                    <a href="#">Home</a>
                     <span>Membership Plans</span>
                     </div>
                 </div>

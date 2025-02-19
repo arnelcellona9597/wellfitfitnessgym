@@ -8,4 +8,5 @@ interface IUserService
     public function login( $data );
     public function forgotPassword( $data );
     public function resetPassword( $data );
+    public function contactForm( $data );
 } 

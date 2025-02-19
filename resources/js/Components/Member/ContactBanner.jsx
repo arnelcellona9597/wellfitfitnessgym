@@ -15,7 +15,7 @@ export default function ContactBanner() {
                 <div className="breadcrumb-text">
                     <h2>Contact</h2>
                     <div className="bt-option">
-                    <a href="/">Home</a>
+                    <a href="#">Home</a>
                     <span>Contact Us</span>
                     </div>
                 </div>

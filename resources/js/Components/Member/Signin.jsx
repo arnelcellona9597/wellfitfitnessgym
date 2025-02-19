@@ -105,7 +105,7 @@ export default function Signin() {
 
                                             <br />
                                             <button type="submit" className="color-white" disabled={isSubmitting}>
-                                                <i className="fa fa-plus"></i> {isSubmitting ? 'Authenticating ...' : 'Signin'}
+                                                <i className="fa fa-sign-in"></i> {isSubmitting ? 'Authenticating ...' : 'Signin'}
                                             </button>
                                         </form>
                                     )}

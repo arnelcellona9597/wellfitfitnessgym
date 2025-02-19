@@ -3,7 +3,7 @@ import { usePage } from '@inertiajs/react';
 
 export default function ActivateAccount() {
 
-    const { email, verification_code } = usePage().props;
+    const { email, verification_code } = usePage().props; 
     const [formData, setFormData] = useState({
         verification_code: verification_code || '',
         email: email || ''
@@ -45,8 +45,12 @@ export default function ActivateAccount() {
                 // console.log("result:", result);
     
                 // Show success message
-                setSuccessMessage('Account activated successfully! ');
+                setSuccessMessage('Account activated successfully! Redirecting to login page...');
     
+                setTimeout(() => {
+                    window.location.href = '/signin/';
+                }, 3000);
+
                 // Reset form data
                 setFormData({
                     verification_code: verification_code || '',
@@ -92,7 +96,7 @@ export default function ActivateAccount() {
 
                                             <br />
                                             <button type="submit" className="color-white" disabled={isSubmitting}>
-                                                <i className="fa fa-plus"></i> {isSubmitting ? 'Authenticating ...' : 'Activate Account'}
+                                                <i className="fa fa-sign-in"></i> {isSubmitting ? 'Authenticating ...' : 'Activate Account'}
                                             </button>
                                         </form>
                                     )}

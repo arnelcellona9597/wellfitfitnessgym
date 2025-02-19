@@ -15,7 +15,7 @@ export default function AboutBanner() {
                 <div className="breadcrumb-text">
                     <h2>About</h2>
                     <div className="bt-option">
-                    <a href="/">Home</a>
+                    <a href="#">Home</a>
                     <span>About Us</span>
                     </div>
                 </div>

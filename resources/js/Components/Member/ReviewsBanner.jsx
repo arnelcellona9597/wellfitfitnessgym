@@ -15,7 +15,7 @@ export default function ReviewsBanner() {
                 <div className="breadcrumb-text">
                     <h2>Reviews</h2>
                     <div className="bt-option">
-                    <a href="/">Home</a>
+                    <a href="#">Home</a>
                     <span>Customer Reviews</span>
                     </div>
                 </div>

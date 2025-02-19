@@ -117,7 +117,21 @@ class UserController extends Controller
             return response()->json(['message' => 'Server error, please try again later.'], 400);
         }
     }
+
+
+    public function contactForm(Request $request)
+    {
+        try {
+            $response = $this->UserService->contactForm($request->all());
+            return response()->json([
+                'message' => 'success'
+            ], 200);
     
+        } catch (\Exception $e) {
+            Log::error('User creation failed: ' . $e->getMessage());
+            return response()->json(['message' => 'Server error, please try again later.'], 400);
+        }
+    }
     
     
     

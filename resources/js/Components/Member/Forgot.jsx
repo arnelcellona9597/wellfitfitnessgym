@@ -95,7 +95,7 @@ export default function Forgot() {
 
                                             <br />
                                             <button type="submit" className="color-white" disabled={isSubmitting}>
-                                                <i className="fa fa-plus"></i> {isSubmitting ? 'Authenticating ...' : 'Submit'}
+                                                <i className="fa fa-sign-in"></i> {isSubmitting ? 'Authenticating ...' : 'Submit'}
                                             </button>
                                         </form>
                                     )}

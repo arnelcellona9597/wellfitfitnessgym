@@ -3,35 +3,32 @@ import { usePage } from "@inertiajs/react";
 
 export default function Footer() {
 
+    const { reviews } = usePage().props;
 
-      const { reviews } = usePage().props;
-  
-          const dateFormatter = new Intl.DateTimeFormat('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        });
-      
-        const renderStars = (rate) => {
-          const totalStars = 5;
-          const filledStars = Math.min(rate, totalStars);
-          const unfilledStars = totalStars - filledStars;
-      
-          return (
-              <>
-                  {[...Array(filledStars)].map((_, index) => (
-                      <i key={`filled-${index}`} className="fa fa-star filled-star" />
-                  ))}
-                  {[...Array(unfilledStars)].map((_, index) => (
-                      <i key={`unfilled-${index}`} className="fa fa-star unfilled-star" />
-                  ))}
-              </>
-          );
-      };
+    const dateFormatter = new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+  });
 
+  const renderStars = (rate) => {
+    const totalStars = 5;
+    const filledStars = Math.min(rate, totalStars);
+    const unfilledStars = totalStars - filledStars;
 
     return (
-      
+        <>
+            {[...Array(filledStars)].map((_, index) => (
+                <i key={`filled-${index}`} className="fa fa-star filled-star" />
+            ))}
+            {[...Array(unfilledStars)].map((_, index) => (
+                <i key={`unfilled-${index}`} className="fa fa-star unfilled-star" />
+            ))}
+        </>
+    );
+};
+
+    return (
         <>
 
 
@@ -50,7 +47,7 @@ export default function Footer() {
         <div className="col-lg-4">
           <div className="fs-about">
             <div className="fa-logo">
-              <a href="/">
+              <a href="/member/">
                 <img src="/template/member/img/logo.png" alt="" />
               </a>
             </div>
@@ -81,16 +78,16 @@ export default function Footer() {
             <h4>Useful links</h4>
             <ul>
               <li>
-                <a href="/about">About</a>
+                <a href="/member/about">About</a>
               </li>
               <li>
-                <a href="/trainor">Book Trainor</a>
+                <a href="/member/trainor">Book Trainor</a>
               </li>
               <li>
-                <a href="/reviews">Customer Reviews</a>
+                <a href="/member/reviews">Customer Reviews</a>
               </li>
               <li>
-                <a href="/contact">Contact Us</a>
+                <a href="/member/contact">Contact Us</a>
               </li>
             </ul>
           </div>
@@ -100,32 +97,36 @@ export default function Footer() {
             <h4>Membership</h4>
             <ul>
               <li>
-                <a href="/plans">Starter Fit Plan</a>
+                <a href="/member/plans">Starter Fit Plan</a>
               </li>
               <li>
-                <a href="/plans">Flex Pro Plan</a>
+                <a href="/member/plans">Flex Pro Plan</a>
               </li>
               <li>
-                <a href="/plans">Commit to Fit Plan</a>
+                <a href="/member/plans">Commit to Fit Plan</a>
               </li>
               <li>
-                <a href="/plans">Ultimate Fit Plan</a>
+                <a href="/member/plans">Ultimate Fit Plan</a>
               </li>
             </ul>
 
           </div>
         </div>
         <div className="col-lg-4 col-md-6">
+
+       
+     
+
           <div className="fs-widget">
             <h4>Customer Reviews</h4>
- 
+
 
             {reviews.map((review) => (
               <>
                
                 <div className="fw-recent">
                   <h6>
-                    <a href="/signin">
+                    <a href="/member/reviews">
                         {review.comment}
                     </a>
                   </h6>
@@ -140,8 +141,7 @@ export default function Footer() {
               </>
             ))}
 
-
-
+ 
           </div>
         </div>
       </div>

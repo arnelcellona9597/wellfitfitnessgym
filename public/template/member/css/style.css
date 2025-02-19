@@ -3408,3 +3408,27 @@ ol {
     margin-left: auto;
     margin-right: auto;
 }
+
+.bg-color-000 {
+	background-color: #000 !important;
+	background: #000 !important;
+}
+
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating i {
+    font-size: 30px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.star-rating i.checked {
+    color: #ffcc00;
+}
+
+.star-rating input[type="radio"]:checked ~ i {
+    color: #ffcc00;
+}

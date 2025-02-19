@@ -14,7 +14,7 @@ export default function MainBanner() {
                         <h1>
                         Avail <strong>Our </strong>Membership 
                         </h1>
-                        <a href="#" className="primary-btn">
+                        <a href="/plans" className="primary-btn">
                         View Pricing
                         </a>
                     </div>
@@ -31,7 +31,7 @@ export default function MainBanner() {
                       <h1>
                           Book  <strong>Personal </strong> Trainer
                       </h1>
-                      <a href="#" className="primary-btn">
+                      <a href="/trainor" className="primary-btn">
                         View Trainor
                       </a>
                     </div>

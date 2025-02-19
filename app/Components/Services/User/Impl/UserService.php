@@ -5,6 +5,10 @@ namespace App\Components\Services\User\Impl;
 use App\Components\Services\User\IUserService;
 use App\Components\Repository\UserRepository;
 
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\ContactFormMail;
+
 class UserService implements IUserService
 {
     private $userRepository;
@@ -38,6 +42,15 @@ class UserService implements IUserService
     public function resetPassword( $data ) 
     {
         return $this->userRepository->resetPassword( $data );
+    }
+
+    public function contactForm( $data ) 
+    {
+        Mail::to( env('MAIL_FROM_ADDRESS') )->queue(new ContactFormMail($data));
+
+        return [
+            'message' =>  'success'
+        ];
     }
  
 } 

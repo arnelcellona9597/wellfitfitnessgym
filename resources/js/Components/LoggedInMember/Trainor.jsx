@@ -26,7 +26,7 @@ export default function Trainor() {
           <div className="ts_text">
             <h4>Athart Rachel</h4>
             <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <a href="/member/trainor/form/" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@ export default function Trainor() {
           <div className="ts_text">
             <h4>Athart Rachel</h4>
             <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <a href="/member/trainor/form/" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@ export default function Trainor() {
           <div className="ts_text">
             <h4>Athart Rachel</h4>
             <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <a href="/member/trainor/form/" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@ export default function Trainor() {
           <div className="ts_text">
             <h4>Athart Rachel</h4>
             <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <a href="/member/trainor/form/" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default function Trainor() {
           <div className="ts_text">
             <h4>Athart Rachel</h4>
             <span>Gym Trainor</span>
-            <a href="/signin"  className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <a href="/member/trainor/form/"  className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@ export default function Trainor() {
 
             <h4>Athart Rachel</h4>
             <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            <a href="/member/trainor/form/" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
 
           </div>
         </div>

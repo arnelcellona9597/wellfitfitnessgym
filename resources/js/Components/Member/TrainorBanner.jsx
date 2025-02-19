@@ -15,7 +15,7 @@ export default function TrainorBanner() {
                 <div className="breadcrumb-text">
                     <h2>Trainors</h2>
                     <div className="bt-option">
-                    <a href="/">Home</a>
+                    <a href="#">Home</a>
                     <span>Our Trainors</span>
                     </div>
                 </div>

@@ -30,7 +30,7 @@ export default function Plan() {
                     <li>Free wifi Access</li>
                     <li>Proffessional & Friendly staff</li>
                     </ul>
-                    <a href="/signin" className="primary-btn pricing-btn">
+                    <a href="/member/plan/form" className="primary-btn pricing-btn">
                     Avail Now
                     </a>
                     {/* <a href="#" className="thumb-icon">
@@ -54,7 +54,7 @@ export default function Plan() {
                     <li>Free wifi Access</li>
                     <li>Proffessional & Friendly staff</li>
                     </ul>
-                    <a href="/signin" className="primary-btn pricing-btn">
+                    <a href="/member/plan/form" className="primary-btn pricing-btn">
                     Avail Now
                     </a>
                     {/* <a href="#" className="thumb-icon">
@@ -77,7 +77,7 @@ export default function Plan() {
                     <li>Free wifi Access</li>
                     <li>Proffessional & Friendly staff</li>
                     </ul>
-                    <a href="/signin" className="primary-btn pricing-btn">
+                    <a href="/member/plan/form" className="primary-btn pricing-btn">
                     Avail Now
                     </a>
                     {/* <a href="#" className="thumb-icon">
@@ -100,7 +100,7 @@ export default function Plan() {
                     <li>Free wifi Access</li>
                     <li>Proffessional & Friendly staff</li>
                     </ul>
-                    <a href="/signin" className="primary-btn pricing-btn">
+                    <a href="/member/plan/form" className="primary-btn pricing-btn">
                     Avail Now
                     </a>
                     {/* <a href="#" className="thumb-icon">
