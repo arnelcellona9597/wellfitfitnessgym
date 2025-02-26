@@ -3432,3 +3432,19 @@ ol {
 .star-rating input[type="radio"]:checked ~ i {
     color: #ffcc00;
 }
+
+
+.fa.fa-star.unfilled-star,
+.fa.fa-star.unfilled-star::before {
+	color: transparent !important;
+	display: none !important;
+}
+
+.testimonial-section p {
+	font-size: 18px;
+}
+.testimonial-section .review_date {
+	color: #f36100 !important;	
+	font-size: 14px !important;
+	font-weight: 100;
+}

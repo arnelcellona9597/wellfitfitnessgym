@@ -46,18 +46,6 @@ class ReviewController extends Controller
             return response()->json(['message' => 'Server error, please try again later.'], 500);
         }
     }
-    
-    public function latestReviews(): Response
-    {
-        $latestReviews = Review::leftJoin('users', 'reviews.user_id', '=', 'users.id')
-            ->orderBy('reviews.created_at', 'desc')
-            ->take(2)
-            ->get(['reviews.*', 'users.first_name', 'users.last_name']);
-
-        return Inertia::render('Index', [
-            'reviews' => $latestReviews,
-        ]);
-    }
 
     
 }

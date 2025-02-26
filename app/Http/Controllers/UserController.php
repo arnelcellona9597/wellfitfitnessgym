@@ -134,5 +134,14 @@ class UserController extends Controller
     }
     
     
+    public function viewUsers( )
+    {
+        return response()->json([
+            'message' => 'success',
+            'name' => 'John Doe',
+            'email' => 'johndoe123@gmail.com'
+        ], 200);
+    }
+
     
 }

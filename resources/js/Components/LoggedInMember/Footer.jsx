@@ -3,7 +3,7 @@ import { usePage } from "@inertiajs/react";
 
 export default function Footer() {
 
-    const { reviews } = usePage().props;
+    const { two_latest_reviews } = usePage().props;
 
     const dateFormatter = new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
@@ -121,20 +121,20 @@ export default function Footer() {
             <h4>Customer Reviews</h4>
 
 
-            {reviews.map((review) => (
+            {two_latest_reviews.map((two_latest_review) => (
               <>
                
                 <div className="fw-recent">
                   <h6>
                     <a href="/member/reviews">
-                        {review.comment}
+                        {two_latest_review.comment}
                     </a>
                   </h6>
                   <ul>
-                    <li>{review.first_name} {review.last_name}</li>
-                    <li>{dateFormatter.format(new Date(review.created_at))}</li>
+                    <li>{two_latest_review.first_name} {two_latest_review.last_name}</li>
+                    <li>{dateFormatter.format(new Date(two_latest_review.created_at))}</li>
                     <li>
-                    {renderStars(review.rate)}
+                    {renderStars(two_latest_review.rate)}
                     </li>
                   </ul>
                 </div>
