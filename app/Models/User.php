@@ -18,6 +18,10 @@ class User extends Model
         'email', 
         'type', 
         'password',
+        'profile', 
+        'age', 
+        'gender',
+        'address',
         'verification_code',
         'email_verified_at'
     ]; 
@@ -26,5 +30,11 @@ class User extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public static function getUserInfo($userId)
+    {
+        return self::find($userId);
+    }
+    
 
 }

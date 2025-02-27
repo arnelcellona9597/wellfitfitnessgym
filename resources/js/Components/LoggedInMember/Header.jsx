@@ -100,7 +100,9 @@ export default function Header() {
                             <div className="top-option">
                                 <div className="to-social profile-dropdown-label">
                                     <a href="#">
-                                        <i className="fa fa-sign-in" /> &nbsp; USER EMAIL ...
+
+                                    <img src="/template/member/img/Portrait_Placeholder.png" alt="profile" className='userProfileImg'/>
+                                        {/* <i className="fa fa-sign-in" /> &nbsp; USER EMAIL ... */}
                                     </a>
                                     <br />
                                     <div className="profile-dropdown-content">
@@ -111,6 +113,8 @@ export default function Header() {
                                         <a href="/member/account-history">
                                             <i className="fa fa-sign-in" /> &nbsp;Account History
                                         </a>
+
+
                                         <a href="#"  className='logout'  onClick={handleLogout}> 
                                             <i className="fa fa-sign-in" /> &nbsp;Logout
                                         </a>

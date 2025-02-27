@@ -279,7 +279,7 @@ Route::get('/member/plans', [PageRenderController::class, 'memberPlans']);
 Route::get('/member/trainor', [PageRenderController::class, 'memberTrainor']);
 Route::get('/member/contact', [PageRenderController::class, 'memberContact']);
 Route::get('/member/reviews', [PageRenderController::class, 'memberReviews']);
-
+Route::get('/member/profile', [PageRenderController::class, 'memberProfile']);
 
 
 Route::post('/signin', [UserController::class, 'login']);
@@ -290,3 +290,4 @@ Route::post('/forgot', [UserController::class, 'forgotPassword']);
 Route::post('/member/contact', [UserController::class, 'contactForm']);
 Route::post('/contact', [UserController::class, 'contactForm']);
 Route::post('/member/reviews', [ReviewController::class, 'createReview']);
+Route::post('/member/profile', [UserController::class, 'updateMemberProfile']);

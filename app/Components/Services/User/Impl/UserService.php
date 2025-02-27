@@ -52,5 +52,11 @@ class UserService implements IUserService
             'message' =>  'success'
         ];
     }
+
+    
+    public function updateMemberProfile( $data ) 
+    {
+        return $this->userRepository->updateMemberProfile( $data );
+    }
  
 } 

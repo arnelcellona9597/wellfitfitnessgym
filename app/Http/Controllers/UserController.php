@@ -132,16 +132,57 @@ class UserController extends Controller
             return response()->json(['message' => 'Server error, please try again later.'], 400);
         }
     }
-    
-    
-    public function viewUsers( )
-    {
-        return response()->json([
-            'message' => 'success',
-            'name' => 'John Doe',
-            'email' => 'johndoe123@gmail.com'
-        ], 200);
-    }
 
+
+ 
+
+    public function updateMemberProfile(Request $request)
+    {
+        try {
+            // Find the user by ID
+            $user = \App\Models\User::findOrFail($request->id);
+    
+            // Handle profile image upload
+            if ($request->hasFile('profile')) {
+                $file = $request->file('profile');
+                $fileName = time() . '_' . $file->getClientOriginalName(); // Unique filename
+                $destinationPath = public_path('template/images/'); // Dynamic path
+    
+                // Move file to the destination path
+                $file->move($destinationPath, $fileName);
+    
+                // Store only the file name in the database
+                $user->profile = $fileName;
+            }
+    
+            // Update other user attributes
+            $user->first_name = $request->first_name;
+            $user->last_name  = $request->last_name;
+            $user->email      = $request->email;
+            $user->phone      = $request->phone;
+            $user->age        = $request->age;
+            $user->gender     = $request->gender;
+            $user->address    = $request->address;
+    
+            // Save changes
+            $user->save();
+    
+            return response()->json([
+                'message' => 'success',
+                'profile_image' => $fileName ?? $user->profile // Return file name if updated
+            ], 200);
+    
+        } catch (\Exception $e) {
+            \Log::error('User update failed: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Server error, please try again later.'
+            ], 400);
+        }
+    }
+    
+
+    
+    
+    
     
 }

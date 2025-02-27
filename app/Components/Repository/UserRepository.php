@@ -108,7 +108,7 @@ class UserRepository
 
     public function resetPassword(array $data)
     {
-        $user = User::where('email', $data['email'])
+        $user = User::where('id', $data['id'])
                     ->first();
     
         if (!$user) {
@@ -133,6 +133,35 @@ class UserRepository
             'email_verified_at' =>  $email_verified_at
         ];
     }
+    
+
+    public function updateMemberProfile(array $data)
+    {
+        $user = User::where('id', $data['id'])->first();
+    
+        if (!$user) {
+            return [
+                'response' => false,
+                'message'  => 'User not found'
+            ];
+        }
+    
+        $user->first_name = $data['first_name'];
+        $user->last_name  = $data['last_name'];
+        $user->email      = $data['email'];
+        $user->phone      = $data['phone'];
+        $user->age        = $data['age'];
+        $user->gender     = $data['gender'];
+        $user->address    = $data['address'];
+        $user->profile    = $data['profile'];
+    
+        $return = $user->save();
+    
+        return [
+            'response' => $return
+        ];
+    }
+    
     
 
 }

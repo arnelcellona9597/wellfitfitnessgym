@@ -9,7 +9,7 @@ export default function Reviews() {
     const [formData, setFormData] = useState({
         user_id: cu_user_id,
         rate: "1", // ✅ Changed "rating" to "rate" to match the backend
-        comment: ""
+        comment: "" 
     });
 
     // State for errors and success messages

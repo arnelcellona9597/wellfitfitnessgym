@@ -30,7 +30,7 @@ export default function Reviews() {
       };
 
     return (
-       <> 
+       <>  
  
   
 
@@ -48,7 +48,7 @@ export default function Reviews() {
       <div className="ts_slider owl-carousel">
 
 
-
+ 
       {reviews.map((review) => (
   
           <div className="ts_item">
