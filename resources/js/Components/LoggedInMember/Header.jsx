@@ -3,8 +3,8 @@ import { usePage } from '@inertiajs/react';
 import { useCookies } from 'react-cookie';
 
 export default function Header() {
-    const { cu_user_id } = usePage().props;
-
+    const { cu_user_id, get_user_info } = usePage().props;
+    
 
     const [cookies, setCookie, removeCookie] = useCookies(['cu_user_id']);
 
@@ -30,7 +30,7 @@ export default function Header() {
                 <nav className="canvas-menu mobile-menu">
                     <ul>
                         <li>
-                            <a href="/member/">Home</a>
+                            <a href="/member/">Home  </a>
                         </li>
                         <li>
                             <a href="/member/about">About</a>
@@ -75,7 +75,7 @@ export default function Header() {
                             <nav className="nav-menu">
                                 <ul>
                                 <li>
-                            <a href="/member/">Home</a>
+                            <a href="/member/">Home </a>
                                 </li>
                                 <li>
                                     <a href="/member/about">About</a>
@@ -101,8 +101,16 @@ export default function Header() {
                                 <div className="to-social profile-dropdown-label">
                                     <a href="#">
 
-                                    <img src="/template/member/img/Portrait_Placeholder.png" alt="profile" className='userProfileImg'/>
-                                        {/* <i className="fa fa-sign-in" /> &nbsp; USER EMAIL ... */}
+
+
+                                    <img 
+                                        src={get_user_info?.profile 
+                                            ? `/template/images/${get_user_info.profile}` 
+                                            : "/template/member/img/Portrait_Placeholder.png"} 
+                                        alt="profile" 
+                                        className='userProfileImg'
+                                    />
+
                                     </a>
                                     <br />
                                     <div className="profile-dropdown-content">

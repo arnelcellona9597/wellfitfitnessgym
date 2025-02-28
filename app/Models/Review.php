@@ -35,7 +35,7 @@ class Review extends Model
     {
         return self::leftJoin('users', 'reviews.user_id', '=', 'users.id')
             ->orderBy('reviews.created_at', 'desc')
-            ->get(['reviews.*', 'users.first_name', 'users.last_name']);
+            ->get(['reviews.*', 'users.first_name', 'users.last_name', 'users.profile']);
     }
 
 }

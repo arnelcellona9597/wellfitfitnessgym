@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Review;
 use App\Models\User;
+use App\Models\Plan;
 
 
 class PageRenderController extends Controller
@@ -17,6 +18,7 @@ class PageRenderController extends Controller
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
             'reviews' => Review::getReviews(),
+            'get_all_plans' => Plan::getAllPlans(),
         ]);
     }
 
@@ -33,6 +35,7 @@ class PageRenderController extends Controller
         return Inertia::render('Plans', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'get_all_plans' => Plan::getAllPlans(),
         ]);
     }
 
@@ -58,6 +61,7 @@ class PageRenderController extends Controller
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
             'reviews' => Review::getReviews(),
+            
         ]);
     }
 
@@ -78,7 +82,7 @@ class PageRenderController extends Controller
     }
 
     public function resetPassword(Request $request)
-    {
+    { 
         return Inertia::render('ResetPassword', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
@@ -101,6 +105,7 @@ class PageRenderController extends Controller
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
             'email' => $request->cookie('email'),
+            
         ]);
     }
 
@@ -109,6 +114,8 @@ class PageRenderController extends Controller
         return Inertia::render('Member/Index', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'get_all_plans' => Plan::getAllPlans(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
         ]);
     }
 
@@ -117,6 +124,7 @@ class PageRenderController extends Controller
         return Inertia::render('Member/About', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
         ]);
     }
 
@@ -125,6 +133,8 @@ class PageRenderController extends Controller
         return Inertia::render('Member/Plans', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'get_all_plans' => Plan::getAllPlans(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
         ]);
     }
 
@@ -133,6 +143,7 @@ class PageRenderController extends Controller
         return Inertia::render('Member/Trainor', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
         ]);
     }
 
@@ -141,6 +152,7 @@ class PageRenderController extends Controller
         return Inertia::render('Member/Contact', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
         ]);
     }
 
@@ -149,6 +161,8 @@ class PageRenderController extends Controller
         return Inertia::render('Member/Reviews', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'reviews' => Review::getReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
         ]);
     }
 

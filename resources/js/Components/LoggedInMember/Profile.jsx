@@ -14,7 +14,9 @@ export default function Profile() {
         age: "",
         gender: "",
         address: "",
-        profile: null, // For file input handling
+        profile: null, 
+        password: "",
+        confirm_password: "",
     });
 
     // State for errors, success messages, and form visibility
@@ -28,18 +30,20 @@ export default function Profile() {
         if (get_user_info) {
             setFormData((prevData) => ({
                 ...prevData,
-                first_name: get_user_info.first_name || "",
-                last_name: get_user_info.last_name || "",
-                email: get_user_info.email || "",
-                phone: get_user_info.phone || "",
-                age: get_user_info.age || "",
-                gender: get_user_info.gender || "",
-                address: get_user_info.address || "",
+                first_name:  "",
+                last_name:  "",
+                email: "",
+                phone:  "",
+                age:  "",
+                gender: "",
+                address:  "",
+                password: "",  
+                confirm_password: "",
             }));
         }
     }, [get_user_info]);
 
-    // Handle text/number/select input changes
+    // Handle input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -62,37 +66,72 @@ export default function Profile() {
         setErrors({});
         setSuccessMessage("");
         setIsSubmitting(true);
+    
+        
+        
+        
 
+     
+     
+        if (formData.password || formData.confirm_password) {
+            if (formData.password.length < 6) {
+                setErrors({ err_msg: "Password must be at least 6 characters long!" });
+                setIsSubmitting(false);
+                return;
+            }
+            if (formData.password !== formData.confirm_password) {
+                setErrors({ err_msg: "Passwords do not match!" });
+                setIsSubmitting(false);
+                return;
+            }
+        }
+        else if (
+            !formData.profile &&
+            !formData.first_name &&
+            !formData.last_name &&
+            !formData.email &&
+            !formData.phone &&
+            !formData.age &&
+            !formData.gender &&
+            !formData.address &&
+            !formData.password &&
+            !formData.confirm_password
+        ) {
+            setErrors({ err_msg: "The form connot be emtpy!" });
+            setIsSubmitting(false);
+            return;
+        }
+    
         // Create a FormData instance for file uploads
         const formDataToSend = new FormData();
         Object.keys(formData).forEach((key) => {
-            formDataToSend.append(key, formData[key]);
+            if (formData[key] !== null && formData[key] !== "") {
+                formDataToSend.append(key, formData[key]);
+            }
         });
+    
 
         try {
             const response = await fetch("/member/profile", {
                 method: "POST",
                 headers: {
-                    "X-CSRF-TOKEN": document
-                        .querySelector('meta[name="csrf-token"]')
-                        ?.getAttribute("content"),
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
                 },
                 body: formDataToSend,
             });
-
+    
             const result = await response.json();
             if (!response.ok) {
                 setErrors({ general: result.message || "Error submitting!" });
                 return;
             }
-
+    
             setSuccessMessage("Successfully updated! Refreshing the page in 3 seconds ...");
             setShowForm(false);
             setTimeout(() => {
-              window.location.href = '/member/profile';
-          }, 3000);
-
-
+                window.location.href = "/member/profile";
+            }, 3000);
+    
         } catch (error) {
             console.error("Error submitting:", error);
             setErrors({ general: "Something went wrong. Please try again!" });
@@ -100,6 +139,8 @@ export default function Profile() {
             setIsSubmitting(false);
         }
     };
+    
+    
 
     return (
         <section className="bmi-calculator-section spad">
@@ -161,107 +202,58 @@ export default function Profile() {
                                 <p className="alert alert-success">{successMessage}</p>
                             )}
                      
-
                             {showForm && (
                                 <form
                                     onSubmit={handleSubmit}
                                     encType="multipart/form-data"
                                 >
                                     <div className="row">
-
-
-
-                                    <input
-                                                type="hidden"
-                                                value={formData.user_id}
-                                                name="id"
-                                               
-                                                onChange={handleChange} required
-                                            />
-
+                                        <input type="hidden" value={formData.id} name="id" />
 
                                         <div className="col-sm-6">
-                                            <input
-                                                type="text"
-                                                placeholder="First Name"
-                                                name="first_name"
-                                   
-                                                onChange={handleChange} required
-                                            />
+                                            <input type="text" placeholder="First Name" name="first_name" onChange={handleChange} />
                                         </div>
                                         <div className="col-sm-6">
-                                            <input
-                                                type="text"
-                                                placeholder="Last Name"
-                                                name="last_name"
-                                               
-                                                onChange={handleChange} required
-                                            />
+                                            <input type="text" placeholder="Last Name" name="last_name" onChange={handleChange} />
                                         </div>
                                         <div className="col-sm-6">
-                                            <input
-                                                type="email"
-                                                placeholder="Email"
-                                                name="email"
-                                         
-                                                onChange={handleChange} required
-                                            />
+                                            <input type="email" placeholder="Email" name="email" onChange={handleChange} />
                                         </div>
                                         <div className="col-sm-6">
-                                            <input
-                                                type="number"
-                                                placeholder="Contact Number"
-                                                name="phone"
-                                                
-                                                onChange={handleChange} required
-                                            />
+                                            <input type="number" placeholder="Contact Number" name="phone" onChange={handleChange} />
                                         </div>
                                         <div className="col-sm-6">
-                                            <input
-                                                type="number"
-                                                min="8"
-                                                max="120"
-                                                placeholder="Age"
-                                                name="age"
-                                     
-                                                onChange={handleChange} required
-                                            />
+                                            <input type="number" min="8" max="120" placeholder="Age" name="age" onChange={handleChange} />
                                         </div>
                                         <div className="col-sm-6">
-                                            <select
-                                                name="gender"
-                                               
-                                                onChange={handleChange} required
-                                            >
-                                                <option disabled value="">
-                                                    Gender
-                                                </option>
+                                            <select name="gender" onChange={handleChange}>
+                                                <option disabled  >Gender</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                             </select>
                                         </div>
+
                                         <div className="col-sm-12">
-                                            <input
-                                                type="text"
-                                                placeholder="Address"
-                                                name="address"
-                                          
-                                                onChange={handleChange} required
-                                            />
+                                            <input type="text" placeholder="Address" name="address" onChange={handleChange} />
                                         </div>
+
                                         <div className="col-sm-12">
-                                            <input
-                                                type="file"
-                                                name="profile"
-                                                onChange={handleFileChange} required
-                                            />
+                                            <input type="file" name="profile" onChange={handleFileChange} />
                                         </div>
+
+                                        <div className="col-sm-12">
+                                            <input type="password" placeholder="Password" name="password" onChange={handleChange} />
+                                        </div>
+
+                                        <div className="col-sm-12">
+                                            <input type="password" placeholder="Confirm Password" name="confirm_password" onChange={handleChange} />
+                                           
+                                            {errors.err_msg && <p className="alert alert-danger">{errors.err_msg}</p>}
+
+                                        </div>
+
                                         <div className="col-lg-12">
-                                            <button
-                                                type="submit"
-                                                className="color-white"
-                                                disabled={isSubmitting}
-                                            >
+                                            <button type="submit" className="color-white" disabled={isSubmitting}>
                                                 {isSubmitting ? "Submitting..." : "Submit"}
                                             </button>
                                         </div>

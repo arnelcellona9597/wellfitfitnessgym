@@ -16,7 +16,7 @@ export default function Reviews() {
           const totalStars = 5;
           const filledStars = Math.min(rate, totalStars);
           const unfilledStars = totalStars - filledStars;
-      
+       
           return (
               <>
                   {[...Array(filledStars)].map((_, index) => (
@@ -55,7 +55,12 @@ export default function Reviews() {
             <div className="row">
               <div className="col-lg-12 text-center">
                 <div className="ti_pic">
-                  <img src="/template/member/img/testimonial/testimonial-1.jpg" alt="" />
+                  <img  src={review?.profile 
+                          ? `/template/images/${review.profile}` 
+                          : "/template/member/img/Portrait_Placeholder.png"} 
+                      alt="profile" 
+                        
+                  />
                 </div>
                 <div className="ti_text">
                   <p>

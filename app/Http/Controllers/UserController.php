@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Components\Services\User\IUserService;
 
+use App\Models\User;
  
 
 class UserController extends Controller
@@ -132,7 +133,7 @@ class UserController extends Controller
             return response()->json(['message' => 'Server error, please try again later.'], 400);
         }
     }
-
+ 
 
  
 
@@ -140,38 +141,57 @@ class UserController extends Controller
     {
         try {
             // Find the user by ID
-            $user = \App\Models\User::findOrFail($request->id);
-    
+            $user = User::findOrFail($request->id);
+
             // Handle profile image upload
             if ($request->hasFile('profile')) {
                 $file = $request->file('profile');
                 $fileName = time() . '_' . $file->getClientOriginalName(); // Unique filename
                 $destinationPath = public_path('template/images/'); // Dynamic path
-    
+
                 // Move file to the destination path
                 $file->move($destinationPath, $fileName);
-    
+
                 // Store only the file name in the database
                 $user->profile = $fileName;
             }
-    
-            // Update other user attributes
-            $user->first_name = $request->first_name;
-            $user->last_name  = $request->last_name;
-            $user->email      = $request->email;
-            $user->phone      = $request->phone;
-            $user->age        = $request->age;
-            $user->gender     = $request->gender;
-            $user->address    = $request->address;
-    
+
+            // Update only if the field is not null
+            if (!is_null($request->first_name)) {
+                $user->first_name = $request->first_name;
+            }
+            if (!is_null($request->last_name)) {
+                $user->last_name = $request->last_name;
+            }
+            if (!is_null($request->email)) {
+                $user->email = $request->email;
+            }
+            if (!is_null($request->phone)) {
+                $user->phone = $request->phone;
+            }
+            if (!is_null($request->age)) {
+                $user->age = $request->age;
+            }
+            if (!is_null($request->gender)) {
+                $user->gender = $request->gender;
+            }
+            if (!is_null($request->address)) {
+                $user->address = $request->address;
+            }
+
+            if (!is_null($request->password)) {
+                $user->password = $request->password;
+            }
+
+
             // Save changes
             $user->save();
-    
+
             return response()->json([
                 'message' => 'success',
                 'profile_image' => $fileName ?? $user->profile // Return file name if updated
             ], 200);
-    
+
         } catch (\Exception $e) {
             \Log::error('User update failed: ' . $e->getMessage());
             return response()->json([
@@ -179,10 +199,7 @@ class UserController extends Controller
             ], 400);
         }
     }
-    
 
-    
-    
     
     
 }
