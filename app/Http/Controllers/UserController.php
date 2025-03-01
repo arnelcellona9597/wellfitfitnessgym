@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Components\Services\User\IUserService;
 
 use App\Models\User;
+use App\Models\UserPlan;
  
 
 class UserController extends Controller
@@ -199,6 +200,15 @@ class UserController extends Controller
             ], 400);
         }
     }
+
+
+    public function addMembershipPlan(Request $request)
+    {
+        $userPlan = UserPlan::create($request->all());
+        return response()->json($userPlan, 201);
+    }
+    
+    
 
     
     

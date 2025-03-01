@@ -2,6 +2,7 @@
 namespace App\Components\Repository;
 
 use App\Models\User;
+use App\Models\UserPlan;
 
 use App\Mail\UserRegisteredMail;
 use App\Mail\UserForgotPasswordMail;
@@ -161,6 +162,20 @@ class UserRepository
             'response' => $return
         ];
     }
+    
+
+    // public function addMembershipPlan(array $data)
+    // {
+        
+    //     $user = UserPlan::create($data);
+    //     // Mail::to($user->email)->queue(new UserRegisteredMail($data));
+    //     // // Clear the PHP cookie called "Email"
+    //     // Cookie::queue(Cookie::forget('email'));
+    //     // Cookie::queue(Cookie::forget('verification_code'));
+    //     // // Optionally, set a new cookie with the user's email (expires in 60 minutes)
+    //     // Cookie::queue(Cookie::make('email', $data['email'], 60, null, null, false, false));
+    //     // Cookie::queue(Cookie::make('verification_code', $data['verification_code'], 60, null, null, false, false));
+    // }
     
     
 

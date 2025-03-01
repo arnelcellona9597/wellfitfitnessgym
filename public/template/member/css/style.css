@@ -3465,3 +3465,114 @@ ol {
 input[type="file"] {
 	padding-top: 10px !important;
 }
+
+.pt-230 {
+	padding-top: 230px;
+}
+
+/* ul.ul-element li{
+    font-size: 16px;
+    color: #f1f1f1;
+    line-height: 2;
+} */
+
+ul.ul-element {
+    margin-top: 30px;
+}
+
+.custom-orange-btn {
+	font-size: 14px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 700;
+    width: 100%;
+    border: none;
+    padding: 15px 0;
+    background: #f36100;
+} 
+
+.ul-element {
+    list-style: none;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.ul-element li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+ 
+}
+
+.ul-element li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: -6px;
+    font-size: 24px;
+    color: #28a745 !important;
+    font-weight: bold;
+}
+
+.agree-checkbox input {
+	border: 2px solid #f36100 !important;
+	margin-left: 10px;
+	line-height: 1;
+}
+
+.agree-checkbox label {
+	font-size: 16px;
+    color: #fff;
+	line-height: 1;
+}
+
+.agree-checkbox  {
+	color: #fff;
+	line-height: 1;
+}
+
+
+.bgPortraite1 {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px; /* Smooth rounded corners */
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2); /* Glowing shadow */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    filter: grayscale(20%) contrast(1.1); /* Slight grayscale effect for a modern look */
+	max-height: 580px;
+}
+
+.bgPortraite1:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.4); /* Enhanced glow */
+    filter: grayscale(0%) contrast(1.2); /* Restore color for a pop effect */
+ 
+}
+.verification_code{
+	width: 100%;
+ }
+
+ .payment-element-block input,
+ .payment-element-block select {
+	width: 100%;
+	margin-top: 10px;
+ }
+
+ .orange-label{
+	font-size: 16px;
+    color: #f36100;
+    text-transform: uppercase;
+    font-weight: 700;
+ }
+
+ .planBTN {
+	width: 100%;
+ }

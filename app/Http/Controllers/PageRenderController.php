@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use App\Models\Review;
 use App\Models\User;
 use App\Models\Plan;
-
+ 
 
 class PageRenderController extends Controller
 {
@@ -128,15 +128,6 @@ class PageRenderController extends Controller
         ]);
     }
 
-    public function memberPlans(Request $request)
-    {
-        return Inertia::render('Member/Plans', [
-            'cu_user_id' => $request->cookie('cu_user_id'),
-            'two_latest_reviews' => Review::getTwoLatestReviews(),
-            'get_all_plans' => Plan::getAllPlans(),
-            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
-        ]);
-    }
 
     public function memberTrainor(Request $request)
     {
@@ -172,6 +163,27 @@ class PageRenderController extends Controller
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
             'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+        ]);
+    }
+
+    public function memberPlans(Request $request)
+    {
+        return Inertia::render('Member/Plans', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+            'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'get_all_plans' => Plan::getAllPlans(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+        ]);
+    }
+
+    public function memberPlanForm(Request $request)
+    {
+        return Inertia::render('Member/Plan/Form', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+            'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'reviews' => Review::getReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+            'get_plan_by_id' => Plan::getPlanByID( $request->query('id') ),
         ]);
     }
 

@@ -15,7 +15,7 @@ export default function Reviews() {
         const totalStars = 5;
         const filledStars = Math.min(rate, totalStars);
         const unfilledStars = totalStars - filledStars;
-    
+     
         return (
             <>
                 {[...Array(filledStars)].map((_, index) => (

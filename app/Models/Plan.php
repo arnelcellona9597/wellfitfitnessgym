@@ -24,6 +24,10 @@ class Plan extends Model
         return self::all();
     }
 
+    public static function getPlanByID($id)
+    {
+        return self::find($id);
+    }    
 
 
 }

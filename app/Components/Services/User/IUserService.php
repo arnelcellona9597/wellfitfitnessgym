@@ -10,4 +10,7 @@ interface IUserService
     public function resetPassword( $data );
     public function contactForm( $data );
     public function updateMemberProfile( $data );
+    // public function addMembershipPlan( $data );
+
+    
 } 

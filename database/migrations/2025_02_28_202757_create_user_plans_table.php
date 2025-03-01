@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('user_plans', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->nullable();
+            $table->string('plan_id')->nullable();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('payment_method')->nullable();

@@ -67,12 +67,7 @@ export default function Profile() {
         setSuccessMessage("");
         setIsSubmitting(true);
     
-        
-        
-        
-
-     
-     
+ 
         if (formData.password || formData.confirm_password) {
             if (formData.password.length < 6) {
                 setErrors({ err_msg: "Password must be at least 6 characters long!" });
@@ -100,7 +95,7 @@ export default function Profile() {
             setErrors({ err_msg: "The form connot be emtpy!" });
             setIsSubmitting(false);
             return;
-        }
+        } 
     
         // Create a FormData instance for file uploads
         const formDataToSend = new FormData();

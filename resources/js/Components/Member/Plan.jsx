@@ -35,7 +35,8 @@ export default function Plan() {
             <div className="ps-item">
                 <h3>{plan.duration}</h3>
                 <div className="pi-price">
-                <h2>₱{plan.price}</h2>
+                <h2>₱{parseInt(plan.price).toLocaleString()}</h2>
+
                 <span>{plan.plan_name}</span>
                 </div>
                 <ul>

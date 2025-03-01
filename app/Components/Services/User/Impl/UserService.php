@@ -58,5 +58,11 @@ class UserService implements IUserService
     {
         return $this->userRepository->updateMemberProfile( $data );
     }
+
+    // public function addMembershipPlan( $data ) 
+    // {
+    //     return $this->userRepository->addMembershipPlan( $data );
+    // }
+    
  
 } 
