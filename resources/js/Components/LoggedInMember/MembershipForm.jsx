@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { usePage } from "@inertiajs/react";
+import Cookies from "js-cookie";
 
 export default function MembershipForm() {
-    const { get_plan_by_id } = usePage().props;
+    const { get_plan_by_id, get_user_info, membership_verification_code } = usePage().props;
     const [step, setStep] = useState(1);
     const [agreeChecked, setAgreeChecked] = useState(false);
     const [gcashNumber, setGcashNumber] = useState("");
@@ -11,29 +12,108 @@ export default function MembershipForm() {
     const [errors, setErrors] = useState({});
 
     // Function to go to the next step with validation
-    const nextStep = () => {
+    const nextStep = async () => {
         let validationErrors = {};
-
+    
         if (step === 1 && !agreeChecked) {
             validationErrors.agree = "Please accept the terms and conditions before proceeding.";
         }
-
+    
         if (step === 2 && !verificationCode.trim()) {
             validationErrors.verificationCode = "Please enter the verification code sent to your email.";
         }
-
+    
         if (step === 3 && paymentMethod === "GCASH" && !gcashNumber.trim()) {
             validationErrors.gcash = "Please enter your GCASH number.";
         }
-
+    
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return;
         }
-
+    
         setErrors({});
+    
+        if (step === 1) {
+            try {
+                const postData = {
+                    email: get_user_info.email,
+                    plan_name: get_plan_by_id.plan_name,
+                    price: get_plan_by_id.price,
+                    duration: get_plan_by_id.duration,
+                };
+    
+                const response = await fetch("/member/plan/form", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                    },
+                    body: JSON.stringify(postData),
+                });
+    
+                const result = await response.json();
+    
+                if (!response.ok) {
+                    setErrors({ general: result.message || "Error submitting!" });
+                    return;
+                }
+                // console.log(result.membership_verification_code);
+                // console.log(result.email1);
+                
+            } catch (error) {
+                console.error("Error submitting:", error);
+                setErrors({ general: "Something went wrong. Please try again!" });
+                return;
+            }
+        }
+
+        if ( step === 2) {
+            const storedVerificationCode = Cookies.get("membership_verification_code");
+            if (storedVerificationCode != verificationCode) {
+                alart("Wrong verification code, Please check your email!.");
+                setErrors({ general: result.message || "Wrong verification code, Please check your email!." });
+                validationErrors.verificationCode = "Wrong verification code, Please check your email!.";
+                return;
+            }
+        }
+
+        if ( step === 3) {
+            try {
+                const response = await fetch('/gcash-payment', {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        order_total:  get_plan_by_id.price,
+                        plan_name: get_plan_by_id.plan_name,
+                        duration: get_plan_by_id.duration,
+
+                    }),
+                });
+    
+                const data = await response.json();
+              
+    
+                if (data.redirect_url) {
+                    // Redirect user to the next step (step 2)
+                    window.location.href = data.redirect_url;
+                } else {
+                    alert('Payment initiation failed. Please try again.');
+                }
+            } catch (error) {
+      
+                console.error('Payment initiation failed', error);
+                alert('An error occurred while processing your payment. Please try again.');
+            }
+        }
+
+
+        
         setStep((prev) => Math.min(prev + 1, 3));
     };
+    
 
     const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
@@ -46,7 +126,7 @@ export default function MembershipForm() {
                         <div className="row">
                             <div className="col-lg-6">
                                 <div className="section-title chart-title">
-                                    <span>Wellfit Fitness Gym - Terms and Conditions</span>
+                                    <span> Wellfit Fitness Gym - Terms and Conditions</span>
                                     <h2>By purchasing a membership, you agree to these terms:</h2>
 
                                     <ul className="ul-element">

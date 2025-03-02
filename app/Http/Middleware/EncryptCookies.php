@@ -15,5 +15,6 @@ class EncryptCookies extends Middleware
         'cu_user_id',
         'verification_code',
         'email',
+        'membership_verification_code',
     ];
 }

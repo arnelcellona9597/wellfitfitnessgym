@@ -9,7 +9,12 @@ class PaymentController extends Controller
 {
     public function createPaymentIntent(Request $request)
     {
-        $order_total = $request->input('order_total');  // The order total (e.g., 100 PHP)
+
+        $order_total = $request->input('order_total');   
+        $plan_name = $request->input('plan_name');   
+        $duration = $request->input('duration'); 
+ 
+
         $client = new Client();
 
         try {
@@ -21,7 +26,7 @@ class PaymentController extends Controller
                             'payment_method_allowed' => ['gcash'],
                             'currency' => 'PHP',
                             'capture_type' => 'automatic',
-                            'description' => 'STARTER FIT PLAN',
+                            'description' => $plan_name ." - ". $duration,
                             'statement_descriptor' => 'Wellfit Fitness Gym'
                         ]
                     ]
@@ -50,11 +55,22 @@ class PaymentController extends Controller
 
     public function createPaymentMethod(Request $request)
     {
+        // \Log::info('Received Data:', $request->all()); // Log incoming request data
+
+        // $customer_name = $request->input('customer_name');
+        // $phone = $request->input('phone');
+        // $email = $request->input('email');
+
+        $customer_name = "John Doe";
+        $email = "arnelcellona9597@gmail.com";
+        $phone = "09514874304";
+
+
         // Dummy user data for testing
         $dummyUser = [
-            'name' => 'John Doe',
-            'email' => 'johndoe@example.com',
-            'phone' => '09171234567',
+            'name' => $customer_name,
+            'email' => $email,
+            'phone' => $phone,
             'address' => [
                 'line1' => '123 Dummy St.',
                 'city' => 'Dummy City',
@@ -187,7 +203,7 @@ class PaymentController extends Controller
 
         } catch (\Exception $e) {
             \Log::error('Error fetching payment status: ' . $e->getMessage());
-            return redirect()->route('home');
+            return redirect()->route('member.index');
         }
     }
 }

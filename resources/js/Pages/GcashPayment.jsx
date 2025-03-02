@@ -20,7 +20,7 @@ const GcashPayment = () => {
         setIsLoading(true); // Show loading state while processing
         try {
             const response = await fetch('http://127.0.0.1:8000/gcash-payment', {
-                method: 'POST',
+                method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',
                 },
