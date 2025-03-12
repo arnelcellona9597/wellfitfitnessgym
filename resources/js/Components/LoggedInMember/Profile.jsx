@@ -168,7 +168,10 @@ export default function Profile() {
                                         </tr>
                                         <tr>
                                             <td className="point">Age:</td>
-                                            <td>{get_user_info.age} Years Old</td>
+                                            <td>
+                                            {get_user_info.age && `${get_user_info.age} Years Old`}
+                                            </td>
+
                                         </tr>
                                         <tr>
                                             <td className="point">Gender:</td>

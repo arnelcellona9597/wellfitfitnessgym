@@ -9,18 +9,11 @@ use App\Components\Services\User\IUserService;
 use App\Models\User;
 use App\Models\UserPlan;
  
-
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MembershipPlanVerificationCodeMail;
-
- 
  
 use App\Mail\UserForgotPasswordMail;
- 
- 
- 
-
 
 class UserController extends Controller
 {
@@ -282,7 +275,7 @@ class UserController extends Controller
     }
 
 
-    public function addMembershipPlanStep1(Request $request)
+    public function addMembershipPlanStep(Request $request)
     {
         // Generate a random 10-digit verification code
         $membership_verification_code = rand(1000000000, 9999999999);

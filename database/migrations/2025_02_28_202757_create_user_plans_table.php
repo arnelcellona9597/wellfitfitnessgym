@@ -18,8 +18,14 @@ return new class extends Migration
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('payment_method')->nullable();
-            $table->string('payment_status')->nullable();
+            $table->string('status')->nullable();
             $table->string('payment_date')->nullable();
+
+            $table->string('plan_duration')->nullable();
+            $table->string('plan_price')->nullable();
+            $table->string('plan_name')->nullable();
+            $table->string('plan_description')->nullable();
+
             $table->timestamps();
         });
     }

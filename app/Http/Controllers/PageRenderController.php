@@ -190,17 +190,6 @@ class PageRenderController extends Controller
             'membership_verification_code' => $request->cookie('membership_verification_code'),
         ]);
     }
-
-    // public function addMembershipPlanStep1(Request $request)
-    // {
-    //     return Inertia::render('Member/Plan/Form', [
-    //         'cu_user_id' => $request->cookie('cu_user_id'),
-    //         'two_latest_reviews' => Review::getTwoLatestReviews(),
-    //         'reviews' => Review::getReviews(),
-    //         'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
-    //         'get_plan_by_id' => Plan::getPlanByID( $request->query('id') ),
-    //         'membership_verification_code' => $request->cookie('membership_verification_code'),
-    //     ]);
-    // }
+ 
 
 }

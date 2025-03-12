@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { usePage } from "@inertiajs/react";
 import Cookies from "js-cookie";
+import dayjs from "dayjs";
 
 export default function MembershipForm() {
-    const { get_plan_by_id, get_user_info, membership_verification_code } = usePage().props;
+
+
+
+    
+    const { get_plan_by_id, get_user_info } = usePage().props;
     const [step, setStep] = useState(1);
     const [agreeChecked, setAgreeChecked] = useState(false);
     const [gcashNumber, setGcashNumber] = useState("");
@@ -11,20 +16,49 @@ export default function MembershipForm() {
     const [paymentMethod, setPaymentMethod] = useState("GCASH");
     const [errors, setErrors] = useState({});
 
+     // Extract number of months
+     const durationMonths = parseInt(get_plan_by_id.duration);
+
+     // Calculate start and end date
+     const startDate = dayjs();
+     const endDate = startDate.add(durationMonths, 'month');
+     
+
+    // console.log("durationMonths: " + durationMonths);
+    // console.log("startDate: " + startDate.format("YYYY-MM-DD HH:mm:ss"));
+    // console.log("endDate: " + endDate.format("YYYY-MM-DD HH:mm:ss"));
+
+    
+    useEffect(() => {
+        if (get_user_info.phone) {
+            setGcashNumber(get_user_info.phone);
+        }
+    }, [get_user_info.phone]);
+    
+
+
     // Function to go to the next step with validation
-    const nextStep = async () => {
+    const nextStep = async (event) => {
+
+        event.preventDefault();
+
         let validationErrors = {};
     
         if (step === 1 && !agreeChecked) {
             validationErrors.agree = "Please accept the terms and conditions before proceeding.";
+            setErrors(validationErrors); // Ensure errors are updated
+    
         }
+        
     
         if (step === 2 && !verificationCode.trim()) {
             validationErrors.verificationCode = "Please enter the verification code sent to your email.";
+          
         }
     
         if (step === 3 && paymentMethod === "GCASH" && !gcashNumber.trim()) {
             validationErrors.gcash = "Please enter your GCASH number.";
+           
         }
     
         if (Object.keys(validationErrors).length > 0) {
@@ -33,80 +67,147 @@ export default function MembershipForm() {
         }
     
         setErrors({});
+
+    
     
         if (step === 1) {
+
             try {
-                const postData = {
-                    email: get_user_info.email,
-                    plan_name: get_plan_by_id.plan_name,
-                    price: get_plan_by_id.price,
-                    duration: get_plan_by_id.duration,
-                };
-    
-                const response = await fetch("/member/plan/form", {
+                const response = await fetch("/member/plan/form", {  
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
                     },
-                    body: JSON.stringify(postData),
+                    body: JSON.stringify({
+                        email: get_user_info.email,
+                        plan_name: get_plan_by_id.plan_name,
+                        price: get_plan_by_id.price,
+                        duration: get_plan_by_id.duration,
+                    }),
                 });
-    
-                const result = await response.json();
-    
+            
                 if (!response.ok) {
+                    const result = await response.json();
+                    
                     setErrors({ general: result.message || "Error submitting!" });
                     return;
                 }
-                // console.log(result.membership_verification_code);
-                // console.log(result.email1);
-                
             } catch (error) {
                 console.error("Error submitting:", error);
                 setErrors({ general: "Something went wrong. Please try again!" });
                 return;
             }
+
+            
         }
 
         if ( step === 2) {
             const storedVerificationCode = Cookies.get("membership_verification_code");
             if (storedVerificationCode != verificationCode) {
-                alart("Wrong verification code, Please check your email!.");
-                setErrors({ general: result.message || "Wrong verification code, Please check your email!." });
                 validationErrors.verificationCode = "Wrong verification code, Please check your email!.";
+                setErrors(validationErrors);
                 return;
             }
+
         }
-
+ 
         if ( step === 3) {
-            try {
-                const response = await fetch('/gcash-payment', {
-                    method: 'POST', 
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                        order_total:  get_plan_by_id.price,
-                        plan_name: get_plan_by_id.plan_name,
-                        duration: get_plan_by_id.duration,
+        
 
-                    }),
-                });
-    
-                const data = await response.json();
-              
-    
-                if (data.redirect_url) {
-                    // Redirect user to the next step (step 2)
-                    window.location.href = data.redirect_url;
-                } else {
-                    alert('Payment initiation failed. Please try again.');
+            if ( paymentMethod == "GCASH" ) {
+                try {
+
+  
+                    const response = await fetch('/gcash-payment', {
+                        method: 'POST', 
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ 
+
+                            customer_name:  get_user_info.first_name + " " + get_user_info.last_name,
+                            phone:  get_user_info.phone,
+                            email:  get_user_info.email,
+                            user_id:  get_user_info.id,
+                            plan_id:  get_plan_by_id.id,
+                            plan_duration:  get_plan_by_id.duration,		
+                            plan_price:  get_plan_by_id.price,		
+                            plan_name:  get_plan_by_id.plan_name,		
+                            plan_description:  get_plan_by_id.plan_description,
+                            payment_method:  paymentMethod,
+                            payment_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
+                            start_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
+                            end_date:  endDate.format("YYYY-MM-DD HH:mm:ss"),
+                            status: 'Approve'
+                      
+                        }),
+                    }); 
+        
+                    const data = await response.json();
+
+                    console.log("Sending Data:", data);
+                    
+        
+                    if (data.redirect_url) {
+                        // Redirect user to the next step (step 2)
+                        window.location.href = data.redirect_url;
+                    } else {
+                        alert('Payment initiation failed. Please try again.');
+                    }
+                } catch (error) {
+        
+                    console.error('Payment initiation failed', error);
+                    alert('An error occurred while processing your payment. Please try again.');
                 }
-            } catch (error) {
-      
-                console.error('Payment initiation failed', error);
-                alert('An error occurred while processing your payment. Please try again.');
             }
+            else {
+
+
+  
+                try {
+                    const response = await fetch('/over-the-counter-payment', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                        },
+                        body: JSON.stringify({
+                            
+                            user_id:  get_user_info.id,
+                            plan_id:  get_plan_by_id.id,
+                            plan_duration:  get_plan_by_id.duration,		
+                            plan_price:  get_plan_by_id.price,		
+                            plan_name:  get_plan_by_id.plan_name,		
+                            plan_description:  get_plan_by_id.plan_description,
+                            payment_method:  paymentMethod,
+                            // payment_date: new Date().toISOString().slice(0, 19).replace("T", " "),
+                            // start_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
+                            // end_date:  endDate.format("YYYY-MM-DD HH:mm:ss"),
+                            status: 'Pending'
+            
+                        }),
+                    });
+                
+
+ 		
+ 		
+
+
+                    if (!response.ok) {
+                        const result = await response.json();
+                        
+                        setErrors({ general: result.message || "Error submitting!" });
+                        return;
+                    }
+                } catch (error) {
+                    console.error("Error submitting:", error);
+                    setErrors({ general: "Something went wrong. Please try again!" });
+                    return;
+                }
+ 
+            }
+            
         }
 
 
@@ -152,9 +253,10 @@ export default function MembershipForm() {
                                         <p className="alert alert-danger">{errors.agree}</p>
                                     )}
                                     
-                                    <button className="custom-orange-btn mt-3" onClick={nextStep}>
+                                    <button type="button" className="custom-orange-btn mt-3" onClick={nextStep}>
                                         Continue
                                     </button>
+
                                 </div>
                             </div>
 
@@ -251,7 +353,7 @@ export default function MembershipForm() {
                                 <div className="payment-element-block mt-3 pt-2">
                                     <span className="orange-label">Select Payment Method:</span>
                                     <select 
-                                        className="payment_method"
+                                        className="payment_method" name="payment_method"
                                         value={paymentMethod}
                                         onChange={(e) => setPaymentMethod(e.target.value)}
                                     >
@@ -260,13 +362,15 @@ export default function MembershipForm() {
                                     </select>
 
                                     {paymentMethod === "GCASH" && (
-                                        <input
-                                            type="number"
-                                            name="gcash"
-                                            placeholder="Enter GCASH Number"
-                                            value={gcashNumber}
-                                            onChange={(e) => setGcashNumber(e.target.value)}
-                                        />
+                                       <input
+                                       type="number"
+                                       name="gcash"
+                                       placeholder="Enter GCASH Number"
+                                       value={gcashNumber} // Ensure it's bound to the state
+                                       onChange={(e) => setGcashNumber(e.target.value)}
+                                   />
+                               
+                                    
                                     )}
 
                                     {errors.gcash && (

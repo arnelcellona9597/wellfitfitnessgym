@@ -17,11 +17,15 @@ class UserPlan extends Model
         'start_date', 
         'end_date', 
         'payment_method',
-        'payment_status', 
+        'status', 
         'payment_date', 
+
+        'plan_duration', 
+        'plan_price', 
+        'plan_name', 
+        'plan_description', 
+
         'created_at',
         'updated_at'
     ]; 
-
-
 }

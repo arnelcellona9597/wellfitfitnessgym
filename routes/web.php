@@ -269,10 +269,8 @@ Route::get('/signin', [PageRenderController::class, 'signin']);
 Route::get('/signup', [PageRenderController::class, 'signup']);
 Route::get('/reset-password', [PageRenderController::class, 'resetPassword']);
 Route::get('/activate-account', [PageRenderController::class, 'activateAccount']);
-Route::get('/forgot', [PageRenderController::class, 'forgot']);
+Route::get('/forgot', [PageRenderController::class, 'forgot']); 
 
-
-// Route::get('/member/contact', [PageRenderController::class, 'contact']);
 Route::get('/member', [PageRenderController::class, 'memberIndex'])->name("member.index");
 Route::get('/member/about', [PageRenderController::class, 'memberAbout']);
 Route::get('/member/plans', [PageRenderController::class, 'memberPlans']);
@@ -281,9 +279,9 @@ Route::get('/member/contact', [PageRenderController::class, 'memberContact']);
 Route::get('/member/reviews', [PageRenderController::class, 'memberReviews']);
 Route::get('/member/profile', [PageRenderController::class, 'memberProfile']);
 Route::get('/member/plan/form', [PageRenderController::class, 'memberPlanForm']);
-Route::get('/member/plan/form/1', [PageRenderController::class, 'addMembershipPlanStep1']);
-
-
+Route::get('/gcash-payment/step2', [PaymentController::class, 'createPaymentMethod'])->name('payment.step2');
+Route::get('/gcash-payment/step3', [PaymentController::class, 'attachPaymentMethod'])->name('payment.step3');
+Route::get('/gcash-payment/step4', [PaymentController::class, 'handlePaymentStatus'])->name('payment.step4');
 
 Route::post('/signin', [UserController::class, 'login']);
 Route::post('/signup', [UserController::class, 'createUser']);
@@ -292,11 +290,9 @@ Route::post('/activate-account', [UserController::class, 'activateAccount']);
 Route::post('/forgot', [UserController::class, 'forgotPassword']);
 Route::post('/member/contact', [UserController::class, 'contactForm']);
 Route::post('/contact', [UserController::class, 'contactForm']);
+
 Route::post('/member/reviews', [ReviewController::class, 'createReview']);
 Route::post('/member/profile', [UserController::class, 'updateMemberProfile']);
-Route::post('/member/plan/form', [UserController::class, 'addMembershipPlanStep1']);
-
+Route::post('/member/plan/form', [UserController::class, 'addMembershipPlanStep']);
 Route::post('/gcash-payment', [PaymentController::class, 'createPaymentIntent']);
-Route::get('/gcash-payment/step2', [PaymentController::class, 'createPaymentMethod'])->name('payment.step2');
-Route::get('/gcash-payment/step3', [PaymentController::class, 'attachPaymentMethod'])->name('payment.step3');
-Route::get('/gcash-payment/step4', [PaymentController::class, 'handlePaymentStatus'])->name('payment.step4');
+Route::post('/over-the-counter-payment', [PaymentController::class, 'overTheCounterPayment']);
