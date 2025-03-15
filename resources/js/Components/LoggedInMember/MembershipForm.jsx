@@ -5,9 +5,6 @@ import dayjs from "dayjs";
 
 export default function MembershipForm() {
 
-
-
-    
     const { get_plan_by_id, get_user_info } = usePage().props;
     const [step, setStep] = useState(1);
     const [agreeChecked, setAgreeChecked] = useState(false);
@@ -190,16 +187,14 @@ export default function MembershipForm() {
                     });
                 
 
- 		
- 		
-
-
                     if (!response.ok) {
                         const result = await response.json();
-                        
                         setErrors({ general: result.message || "Error submitting!" });
                         return;
                     }
+                    
+
+                    
                 } catch (error) {
                     console.error("Error submitting:", error);
                     setErrors({ general: "Something went wrong. Please try again!" });

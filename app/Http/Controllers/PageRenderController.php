@@ -179,6 +179,17 @@ class PageRenderController extends Controller
         ]);
     }
 
+    public function memberPlanThankYou(Request $request)
+    {
+        return Inertia::render('Member/Plan/ThankYou', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+            'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')), 
+            'get_all_plans' => Plan::getAllPlans(),
+            'get_user_latest_membership' => UserPlan::getUserLatestMembership($request->cookie('cu_user_id')),
+        ]);
+    }
+
     public function memberPlanForm(Request $request)
     {
         return Inertia::render('Member/Plan/Form', [
@@ -191,5 +202,17 @@ class PageRenderController extends Controller
         ]);
     }
  
+    public function memberAccountHistory(Request $request)
+    {
+        return Inertia::render('Member/AccountHistory', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+            'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'reviews' => Review::getReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+            'get_plan_by_id' => Plan::getPlanByID( $request->query('id') ),
+            'membership_verification_code' => $request->cookie('membership_verification_code'),
+        ]);
+    }
+    
 
 }

@@ -241,13 +241,10 @@ use Illuminate\Support\Facades\DB;
 // Route::get('/gcash-payment/step3', [PaymentController::class, 'attachPaymentMethod'])->name('payment.step3');
 // Route::get('/gcash-payment/step4', [PaymentController::class, 'handlePaymentStatus'])->name('payment.step4');
 
-
-
 // Default homepage route
 // Route::get('/', function () {
 //     return redirect('/home'); // Redirect to a default page like 'home'
 // });
-
  
 // Route::get('/{page?}', [NotLogInController::class, 'getData'])
 // ->where('page', '.*') // Accept any page name
@@ -256,8 +253,6 @@ use Illuminate\Support\Facades\DB;
 // Route::get('/member/{page?}', [LoggedInMemberController::class, 'getData'])
 //     ->where('page', '.*') // Accepts any page name
 //     ->name('member.page');
-
-
 
 Route::get('/', [PageRenderController::class, 'index']);
 Route::get('/about', [PageRenderController::class, 'about']);
@@ -282,6 +277,8 @@ Route::get('/member/plan/form', [PageRenderController::class, 'memberPlanForm'])
 Route::get('/gcash-payment/step2', [PaymentController::class, 'createPaymentMethod'])->name('payment.step2');
 Route::get('/gcash-payment/step3', [PaymentController::class, 'attachPaymentMethod'])->name('payment.step3');
 Route::get('/gcash-payment/step4', [PaymentController::class, 'handlePaymentStatus'])->name('payment.step4');
+Route::get('/member/plan/thank-you', [PageRenderController::class, 'memberPlanThankYou'])->name('member.plan.thankyou');
+Route::get('/member/account-history', [PageRenderController::class, 'memberAccountHistory']);
 
 Route::post('/signin', [UserController::class, 'login']);
 Route::post('/signup', [UserController::class, 'createUser']);

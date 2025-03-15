@@ -28,4 +28,18 @@ class UserPlan extends Model
         'created_at',
         'updated_at'
     ]; 
+
+    public static function getUserLatestMembership($userId)
+    {
+        return self::leftJoin('users', 'user_plans.user_id', '=', 'users.id')
+            ->where('user_plans.user_id', $userId)
+            ->orderBy('user_plans.created_at', 'desc')
+            ->select('user_plans.*', 'users.first_name', 'users.last_name') // Corrected select clause
+            ->first();
+    }
+    
+    
+
 }
+
+

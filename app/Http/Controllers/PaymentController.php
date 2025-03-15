@@ -15,14 +15,11 @@ class PaymentController extends Controller
 
     public function overTheCounterPayment (Request $request) {
         $userPlan = UserPlan::create($request->all());
-        return redirect()->route('member.index');
-
+        return redirect()->route('member.plan.thankyou');
     }
     
     public function createPaymentIntent(Request $request)
     {
-
-
         $user_id = $request->input('user_id');
         $plan_id = $request->input('plan_id');
         $plan_duration = $request->input('plan_duration'); 
@@ -37,8 +34,6 @@ class PaymentController extends Controller
         $customer_name = $request->input('customer_name');
         $phone = $request->input('phone');
         $email = $request->input('email');
-
-
  
         \Log::info('REQUEST 1:', $request->all());
 
@@ -58,7 +53,6 @@ class PaymentController extends Controller
             'end_date' => $end_date
         ]);
 
- 
 
         $client = new Client();
 
@@ -310,36 +304,36 @@ class PaymentController extends Controller
 
     public function handlePaymentStatus(Request $request)
     {
-        return redirect()->route('member.index');
-        // $client = new Client();
-        // $paymentIntentId = $request->get('payment_intent');  
-        // \Log::info('REQUEST 4:', $request->all());
-        // try {
-        //     // Get the payment intent status
-        //     $response = $client->request('GET', 'https://api.paymongo.com/v1/payment_intents/' . $paymentIntentId, [
-        //         'headers' => [
-        //             'accept' => 'application/json',
-        //             'authorization' => 'Basic ' . base64_encode(env('PAYMONGO_SECRET_KEY')), // Base64 encode the key
-        //         ],
-        //     ]);
-        //     $responseBody = json_decode($response->getBody(), true);
-        //     // Log response for debugging
-        //     \Log::info('Payment status response: ' . json_encode($responseBody));
-        //     // Check the payment status
-        //     $status = $responseBody['data']['attributes']['status'];
-        //     if ($status === 'succeeded') {
-        //         // Payment succeeded, proceed with order confirmation or success
-        //         return redirect()->route('order.success');      
-        //     } elseif ($status === 'failed') {
-        //         // Payment failed, proceed with error handling
-        //         return redirect()->route('order.failed');
-        //     } else {
-        //         // Payment is still pending or requires further action (e.g., GCash confirmation)
-        //         return redirect()->route('order.pending');
-        //     }
-        // } catch (\Exception $e) {
-        //     \Log::error('Error fetching payment status: ' . $e->getMessage());
-        //     return redirect()->route('member.index');
-        // }
+        
+        $client = new Client();
+        $paymentIntentId = $request->get('payment_intent');  
+        \Log::info('REQUEST 4:', $request->all());
+        try {
+            // Get the payment intent status
+            $response = $client->request('GET', 'https://api.paymongo.com/v1/payment_intents/' . $paymentIntentId, [
+                'headers' => [
+                    'accept' => 'application/json',
+                    'authorization' => 'Basic ' . base64_encode(env('PAYMONGO_SECRET_KEY')), // Base64 encode the key
+                ],
+            ]);
+            $responseBody = json_decode($response->getBody(), true);
+            // Log response for debugging
+            \Log::info('Payment status response: ' . json_encode($responseBody));
+            // Check the payment status
+            $status = $responseBody['data']['attributes']['status'];
+            if ($status === 'succeeded') {
+                // Payment succeeded, proceed with order confirmation or success
+                return redirect()->route('order.success');      
+            } elseif ($status === 'failed') {
+                // Payment failed, proceed with error handling
+                return redirect()->route('order.failed');
+            } else {
+                // Payment is still pending or requires further action (e.g., GCash confirmation)
+                return redirect()->route('order.pending');
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error fetching payment status: ' . $e->getMessage());
+            return redirect()->route('member.plan.thankyou');
+        }
     }
 }
