@@ -3601,6 +3601,10 @@ ul.ul-element {
     background: #151515;
     text-align: center;
     padding: 200px 20px;
+
+	background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/template/member/img/BG.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 .thank-you-container {
@@ -3699,6 +3703,10 @@ ul.ul-element {
     flex-direction: column;
     align-items: center;
     width: 100%;
+
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(/template/member/img/BG2.jpg);
+    background-size: cover;
+    background-position: center;
   }
   .gym-section .section-title {
     text-align: center;
@@ -3753,8 +3761,71 @@ ul.ul-element {
     transition: 0.3s;
   }
 
+  .gym-container .pagination {
+	align-items: center;
+    justify-content: center;
+    gap: 7px;
+	margin-top: 20px;
+  }
+
+  .gym-container .pagination button { 
+	padding: 0 7px;
+	background: #f36100;
+	color: #fff;
+  }
+
+
+
+  .gym-container .pagination button.active { 
+    font-weight: 900;
+    color: #f36100;
+    background: #fff;
+  }
+
+  .gym-container  .Theader {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .gym-container  .Theader input {
+	height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
   @media screen and (max-width: 1024px ) {
 	.gym-container {
 		grid-template-columns: repeat(1, 1fr);
 	  }
   }
+
+
+.step-nav-1 {
+	background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url(/template/member/img/BG3.jpg);
+	background-size: cover;
+	background-position: center;
+}
+.step-nav-2 {
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(/template/member/img/BG4.jpg);
+	background-size: cover;
+	background-position: center;
+}
+.step-nav-3 {
+	background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url(/template/member/img/BG6.jpg);
+	background-size: cover;
+	background-position: center;
+}
+
+.gym-table td > a {
+	background: #f36100;
+    color: #fff;
+    padding: 2px 6px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin: 0 4px;
+}
+
+.trainorIMGLeft{
+	width: 100%;
+    object-fit: cover;
+}

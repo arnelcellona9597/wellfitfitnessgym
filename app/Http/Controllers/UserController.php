@@ -170,27 +170,7 @@ class UserController extends Controller
         ], 200);
 
         }
-
-
-
-
-        // $validated = $request->validate([
-        //    'email' => 'required|email|exists:users,email',
-        //    'password' => 'required|string'
-        // ]);
-    
-        // try {
-        //     $response = $this->UserService->resetPassword($validated);
-
-        //     return response()->json([
-        //         'email_verified_at' => $response['email_verified_at']
-        //     ], 200);
-
-
-        // } catch (\Exception $e) {
-        //     Log::error('User creation failed: ' . $e->getMessage());
-        //     return response()->json(['message' => 'Server error, please try again later.'], 400);
-        // }
+ 
     }
 
 
@@ -312,6 +292,28 @@ class UserController extends Controller
         return response()->json($userPlan, 201);
     }
 
+    public function MemberPlanCancel(Request $request) {
+        $id = $request->query('id');
+        $userPlan = UserPlan::find($id);
+        if (!$userPlan) {
+            return response()->json(['error' => 'Plan not found'], 404);
+        }
+        $userPlan->update(['status' => 'Cancelled']);
+        return response()->json(['message' => 'Membership cancelled successfully', 'plan' => $userPlan], 200);
+    }
+
+    public function MemberPlanDelete(Request $request) {
+        $id = $request->input('id');
+        // Find the plan by ID
+        $userPlan = UserPlan::find($id);
+        // Check if plan exists
+        if (!$userPlan) {
+            return response()->json(['error' => 'Plan not found'], 404);
+        }
+        // Delete the plan
+        $userPlan->delete();
+        return response()->json(['message' => 'Membership deleted successfully'], 200);
+    }
     
     
 }

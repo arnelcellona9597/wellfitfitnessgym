@@ -8,7 +8,9 @@ use App\Models\Review;
 use App\Models\User;
 use App\Models\Plan;
 use App\Models\UserPlan;
+use App\Models\Trainer;
  
+use Illuminate\Support\Facades\Log;
 
 class PageRenderController extends Controller
 {
@@ -20,6 +22,7 @@ class PageRenderController extends Controller
             'two_latest_reviews' => Review::getTwoLatestReviews(),
             'reviews' => Review::getReviews(),
             'get_all_plans' => Plan::getAllPlans(),
+            'trainers' => Trainer::trainers(),  
         ]);
     }
 
@@ -45,6 +48,7 @@ class PageRenderController extends Controller
         return Inertia::render('Trainor', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'trainers' => Trainer::trainers(),  
         ]);
     }
 
@@ -118,6 +122,7 @@ class PageRenderController extends Controller
             'two_latest_reviews' => Review::getTwoLatestReviews(),
             'get_all_plans' => Plan::getAllPlans(),
             'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+            'trainers' => Trainer::trainers(),  
         ]);
     }
 
@@ -137,6 +142,7 @@ class PageRenderController extends Controller
             'cu_user_id' => $request->cookie('cu_user_id'),
             'two_latest_reviews' => Review::getTwoLatestReviews(),
             'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+            'trainers' => Trainer::trainers(),  
         ]);
     }
 
@@ -209,8 +215,43 @@ class PageRenderController extends Controller
             'two_latest_reviews' => Review::getTwoLatestReviews(),
             'reviews' => Review::getReviews(),
             'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
-            'get_plan_by_id' => Plan::getPlanByID( $request->query('id') ),
-            'membership_verification_code' => $request->cookie('membership_verification_code'),
+            'get_user_membership' => UserPlan::getUserMembership($request->cookie('cu_user_id')),
+        ]);
+    }
+
+    public function memberAccountHistoryMembership(Request $request)
+    {
+        return Inertia::render('Member/AccountHistory/Membership', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+            'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'reviews' => Review::getReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+            'get_membership_by_id' => UserPlan::getMembershipByID($request->query('id')),
+        ]);
+    }
+    
+
+
+    public function MemberTrainer(Request $request)
+    {
+        return Inertia::render('Member/Trainor', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+            'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'reviews' => Review::getReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+            'trainers' => Trainer::trainers(),  
+        ]);
+    }
+    
+    public function memberTrainorForm(Request $request)
+    {
+        return Inertia::render('Member/Trainor/Form', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+            'two_latest_reviews' => Review::getTwoLatestReviews(),
+            'reviews' => Review::getReviews(),
+            'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+            'trainers' => Trainer::trainers(),  
+            'get_trainer_by_id' => Trainer::getTrainerByID( $request->query('id') ),
         ]);
     }
     
