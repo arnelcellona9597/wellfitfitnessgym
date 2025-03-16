@@ -224,14 +224,17 @@ export default function TrainorForm() {
                                     <h2>By booking our gym trainor, you agree to these terms:</h2>
 
                                     <ul className="ul-element">
-                                        <li>Training sessions are available from 8AM - 5PM.</li>
+                                        <li>Training sessions run daily from 8 AM to 5 PM.</li>
+                                        <li>Each session lasts 1 hour and 30 minutes.</li>
+                                        <li>Trainer fee: ₱2,000 per month.</li>
                                         <li>Bookings must be made at least 24 hours in advance and are subject to trainer availability.</li>
-                                        <li>Once you paid and book a trainor, Then it is NOT refundable.</li>
+                                        <li>Payments are non-refundable once a trainer is booked.</li>
                                         <li>Proper gym attire is required during training sessions.</li>
                                         <li>Clients must follow the trainer’s guidance to ensure safety and effectiveness.</li>
                                         <li>Wellfit is not liable for injuries sustained during training sessions.</li>
                                         <li>All personal information is kept confidential and will not be shared without consent.</li>
                                     </ul>
+
 
 
                                     <label className="agree-checkbox">

@@ -31,7 +31,7 @@ export default function Trainor() {
           <div className="ts-item set-bg" data-setbg={`/template/images/${trainer.trainer_image}`}>
             <div className="ts_text">
               <h4>{trainer.trainer_name}</h4>
-              <span>Gym Trainor</span>
+              <span>Gym Trainer · ₱2,000/Month · 1h 30m/Day</span>
               <a href={`/member/trainor/form?id=${trainer.id}`}  className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
             </div>
           </div>

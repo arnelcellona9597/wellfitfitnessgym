@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { usePage } from "@inertiajs/react";
 
 export default function Trainor() {
+
     return (
        <>
 
@@ -21,62 +23,19 @@ export default function Trainor() {
   </div>
   <div className="row">
     <div className="ts-slider owl-carousel">
-      <div className="col-lg-4">
-        <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-1.jpg">
-          <div className="ts_text">
-            <h4>Athart Rachel</h4>
-            <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-4">
-        <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-2.jpg">
-          <div className="ts_text">
-            <h4>Athart Rachel</h4>
-            <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-4">
-        <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-3.jpg">
-          <div className="ts_text">
-            <h4>Athart Rachel</h4>
-            <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-4">
-        <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-4.jpg">
-          <div className="ts_text">
-            <h4>Athart Rachel</h4>
-            <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-4">
-        <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-5.jpg">
-          <div className="ts_text">
-            <h4>Athart Rachel</h4>
-            <span>Gym Trainor</span>
-            <a href="/signin"  className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
-          </div>
-        </div>
-      </div>
-      <div className="col-lg-4">
-        <div className="ts-item set-bg" data-setbg="/template/member/img/team/team-6.jpg">
-          <div className="ts_text">
 
-            <h4>Athart Rachel</h4>
-            <span>Gym Trainor</span>
-            <a href="/signin" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
-
+    {trainers.map((trainer) => (
+        <div className="col-lg-4">
+          <div className="ts-item set-bg" data-setbg={`/template/images/${trainer.trainer_image}`}>
+            <div className="ts_text">
+              <h4>{trainer.trainer_name}</h4>
+              <span>Gym Trainer · ₱2,000/Month · 1h 30m/Day</span>
+              <a href="/signin/" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+            </div>
           </div>
         </div>
-      </div>
+      ))}    
+      
     </div>
   </div>
 </div>
