@@ -16,5 +16,6 @@ class EncryptCookies extends Middleware
         'verification_code',
         'email',
         'membership_verification_code',
+        'trainer_verification_code'
     ];
 }

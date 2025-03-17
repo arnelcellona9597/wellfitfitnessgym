@@ -24,6 +24,14 @@ export default function TrainorForm() {
     // console.log("durationMonths: " + durationMonths);
     // console.log("startDate: " + startDate.format("YYYY-MM-DD HH:mm:ss"));
     // console.log("endDate: " + endDate.format("YYYY-MM-DD HH:mm:ss"));
+    const [minDate, setMinDate] = useState("");
+
+    useEffect(() => {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        setMinDate(tomorrow.toISOString().split("T")[0]); // Format as YYYY-MM-DD
+    }, []);
+ 
 
     
     useEffect(() => {
@@ -310,7 +318,7 @@ export default function TrainorForm() {
 
                             <div className="col-lg-6">
                                 <div className="section-title chart-calculate-title">
-                                    <img src="/template/member/img/gallery-2.jpg" alt="image" className="bgPortraite1" />
+                                <img src={`/template/images/${get_trainer_by_id.trainer_image}`} alt="Trainer Image" className="bgPortraite1 trainorIMGLeft" />
                                 </div>
                             </div>
                         </div>
@@ -333,21 +341,52 @@ export default function TrainorForm() {
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>Membership Type:</th>
-                                                <th>{get_trainer_by_id.plan_name}</th>
+                                                <th>Trainer's Name:</th>
+                                                <th>{get_trainer_by_id.trainer_name}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td className="point">Price:</td>
-                                                <td>₱{parseInt(get_trainer_by_id.price).toLocaleString()}</td>
+                                                <td>₱2000 per Month</td>
                                             </tr>
                                             <tr>
-                                                <td className="point">Duration:</td>
-                                                <td>{get_trainer_by_id.duration}</td>
+                                                <td className="point">Session Time:</td>
+                                                <td>1 hour and 30 minutes per day</td>
                                             </tr>
+
+                                            <tr>
+                                                <td className="point">Duration:</td>
+                                                <td>3 Months</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td className="point">Total Price:</td>
+                                                <td>₱6000 per Month</td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
+                                </div>
+
+
+                                <div className="payment-element-block mt-3 pt-2">
+                                    <span className="orange-label">Select Schedule:</span>
+                                   
+                                    <input type="date" min={minDate} />
+                                    <select>
+                                        <option value="8:00am - 9:30am">8:00am - 9:30am</option>
+                                        <option value="9:30am - 11:00am">9:30am - 11:00am</option>
+                                        <option value="11:00am - 12:30pm">11:00am - 12:30pm</option>
+                                        <option value="12:30pm - 2:00pm">12:30pm - 2:00pm</option>
+                                        <option value="2:00pm - 3:30pm">2:00pm - 3:30pm</option>
+                                    </select>
+                                    <select>
+                                        <option value="1 Month">1 Month</option>
+                                        <option value="3 Month">3 Months</option>
+                                        <option value="6 Months">6 Months</option>
+                                        <option value="12 Months">12 Months</option>
+                                     </select>
                                 </div>
 
                                 <div className="payment-element-block mt-3 pt-2">
@@ -388,7 +427,7 @@ export default function TrainorForm() {
 
                             <div className="col-lg-6">
                                 <div className="section-title chart-calculate-title">
-                                    <img src="/template/member/img/gallery-4.jpg" alt="image" className="bgPortraite1" />
+                                <img src={`/template/images/${get_trainer_by_id.trainer_image}`} alt="Trainer Image" className="bgPortraite1 trainorIMGLeft" />
                                 </div>
                             </div>
                         </div>
