@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { usePage } from "@inertiajs/react";
 
 export default function Trainor() {
-
+  const { trainers, cu_user_id } = usePage().props;
     return (
        <>
 

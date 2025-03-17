@@ -70,17 +70,18 @@ export default function TrainorForm() {
         if (step === 1) {
 
             try {
-                const response = await fetch("/member/plan/form", {  
+                const response = await fetch("/member/trainor/form", {  
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
                     },
                     body: JSON.stringify({
+
                         email: get_user_info.email,
-                        plan_name: get_trainer_by_id.plan_name,
-                        price: get_trainer_by_id.price,
-                        duration: get_trainer_by_id.duration,
+                        trainer_name: get_trainer_by_id.trainer_name,
+                        trainer_image: get_trainer_by_id.trainer_image
+                        
                     }),
                 });
             
@@ -100,7 +101,7 @@ export default function TrainorForm() {
         }
 
         if ( step === 2) {
-            const storedVerificationCode = Cookies.get("membership_verification_code");
+            const storedVerificationCode = Cookies.get("trainer_verification_code");
             if (storedVerificationCode != verificationCode) {
                 validationErrors.verificationCode = "Wrong verification code, Please check your email!.";
                 setErrors(validationErrors);

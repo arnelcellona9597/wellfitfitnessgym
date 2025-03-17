@@ -3826,6 +3826,6 @@ ul.ul-element {
 }
 
 .trainorIMGLeft{
-	width: 100%;
+	width: auto;
     object-fit: cover;
 }

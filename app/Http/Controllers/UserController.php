@@ -12,6 +12,7 @@ use App\Models\UserPlan;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MembershipPlanVerificationCodeMail;
+use App\Mail\BookTrainerVerificationCodeMail;
  
 use App\Mail\UserForgotPasswordMail;
 
@@ -314,6 +315,31 @@ class UserController extends Controller
         $userPlan->delete();
         return response()->json(['message' => 'Membership deleted successfully'], 200);
     }
+
+
+    public function trainorConfirmationStepNav(Request $request)
+    {
+        // Generate a random 10-digit verification code
+        $trainer_verification_code = rand(1000000000, 9999999999);
     
+        // Store in cookie
+        Cookie::queue(Cookie::forget('trainer_verification_code'));
+        Cookie::queue(Cookie::make('trainer_verification_code', $trainer_verification_code, 10080, null, null, false, false));
     
+        // Extract request data
+        $data = $request->only(['trainer_name', 'trainer_image', 'email']);
+        
+        
+        // Manually add verification code to array
+        $data['trainer_verification_code'] = $trainer_verification_code;
+    
+        // Send email
+        Mail::to($data['email'])->queue(new BookTrainerVerificationCodeMail($data));
+    
+        // Return response
+        return response()->json([
+            'message' => "success",
+        ], 201);
+    }
+
 }

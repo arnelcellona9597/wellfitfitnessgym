@@ -72,3 +72,5 @@ Route::post('/member/profile', [UserController::class, 'updateMemberProfile']);
 Route::post('/member/plan/form', [UserController::class, 'addMembershipPlanStep']);
 Route::post('/gcash-payment', [PaymentController::class, 'createPaymentIntent']);
 Route::post('/over-the-counter-payment', [PaymentController::class, 'overTheCounterPayment']);
+
+Route::post('/member/trainor/form', [UserController::class, 'trainorConfirmationStepNav']);
