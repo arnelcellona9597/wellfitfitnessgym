@@ -56,9 +56,18 @@ export default function Signin() {
                 });
                 setShowForm(false);
     
+          
                 setTimeout(() => {
-                    window.location.href = '/member/';
+                    if ( result.type == "Administrator" ) {
+                        window.location.href = '/admin/';
+                    }
+                    else {
+                        window.location.href = '/member/';
+                    }
+                   
                 }, 3000);
+
+
             }
         } catch (error) {
             console.error('Error during activation:', error);

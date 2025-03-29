@@ -35,6 +35,40 @@ export default function MembershipForm() {
 
 
     // Function to go to the next step with validation
+
+    const resendVerifcation = async (event) => { 
+        alert("Verification code has been RESEND.");
+        event.preventDefault();
+       
+        try {
+            const response = await fetch("/member/plan/form", {  
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                },
+                body: JSON.stringify({
+                    email: get_user_info.email,
+                    plan_name: get_plan_by_id.plan_name,
+                    price: get_plan_by_id.price,
+                    duration: get_plan_by_id.duration,
+                }),
+            });
+        
+            if (!response.ok) {
+                const result = await response.json();
+              
+                setErrors({ general: result.message || "Error submitting!" });
+                return;
+            }
+        } catch (error) {
+            console.error("Error submitting:", error);
+            setErrors({ general: "Something went wrong. Please try again!" });
+            return;
+        }
+
+    }
+
     const nextStep = async (event) => {
 
         event.preventDefault();
@@ -300,6 +334,11 @@ export default function MembershipForm() {
                                     <button className="custom-orange-btn mt-3" onClick={nextStep}>
                                         Continue
                                     </button>
+
+                                    <button className="custom-orange-btn mt-3" onClick={resendVerifcation}>
+                                        Resend Verification Code
+                                    </button>
+
                                     <button className="custom-orange-btn mt-3" onClick={prevStep}>
                                         Back
                                     </button>

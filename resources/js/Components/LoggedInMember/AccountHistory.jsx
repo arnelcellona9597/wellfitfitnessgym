@@ -2,33 +2,96 @@ import React, { useState } from "react";
 import { usePage } from "@inertiajs/react";
 
 export default function MemberAccountHistory() {
-    const { get_user_membership } = usePage().props;
+    const { get_user_membership, get_user_booktrainor } = usePage().props;
     
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPageMembership, setCurrentPageMembership] = useState(1);
+    const [currentPageTrainor, setCurrentPageTrainor] = useState(1);
     const [itemsPerPage] = useState(5);
-    const [searchQuery, setSearchQuery] = useState("");
+    const [searchMembership, setSearchMembership] = useState("");
+    const [searchTrainor, setSearchTrainor] = useState("");
+    const [cancelMembershipId, setCancelMembershipId] = useState(null);
+    const [deleteMembershipId, setDeleteMembershipId] = useState(null);
+
+    const [cancelBookTrainorId, setCancelBookTrainorId] = useState(null);
+    const [deleteBookTrainorId, setDeleteBookTrainorId] = useState(null);
+
 
     // Filter membership plans based on search query
     const filteredMembership = get_user_membership.filter(plan =>
-        plan.plan_name.toLowerCase().includes(searchQuery.toLowerCase())
+        plan.plan_name.toLowerCase().includes(searchMembership.toLowerCase())
     );
 
-    // Pagination logic based on the filtered membership plans
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentPlans = filteredMembership.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredMembership.length / itemsPerPage);
+    // Filter trainer bookings based on search query
+    const filteredTrainor = get_user_booktrainor.filter(bookTrainor =>
+        bookTrainor.trainer_name.toLowerCase().includes(searchTrainor.toLowerCase())
+    );
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    // Pagination logic for membership plans
+    const indexOfLastMembership = currentPageMembership * itemsPerPage;
+    const indexOfFirstMembership = indexOfLastMembership - itemsPerPage;
+    const currentPlans = filteredMembership.slice(indexOfFirstMembership, indexOfLastMembership);
+    const totalPagesMembership = Math.ceil(filteredMembership.length / itemsPerPage);
 
-    // Handle cancel membership
-    const [cancelMembershipId, setCancelMembershipId] = useState(null);
-    const [deleteMembershipId, setDeleteMembershipId] = useState(null);
-  
+    // Pagination logic for trainer bookings
+    const indexOfLastTrainor = currentPageTrainor * itemsPerPage;
+    const indexOfFirstTrainor = indexOfLastTrainor - itemsPerPage;
+    const currentTrainors = filteredTrainor.slice(indexOfFirstTrainor, indexOfLastTrainor);
+    const totalPagesTrainor = Math.ceil(filteredTrainor.length / itemsPerPage);
+
+    const paginateMembership = (pageNumber) => setCurrentPageMembership(pageNumber);
+    const paginateTrainor = (pageNumber) => setCurrentPageTrainor(pageNumber);
+
+
+    
+
+    const handleCancelBookTrainor = async (bookTrainorId) => {
+        setCancelBookTrainorId(bookTrainorId);
+        try {
+            const response = await fetch(`/member/account-history/member-booktrainor-cancel?id=${bookTrainorId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                },
+                body: JSON.stringify({ id: bookTrainorId }),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert("Successfully cancelled.");
+                window.location.href = "/member/account-history";
+            }
+        } catch (error) {
+            console.error("Error submitting:", error);
+        }
+    };
+
+    
+    const handleDeleteBookTrainor = async (id) => {
+        setDeleteBookTrainorId(id);
+        try {
+            const response = await fetch(`/member/account-history/member-booktrainor-delete?id=${id}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                },
+                body: JSON.stringify({ id: id }),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert("successfully deleted.");
+                window.location.href = "/member/account-history";
+            }
+        } catch (error) {
+            console.error("Error submitting:", error);
+        }
+    };
+
 
     const handleCancelMembership = async (planId) => {
-        setCancelMembershipId(planId); // Store the ID of the plan being canceled
-
+        setCancelMembershipId(planId);
         try {
             const response = await fetch(`/member/account-history/member-plan-cancel?id=${planId}`, {
                 method: "POST",
@@ -36,27 +99,21 @@ export default function MemberAccountHistory() {
                     "Content-Type": "application/json",
                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
                 },
-                body: JSON.stringify({
-                    plan_id: planId
-                }),
+                body: JSON.stringify({ plan_id: planId }),
             });
 
             const result = await response.json();
             if (response.ok) {
-                alert("Membership has been successfully cancelled.");
+                alert("Successfully cancelled.");
                 window.location.href = "/member/account-history";
-                // Handle UI update if needed
-            } else {
-                // alert("Failed to cancel membership: " + result.message);
             }
         } catch (error) {
             console.error("Error submitting:", error);
         }
     };
 
-    const handleDeleteMembership = async (planId) => {
-        setDeleteMembershipId(planId); // Store the ID of the plan being canceled
-
+    const handleMemberPlanDelete = async (planId) => {
+        setCancelMembershipId(planId);
         try {
             const response = await fetch(`/member/account-history/member-plan-delete?id=${planId}`, {
                 method: "POST",
@@ -64,18 +121,13 @@ export default function MemberAccountHistory() {
                     "Content-Type": "application/json",
                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
                 },
-                body: JSON.stringify({
-                    plan_id: planId
-                }),
+                body: JSON.stringify({ plan_id: planId }),
             });
 
             const result = await response.json();
             if (response.ok) {
                 alert("Membership has been successfully deleted.");
                 window.location.href = "/member/account-history";
-                // Handle UI update if needed
-            } else {
-                // alert("Failed to cancel membership: " + result.message);
             }
         } catch (error) {
             console.error("Error submitting:", error);
@@ -83,7 +135,6 @@ export default function MemberAccountHistory() {
     };
 
     
-   
 
     return (
         <section className="gym-section">
@@ -98,14 +149,13 @@ export default function MemberAccountHistory() {
                         <input
                             type="text"
                             placeholder="Search"
-                            value={searchQuery}
+                            value={searchMembership}
                             onChange={(e) => {
-                                setSearchQuery(e.target.value);
-                                setCurrentPage(1); // reset to page 1 on search
+                                setSearchMembership(e.target.value);
+                                setCurrentPageMembership(1);
                             }}
                         />
                     </div>
-
 
                     <table className="gym-table">
                         <thead>
@@ -139,16 +189,17 @@ export default function MemberAccountHistory() {
 
                                         {plan.status === "Cancelled" && (
                                             <a 
-                                                className="deleteMembership" 
+                                                className="MemberPlanDelete" 
                                                 href="#" 
                                                 onClick={(e) => { 
                                                     e.preventDefault(); 
-                                                    handleDeleteMembership(plan.id); 
+                                                    handleMemberPlanDelete(plan.id); 
                                                 }}
                                             >
                                                 Delete
                                             </a>
                                         )}
+
 
 
                                         <a href={`/member/account-history/membership?id=${plan.id}`}> View </a>
@@ -157,42 +208,98 @@ export default function MemberAccountHistory() {
                             ))}
                         </tbody>
                     </table>
-                    {/* Pagination */}
                     <div className="pagination">
-                        {Array.from({ length: totalPages }, (_, i) => (
+                        {Array.from({ length: totalPagesMembership }, (_, i) => (
                             <button
                                 key={i + 1}
-                                onClick={() => paginate(i + 1)}
-                                className={currentPage === i + 1 ? "active" : ""}
+                                onClick={() => paginateMembership(i + 1)}
+                                className={currentPageMembership === i + 1 ? "active" : ""}
                             >
                                 {i + 1}
                             </button>
                         ))}
                     </div>
                 </div>
+                
                 <div className="gym-column">
-                    <h2>Booking for Gym Class</h2>
+                    <div className="Theader">
+                        <h2>Booking for Gym Trainer</h2>
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            value={searchTrainor}
+                            onChange={(e) => {
+                                setSearchTrainor(e.target.value);
+                                setCurrentPageTrainor(1);
+                            }}
+                        />
+                    </div>
+
                     <table className="gym-table">
                         <thead>
                             <tr>
-                                <th>Trainor</th>
-                                <th>Date</th>
+                                <th>Trainer</th>
+                                <th>Total Amount</th>
                                 <th>Status</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Lorem Ipsum</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Lorem Ipsum</td>
-                                <td>
-                                    <a href=""> Cancel </a>
-                                    <a href=""> View </a>
-                                </td>
-                            </tr>
+                            {currentTrainors.map((bookTrainor) => (
+                                <tr key={bookTrainor.id}>
+                                    <td>{bookTrainor.trainer_name}</td>
+                                    <td>₱{parseInt(bookTrainor.trainer_total_price).toLocaleString()}</td>
+                                    <td>{bookTrainor.trainer_status}</td>
+                                    <td>
+
+                                    
+
+                                        {bookTrainor.trainer_status == "Pending" && (
+                                            <a 
+                                                className="cancelBookTrainor" 
+                                                href="#" 
+                                                onClick={(e) => { 
+                                                    e.preventDefault(); 
+                                                    handleCancelBookTrainor(bookTrainor.id); 
+                                                }}
+                                            >
+                                                Cancel
+                                            </a>
+                                        )}
+
+
+                                        {bookTrainor.trainer_status == "Cancelled" && (
+                                            <a 
+                                                className="deleteBookTrainor" 
+                                                href="#" 
+                                                onClick={(e) => { 
+                                                    e.preventDefault(); 
+                                                    handleDeleteBookTrainor(bookTrainor.id); 
+                                                }}
+                                            >
+                                                Delete
+                                            </a>
+                                        )}
+
+                                        <a href={`/member/account-history/trainor?id=${bookTrainor.id}`}> View </a>
+
+
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
+                    <div className="pagination">
+                        {Array.from({ length: totalPagesTrainor }, (_, i) => (
+                            <button
+                                key={i + 1}
+                                onClick={() => paginateTrainor(i + 1)}
+                                className={currentPageTrainor === i + 1 ? "active" : ""}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

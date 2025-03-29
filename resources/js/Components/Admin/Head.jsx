@@ -16,14 +16,15 @@ const AdminHead = () => {
             <link href="/template/admin/assets/vendor/simple-datatables/style.css" rel="stylesheet" />
             <link href="/template/admin/assets/css/style.css" rel="stylesheet" />
 
-            <script src="/template/admin/assets/vendor/apexcharts/apexcharts.min.js" defer></script>
-            <script src="/template/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
-            <script src="/template/admin/assets/vendor/chart.js/chart.umd.js" defer></script>
-            <script src="/template/admin/assets/vendor/echarts/echarts.min.js" defer></script>
-            <script src="/template/admin/assets/vendor/quill/quill.js" defer></script>
-            <script src="/template/admin/assets/vendor/simple-datatables/simple-datatables.js" defer></script>
-            <script src="/template/admin/assets/vendor/tinymce/tinymce.min.js" defer></script>
-            <script src="/template/admin/assets/vendor/php-email-form/validate.js" defer></script>
+            {/* <script src="/template/admin/assets/vendor/apexcharts/apexcharts.min.js" 
+            ></script> */}
+            <script src="/template/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" ></script>
+            {/* <script src="/template/admin/assets/vendor/chart.js/chart.umd.js" ></script>
+            <script src="/template/admin/assets/vendor/echarts/echarts.min.js" ></script> */}
+            <script src="/template/admin/assets/vendor/quill/quill.js" ></script>
+            <script src="/template/admin/assets/vendor/simple-datatables/simple-datatables.js" ></script>
+            <script src="/template/admin/assets/vendor/tinymce/tinymce.min.js" ></script>
+            <script src="/template/admin/assets/vendor/php-email-form/validate.js" ></script>
             <script src="/template/admin/assets/js/main.js" defer></script>
 
         </Helmet>

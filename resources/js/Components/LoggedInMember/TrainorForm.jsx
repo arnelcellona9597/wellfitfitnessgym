@@ -11,15 +11,13 @@ export default function TrainorForm() {
     const [gcashNumber, setGcashNumber] = useState("");
     const [verificationCode, setVerificationCode] = useState("");
     const [paymentMethod, setPaymentMethod] = useState("GCASH");
+    
+    const [trainerDuration, setTrainerDuration] = useState("1 Month");
+    const [timeSchedule, setTimeSchedule] = useState("8:00am - 9:30am");
+    const [trainerStartDate, setTrainerStartDate] = useState("");
+    
+
     const [errors, setErrors] = useState({});
-
-     // Extract number of months
-     const durationMonths = parseInt(get_trainer_by_id.duration);
-
-     // Calculate start and end date
-     const startDate = dayjs();
-     const endDate = startDate.add(durationMonths, 'month');
-     
 
     // console.log("durationMonths: " + durationMonths);
     // console.log("startDate: " + startDate.format("YYYY-MM-DD HH:mm:ss"));
@@ -41,7 +39,62 @@ export default function TrainorForm() {
     }, [get_user_info.phone]);
     
 
+    const [trainerTotalPrice, setTrainerTotalPrice] = useState(2000); // Default for 1 Month
 
+    useEffect(() => {
+        const getMonthInt = parseInt(trainerDuration, 10) || 1;  
+        setTrainerTotalPrice(getMonthInt * 2000);
+    
+        const priceElement = document.querySelector(".priceTotal");
+        if (priceElement) {
+            priceElement.textContent = `₱${getMonthInt * 2000} Total Amount`;
+        }
+    
+        const durationElement = document.querySelector(".monthsDuration");
+        if (durationElement) {
+            durationElement.textContent = `${getMonthInt} ${getMonthInt > 1 ? "Months" : "Month"}`;
+        }
+    
+    }, [trainerDuration]);
+    
+
+
+    const resendVerifcation = async (event) => { 
+        alert("Verification code has been RESEND.");
+        event.preventDefault();
+
+        try {
+            const response = await fetch("/member/trainor/form", {  
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                },
+                body: JSON.stringify({
+
+                    email: get_user_info.email,
+                    trainer_name: get_trainer_by_id.trainer_name,
+                    trainer_image: get_trainer_by_id.trainer_image
+                    
+                }),
+            });
+        
+            if (!response.ok) {
+                const result = await response.json();
+          
+                setErrors({ general: result.message || "Error submitting!" });
+                return;
+            }
+        } catch (error) {
+            console.error("Error submitting:", error);
+            setErrors({ general: "Something went wrong. Please try again!" });
+            return;
+        }
+
+    }
+
+
+ 
     // Function to go to the next step with validation
     const nextStep = async (event) => {
 
@@ -122,91 +175,105 @@ export default function TrainorForm() {
         
 
             if ( paymentMethod == "GCASH" ) {
-                // try {
 
-  
-                //     const response = await fetch('/gcash-payment', {
-                //         method: 'POST', 
-                //         headers: {
-                //             'Content-Type': 'application/json',
-                //         },
-                //         body: JSON.stringify({ 
+                // Extract number of months
+                const durationMonths = parseInt(trainerDuration);
 
-                //             customer_name:  get_user_info.first_name + " " + get_user_info.last_name,
-                //             phone:  get_user_info.phone,
-                //             email:  get_user_info.email,
-                //             user_id:  get_user_info.id,
-                //             plan_id:  get_trainer_by_id.id,
-                //             plan_duration:  get_trainer_by_id.duration,		
-                //             plan_price:  get_trainer_by_id.price,		
-                //             plan_name:  get_trainer_by_id.plan_name,		
-                //             plan_description:  get_trainer_by_id.plan_description,
-                //             payment_method:  paymentMethod,
-                //             payment_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
-                //             start_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
-                //             end_date:  endDate.format("YYYY-MM-DD HH:mm:ss"),
-                //             status: 'Approve'
+                // Calculate start and end date
+                const startDate = dayjs(trainerStartDate);
+                const endDate = startDate.add(durationMonths, 'month');
+
+                const getMonthInt = parseInt(trainerDuration);
+                const trainer_total_price = getMonthInt  * 2000;
+                
+                try {
+                    const response = await fetch('/trainer-gcash-payment', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                        },
+                        body: JSON.stringify({ 
+                            trainer_user_id:  get_user_info.id,
+                            trainer_id:  get_trainer_by_id.id,
+                            trainer_payment_method:  paymentMethod,
+                            trainer_status: "Approve",
+                            trainer_duration: trainerDuration,
+                            trainer_time_schedule: timeSchedule,
+                            trainer_total_price: trainer_total_price,
+                            trainer_start_date : trainerStartDate,
+                            trainer_end_date : endDate.format("YYYY-MM-DD"),
+                            customer_name:  get_user_info.first_name + " " + get_user_info.last_name,
+                            phone:  get_user_info.phone,
+                            email:  get_user_info.email
+                        }),
+                    }); 
+                    const data = await response.json();
+                    console.log("Sending Data:", data);
+                    if (data.redirect_url) {
+                        // Redirect user to the next step (step 2)
+                        window.location.href = data.redirect_url;
+                    } else {
                       
-                //         }),
-                //     }); 
-        
-                //     const data = await response.json();
-
-                //     console.log("Sending Data:", data);
-                    
-        
-                //     if (data.redirect_url) {
-                //         // Redirect user to the next step (step 2)
-                //         window.location.href = data.redirect_url;
-                //     } else {
-                //         alert('Payment initiation failed. Please try again.');
-                //     }
-                // } catch (error) {
-        
-                //     console.error('Payment initiation failed', error);
-                //     alert('An error occurred while processing your payment. Please try again.');
-                // }
+                        console.error('Payment initiation failed. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Payment initiation failed', error);
+                    // alert('An error occurred while processing your payment. Please try again.');
+                }
             }
             else {
 
 
-  
-                // try {
-                //     const response = await fetch('/over-the-counter-payment', {
-                //         method: "POST",
-                //         headers: {
-                //             "Content-Type": "application/json",
-                //             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
-                //         },
-                //         body: JSON.stringify({
-                            
-                //             user_id:  get_user_info.id,
-                //             plan_id:  get_trainer_by_id.id,
-                //             plan_duration:  get_trainer_by_id.duration,		
-                //             plan_price:  get_trainer_by_id.price,		
-                //             plan_name:  get_trainer_by_id.plan_name,		
-                //             plan_description:  get_trainer_by_id.plan_description,
-                //             payment_method:  paymentMethod,
-                //             // payment_date: new Date().toISOString().slice(0, 19).replace("T", " "),
-                //             // start_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
-                //             // end_date:  endDate.format("YYYY-MM-DD HH:mm:ss"),
-                //             status: 'Pending'
-                //         }),
-                //     });
+                // Extract number of months
+                const durationMonths = parseInt(trainerDuration);
+
+                // Calculate start and end date
+                const startDate = dayjs(trainerStartDate);
+                const endDate = startDate.add(durationMonths, 'month');
+
+                const getMonthInt = parseInt(trainerDuration);
+                const trainer_total_price = getMonthInt  * 2000;
+
+                try {
+                    const response = await fetch('/trainer-over-the-counter-payment', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
+                        },
+                        body: JSON.stringify({
+
+                            trainer_user_id:  get_user_info.id,
+                            trainer_id:  get_trainer_by_id.id,
+                            trainer_payment_method:  paymentMethod,
+                            trainer_status: "Pending",
+                            trainer_duration: trainerDuration,
+                            trainer_time_schedule: timeSchedule,
+                            trainer_total_price: trainer_total_price,
+                            trainer_start_date : trainerStartDate,
+                            trainer_end_date : endDate.format("YYYY-MM-DD")
+                            // payment_date: new Date().toISOString().slice(0, 19).replace("T", " "),
+                            // start_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
+                            // end_date:  endDate.format("YYYY-MM-DD HH:mm:ss"),
+                          
+                        }),
+                    });
+
             
-                //     if (!response.ok) {
-                //         const result = await response.json();
-                //         setErrors({ general: result.message || "Error submitting!" });
-                //         return;
-                //     }
-                //     else {
-                //         window.location.href = "/member/plan/thank-you";
-                //     }
-                // } catch (error) {
-                //     console.error("Error submitting:", error);
-                //     setErrors({ general: "Something went wrong. Please try again!" });
-                //     return;
-                // }
+                    if (!response.ok) {
+                        const result = await response.json();
+                        setErrors({ general: result.message || "Error submitting!" });
+                        return;
+                    }
+                    else {
+                        window.location.href = "/member/trainor/thank-you";
+                    }
+                } catch (error) {
+                    console.error("Error submitting:", error);
+                    setErrors({ general: "Something went wrong. Please try again!" });
+                    return;
+                }
  
             }
             
@@ -310,6 +377,12 @@ export default function TrainorForm() {
                                     <button className="custom-orange-btn mt-3" onClick={nextStep}>
                                         Continue
                                     </button>
+
+                                    <button className="custom-orange-btn mt-3" onClick={resendVerifcation}>
+                                        Resend Verification Code
+                                    </button>
+
+                                    
                                     <button className="custom-orange-btn mt-3" onClick={prevStep}>
                                         Back
                                     </button>
@@ -357,12 +430,12 @@ export default function TrainorForm() {
 
                                             <tr>
                                                 <td className="point">Duration:</td>
-                                                <td>3 Months</td>
+                                                <td className="monthsDuration">1 Month</td>
                                             </tr>
 
                                             <tr>
                                                 <td className="point">Total Price:</td>
-                                                <td>₱6000 per Month</td>
+                                                <td className="priceTotal"> ₱2000 Total Amount</td>
                                             </tr>
 
                                         </tbody>
@@ -373,20 +446,40 @@ export default function TrainorForm() {
                                 <div className="payment-element-block mt-3 pt-2">
                                     <span className="orange-label">Select Schedule:</span>
                                    
-                                    <input type="date" min={minDate} />
-                                    <select>
+
+                                    <input 
+                                    className="trainer_start_date" 
+                                    value={trainerStartDate}  
+                                    onChange={(e) => setTrainerStartDate(e.target.value)}  
+                                    type="date" min={minDate} />
+
+                                    <select name="trainer_time_schedule"
+                                    className="trainer_time_schedule" 
+                                    value={timeSchedule} // Use trainerDuration instead of paymentMethod
+                                    onChange={(e) => setTimeSchedule(e.target.value)} // Update trainerDuration correctly
+                                    >
                                         <option value="8:00am - 9:30am">8:00am - 9:30am</option>
                                         <option value="9:30am - 11:00am">9:30am - 11:00am</option>
                                         <option value="11:00am - 12:30pm">11:00am - 12:30pm</option>
                                         <option value="12:30pm - 2:00pm">12:30pm - 2:00pm</option>
                                         <option value="2:00pm - 3:30pm">2:00pm - 3:30pm</option>
                                     </select>
-                                    <select>
-                                        <option value="1 Month">1 Month</option>
-                                        <option value="3 Month">3 Months</option>
+
+
+                                    <select 
+                                        className="trainer_duration" 
+                                        name="trainer_duration"
+                                        value={trainerDuration} // Use trainerDuration instead of paymentMethod
+                                        onChange={(e) => setTrainerDuration(e.target.value)} // Update trainerDuration correctly
+                                    >
+                                        <option selected value="1 Month">1 Month</option>
+                                        <option value="3 Months">3 Months</option>
                                         <option value="6 Months">6 Months</option>
                                         <option value="12 Months">12 Months</option>
-                                     </select>
+                                    </select>
+
+
+ 
                                 </div>
 
                                 <div className="payment-element-block mt-3 pt-2">

@@ -8,7 +8,8 @@ use App\Components\Services\User\IUserService;
 
 use App\Models\User;
 use App\Models\UserPlan;
- 
+use App\Models\UserTrainer;
+
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MembershipPlanVerificationCodeMail;
@@ -68,14 +69,15 @@ class UserController extends Controller
     {
         $validated = $request->validate([
            'email' => 'required|email|exists:users,email',
-            'password' => 'required|string'
+            'password' => 'required|string' 
         ]);
     
         try {
             $response = $this->UserService->login($validated);
 
             return response()->json([
-                'email_verified_at' => $response['email_verified_at']
+                'email_verified_at' => $response['email_verified_at'],
+                'type' => $response['type']
             ], 200);
 
 
@@ -293,6 +295,33 @@ class UserController extends Controller
         return response()->json($userPlan, 201);
     }
 
+
+    
+
+    public function BookTrainorCancel(Request $request) {
+        $id = $request->query('id');
+        $query = UserTrainer::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Plan not found'], 404);
+        }
+        $query->update(['trainer_status' => 'Cancelled']);
+        return response()->json(['message' => 'cancelled successfully', 'query' => $query], 200);
+    }
+
+    public function BookTrainorDelete(Request $request) {
+        $id = $request->input('id');
+        // Find the plan by ID
+        $query = UserTrainer::find($id);
+        // Check if plan exists
+        if (!$query) {
+            return response()->json(['error' => 'Plan not found'], 404);
+        }
+        // Delete the plan
+        $query->delete();
+        return response()->json(['message' => 'deleted successfully'], 200);
+    }
+
+
     public function MemberPlanCancel(Request $request) {
         $id = $request->query('id');
         $userPlan = UserPlan::find($id);
@@ -302,6 +331,8 @@ class UserController extends Controller
         $userPlan->update(['status' => 'Cancelled']);
         return response()->json(['message' => 'Membership cancelled successfully', 'plan' => $userPlan], 200);
     }
+
+    
 
     public function MemberPlanDelete(Request $request) {
         $id = $request->input('id');

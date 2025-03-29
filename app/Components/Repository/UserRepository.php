@@ -63,6 +63,7 @@ class UserRepository
         }
 
         $email_verified_at = $user->email_verified_at;
+        $type = $user->type;
 
         // Add indication to the response if $user->email_verified_at is null....
         if (  $email_verified_at == NULL ) {
@@ -75,7 +76,8 @@ class UserRepository
         }
 
         return [
-            'email_verified_at' =>  $email_verified_at
+            'email_verified_at' =>  $email_verified_at,
+            'type' => $type
         ];
     }
 

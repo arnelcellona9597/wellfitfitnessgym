@@ -19,6 +19,7 @@ export default function Forgot() {
         e.preventDefault();
         setErrors({});
         setSuccessMessage('');
+
         setIsSubmitting(true);
     
         try {
@@ -49,11 +50,12 @@ export default function Forgot() {
             } else {
                 // Successfully logged in
                 setSuccessMessage('Please check your email to reset your password.');
-                setFormData({
-                    email: ''
-                });
-                setShowForm(false);
-    
+
+                // setFormData({
+                //     email: ''
+                // });
+                // setShowForm(false);
+
                 // setTimeout(() => {
                 //     window.location.href = '/member/';
                 // }, 3000);
@@ -62,7 +64,7 @@ export default function Forgot() {
             console.error('Error during activation:', error);
             setErrors({ general: 'Email account could NOT found!' });
         } finally {
-            setIsSubmitting(false);
+            // setIsSubmitting(false);
         }
     };
     return ( 
@@ -94,8 +96,8 @@ export default function Forgot() {
                                             />
 
                                             <br />
-                                            <button type="submit" className="color-white" disabled={isSubmitting}>
-                                                <i className="fa fa-sign-in"></i> {isSubmitting ? 'Authenticating ...' : 'Submit'}
+                                            <button type="submit" className="color-white"  >
+                                                <i className="fa fa-sign-in"></i> {isSubmitting ? 'Resend Verification' : 'Submit'}
                                             </button>
                                         </form>
                                     )}
