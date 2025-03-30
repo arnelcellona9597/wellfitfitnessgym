@@ -288,7 +288,7 @@ class PageRenderController extends Controller
         ]); 
     }
 
-
+ 
     
     public function adminIndex(Request $request)
     {
@@ -296,6 +296,54 @@ class PageRenderController extends Controller
             'cu_user_id' => $request->cookie('cu_user_id'),
         ]);
     }
+
+
+    public function adminMembershipAvailMembershipPlan(Request $request)
+    {
+        return Inertia::render('Admin/Membership/AvailMembershipPlan', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+        ]);
+    }
+
+    public function adminMembershipListOfMembers(Request $request)
+    {
+        return Inertia::render('Admin/Membership/ListOfMembers', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+        ]);
+    }
+
+
+    public function adminViewMembershipDetails(Request $request)
+    {
+        return Inertia::render('Admin/Membership/ViewMembershipDetails', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+        ]);
+    }
+
+    public function adminListOfMembershipPlan(Request $request)
+    {
+        return Inertia::render('Admin/Membership/ListOfMembershipPlan', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+        ]);
+    }
+    
+
+    public function adminAddPlan(Request $request)
+    {
+        return Inertia::render('Admin/Membership/AddPlan', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+        ]);
+    }
+
+    public function adminAddItem(Request $request)
+    {
+        return Inertia::render('Admin/Inventory/AddItem', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+        ]);
+    }
+    
+    
+    
     
 
 }

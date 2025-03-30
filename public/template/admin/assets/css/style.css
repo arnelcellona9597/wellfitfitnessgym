@@ -1236,3 +1236,8 @@ h6 {
 .nav-content.collapse.show {
   visibility: visible;
 }
+
+.datatable-selector {
+  width: 60px;
+}
+ 

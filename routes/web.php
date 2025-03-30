@@ -88,3 +88,9 @@ Route::post('/trainer-gcash-payment', [TrainerPaymentController::class, 'createP
  
 // ADMINISTRATOR
 Route::get('/admin', [PageRenderController::class, 'adminIndex'])->name("admin.index");
+Route::get('/admin/membership/avail-membership-plan', [PageRenderController::class, 'adminMembershipAvailMembershipPlan'])->name("admin.member.availmembershipplan");
+Route::get('/admin/membership/list-of-members', [PageRenderController::class, 'adminMembershipListOfMembers'])->name("admin.member.listofmembers");
+Route::get('/admin/membership/view-membership-details', [PageRenderController::class, 'adminViewMembershipDetails'])->name("admin.member.viewmembershipdetails");
+Route::get('/admin/membership/list-of-membership-plan', [PageRenderController::class, 'adminListOfMembershipPlan'])->name("admin.member.listofmembershipplan"); 
+Route::get('/admin/membership/add-plan', [PageRenderController::class, 'adminAddPlan'])->name("admin.member.addplan"); 
+Route::get('/admin/inventory/add-item', [PageRenderController::class, 'adminAddItem'])->name("admin.member.additem"); 

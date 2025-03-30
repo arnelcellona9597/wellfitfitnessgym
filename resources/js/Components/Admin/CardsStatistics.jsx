@@ -11,10 +11,10 @@ export default function AdminCardsStatistics() {
                         </h5>
                         <div className="d-flex align-items-center">
                             <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i className="bi bi-currency-dollar" />
+                                <i className="bi bi-info-circle" />
                             </div>
                             <div className="ps-3">
-                                <h6>145</h6>
+                                <h6>₱ 145</h6>
                                 <span className="text-muted small pt-2 ps-1">Total revenue generated from memberships, and training.
                                 </span>
                             </div>

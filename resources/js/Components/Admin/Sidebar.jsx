@@ -20,10 +20,10 @@ export default function AdminSidebar() {
                         <i className="bi bi-chevron-down ms-auto" />
                     </a>
                     <ul id="membership-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
-                        <li><a href="#"><i className="bi bi-circle" /><span>Add Member</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>List of Members</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>Add Membership Plan</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>List of Membership Plan</span></a></li>
+                        <li><a href="/admin/membership/avail-membership-plan"><i className="bi bi-circle" /><span>Avail Membership Plan</span></a></li>
+                        <li><a href="/admin/membership/list-of-members"><i className="bi bi-circle" /><span>List of Members</span></a></li>
+                        <li><a href="/admin/membership/add-plan"><i className="bi bi-circle" /><span>Add Membership Plan</span></a></li>
+                        <li><a href="/admin/membership/list-of-membership-plan"><i className="bi bi-circle" /><span>List of Membership Plan</span></a></li>
                     </ul>
                 </li>
                 
@@ -34,7 +34,7 @@ export default function AdminSidebar() {
                         <i className="bi bi-chevron-down ms-auto" />
                     </a>
                     <ul id="inventory-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
-                        <li><a href="#"><i className="bi bi-circle" /><span>Add Item</span></a></li>
+                        <li><a href="/admin/inventory/add-item"><i className="bi bi-circle" /><span>Add Item</span></a></li>
                         <li><a href="#"><i className="bi bi-circle" /><span>List of All Items</span></a></li>
                     </ul>
                 </li>
