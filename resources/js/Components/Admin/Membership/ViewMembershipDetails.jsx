@@ -1,8 +1,12 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
+import { usePage } from "@inertiajs/react";
+import moment from "moment";
 
 const ViewMembershipDetails = () => {
-  const printRef = useRef(null);
 
+  const {  get_membership_by_id  } = usePage().props;
+
+  const printRef = useRef(null);
   const printReceipt = () => {
     const printContent = printRef.current.innerHTML;
     const printFrame = document.createElement("iframe");
@@ -85,28 +89,39 @@ const ViewMembershipDetails = () => {
     <div className="col-lg-4">
       <div className="card shadow-sm">
         <div className="card-header bg-primary text-white text-center">
-          <h5 className="mb-0">Membership Confirmation</h5>
+          {get_membership_by_id.status == "Approved" ? (
+              <h5 className="mb-0">Membership Confirmation</h5>
+            ) :
+              <h5 className="mb-0">Membership Request</h5>
+          }
         </div>
         <div className="card-body p-0 m-0 ">
           <div ref={printRef} className="receipt-container p-3 border rounded">
             {/* Header */}
             <div className="receipt-header text-center">
-              <p className="mb-1">Thank you for subscribing to our gym membership.</p>
-              <h2 className="text-dark fw-bold">Receipt #60</h2>
+
+            {get_membership_by_id.status == "Approved" ? (
+                <h5 className="mb-0">Thank you for subscribing to our gym membership.</h5>
+              ) :
+                <h5 className="mb-0">Please sunmit receipt to the gym staff and pay.</h5>
+            }
+
+             
+              <h2 className="text-dark fw-bold">Receipt #{get_membership_by_id.id}</h2>
             </div>
 
             {/* Body */}
             <div className="receipt-body mt-3 text-center">
               <hr />
               <div className="details">
-                <p className="mb-1"><strong>Customer Name:</strong> Arnel Cellona</p>
-                <p className="mb-1"><strong>Plan:</strong> STARTER FIT PLAN</p>
-                <p className="mb-1"><strong>Duration:</strong> 1 Month</p>
-                <p className="mb-1"><strong>Avail Date:</strong> March 16, 2025</p>
-                <p className="mb-1"><strong>Valid Until:</strong> April 16, 2025</p>
-                <p className="mb-1"><strong>Payment Method:</strong> GCASH</p>
-                <p className="mb-1"><strong>Membership Status:</strong> <span className="badge bg-success">Approved</span></p>
-                <p className="fw-bold fs-5 text-primary"><strong>Amount Paid:</strong> ₱2,500</p>
+                <p className="mb-1"><strong>Customer Name:</strong> {get_membership_by_id.first_name} {get_membership_by_id.last_name}</p>
+                <p className="mb-1"><strong>Plan:</strong> {get_membership_by_id.plan_name}</p>
+                <p className="mb-1"><strong>Duration:</strong> {get_membership_by_id.plan_duration}</p>
+                <p className="mb-1"><strong>Avail Date:</strong> {moment(get_membership_by_id.start_date).format("MMMM D, YYYY")}</p>
+                <p className="mb-1"><strong>Valid Until:</strong> {moment(get_membership_by_id.end_date).format("MMMM D, YYYY")}</p>
+                <p className="mb-1"><strong>Payment Method:</strong> {get_membership_by_id.payment_method}</p>
+                <p className="mb-1"><strong>Membership Status:</strong> <span className="badge bg-success">{get_membership_by_id.status}</span></p>
+                <p className="fw-bold fs-5 text-primary"><strong>Amount Paid:</strong> ₱{get_membership_by_id.plan_price}</p> 
               </div>
               <hr />
               <p className="text-muted mt-3">

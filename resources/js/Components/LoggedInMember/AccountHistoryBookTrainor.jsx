@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { usePage } from "@inertiajs/react";
 import Cookies from "js-cookie";
-import dayjs from "dayjs";
+import dayjs from "dayjs"; 
 import moment from "moment";
 
 export default function AccountHistoryBookTrainor() {
 
-    const { get_user_latest_booktrainor, get_trainer_by_id } = usePage().props;
+    const { get_booktrainer_by_id } = usePage().props;
 
     const receiptRef = useRef(null);
-
-    get_user_latest_booktrainor
+ 
+     
     const handlePrint = () => {
         window.print();
     };
@@ -21,14 +21,14 @@ export default function AccountHistoryBookTrainor() {
                 <img src="/template/member/img/blacklogo.webp"  class="seclogo"/>
 
 
-                {get_user_latest_booktrainor?.trainer_status === "Pending" && (
+                {get_booktrainer_by_id?.trainer_status === "Pending" && (
                                         <>
                                         <h1>Booking Trainor Request</h1>
                                         <p>Please sunmit receipt to the gym staff and pay.</p>
                                     </>
                     )}
 
-                    {get_user_latest_booktrainor?.trainer_status === "Approve" && (
+                    {get_booktrainer_by_id?.trainer_status === "Approved" && (
                                      <>
 
                                      <h1>Trainor Booking Confirmation</h1>
@@ -40,23 +40,23 @@ export default function AccountHistoryBookTrainor() {
 
    
                 <div className="receipt">
-                    <h2>Receipt #{ get_user_latest_booktrainor.id }</h2>
+                    <h2>Receipt #{ get_booktrainer_by_id.id }</h2>
 
 
                     <div className="receipt-item">
                         <span>Customer Name: &nbsp;&nbsp; </span>
-                        <strong>{ get_user_latest_booktrainor.first_name }  { get_user_latest_booktrainor.last_name }</strong>
+                        <strong>{ get_booktrainer_by_id.first_name }  { get_booktrainer_by_id.last_name }</strong>
                     </div>
 
                     <div className="receipt-item">
                         <span>Trainor Name: &nbsp;&nbsp; </span>
-                        <strong>{ get_user_latest_booktrainor.trainer_name }</strong>
+                        <strong>{ get_booktrainer_by_id.trainer_name }</strong>
                     </div>
 
 
                     <div className="receipt-item">
                         <span>Duration:&nbsp;&nbsp;</span>
-                        <strong>{ get_user_latest_booktrainor.trainer_duration }</strong>
+                        <strong>{ get_booktrainer_by_id.trainer_duration }</strong>
                     </div>
 
 
@@ -66,51 +66,50 @@ export default function AccountHistoryBookTrainor() {
                     <div className="receipt-item">
                         <span>Training Session Start:</span>
                         <strong>
-                            {moment(get_user_latest_booktrainor.trainer_start_date).format("MMMM D, YYYY")}
+                            {moment(get_booktrainer_by_id.trainer_start_date).format("MMMM D, YYYY")}
                         </strong>
                     </div>
                     <div className="receipt-item">
                         <span>Training Session End:</span>
                         <strong>
-                            {moment(get_user_latest_booktrainor.trainer_end_date).format("MMMM D, YYYY")}
+                            {moment(get_booktrainer_by_id.trainer_end_date).format("MMMM D, YYYY")}
                         </strong>
                     </div>
 
                     <div className="receipt-item">
                         <span>Payment Method: &nbsp;&nbsp;</span>
-                        <strong>{get_user_latest_booktrainor.trainer_payment_method}</strong>
+                        <strong>{get_booktrainer_by_id.trainer_payment_method}</strong>
                     </div>
 
 
 
                     <div className="receipt-item">
                         <span>Booking Status: &nbsp;&nbsp;</span>
-                        <strong>{get_user_latest_booktrainor.trainer_status}</strong>
+                        <strong>{get_booktrainer_by_id.trainer_status}</strong>
                     </div>
 
-                    {get_user_latest_booktrainor?.trainer_status === "Pending" && (
+                    {get_booktrainer_by_id?.trainer_status === "Pending" && (
                         <div className="receipt-item">
                             <span>Amount to pay:&nbsp;&nbsp;</span>
-                            <strong>₱{parseInt(get_user_latest_booktrainor.trainer_total_price).toLocaleString()}</strong>
+                            <strong>₱{parseInt(get_booktrainer_by_id.trainer_total_price).toLocaleString()}</strong>
                         </div>
                     )}
 
-                    {get_user_latest_booktrainor?.trainer_status === "Approve" && (
+                    {get_booktrainer_by_id?.trainer_status === "Approved" && (
                         <div className="receipt-item">
                             <span>Amount Paid:&nbsp;&nbsp;</span>
-                            <strong>₱{parseInt(get_user_latest_booktrainor.trainer_total_price).toLocaleString()}</strong>
+                            <strong>₱{parseInt(get_booktrainer_by_id.trainer_total_price).toLocaleString()}</strong>
                         </div>
                     )}
 
 
 
- 
  
  
 
 
                     <div className="receipt-item">
-                        <p>{ get_user_latest_booktrainor.plan_description }</p>
+                        <p>{ get_booktrainer_by_id.plan_description }</p>
                     </div>
 
                 </div>

@@ -85,7 +85,12 @@ Route::post('/over-the-counter-payment', [PaymentController::class, 'overTheCoun
 Route::post('/member/trainor/form', [UserController::class, 'trainorConfirmationStepNav']);
 Route::post('/trainer-over-the-counter-payment', [TrainerPaymentController::class, 'trainerOverTheCounterPayment']);
 Route::post('/trainer-gcash-payment', [TrainerPaymentController::class, 'createPaymentIntent']);
+Route::get('/admin/book-trainer/add-trainer/', [PageRenderController::class, 'adminAddTrainor']); 
  
+Route::get('/admin/book-trainer/view-booking-details/', [PageRenderController::class, 'adminViewBookingDetails']); 
+Route::get('/admin/book-trainer/trainer-list/', [PageRenderController::class, 'adminTrainerList']); 
+
+
 // ADMINISTRATOR
 Route::get('/admin', [PageRenderController::class, 'adminIndex'])->name("admin.index");
 Route::get('/admin/membership/avail-membership-plan', [PageRenderController::class, 'adminMembershipAvailMembershipPlan'])->name("admin.member.availmembershipplan");
@@ -94,3 +99,19 @@ Route::get('/admin/membership/view-membership-details', [PageRenderController::c
 Route::get('/admin/membership/list-of-membership-plan', [PageRenderController::class, 'adminListOfMembershipPlan'])->name("admin.member.listofmembershipplan"); 
 Route::get('/admin/membership/add-plan', [PageRenderController::class, 'adminAddPlan'])->name("admin.member.addplan"); 
 Route::get('/admin/inventory/add-item', [PageRenderController::class, 'adminAddItem'])->name("admin.member.additem"); 
+
+Route::get('/admin/book-trainer/add-booking', [PageRenderController::class, 'adminBookingTrainer']);
+Route::get('/admin/book-trainer/booking-list', [PageRenderController::class, 'adminBookingList']);
+
+
+Route::post('/admin/membership/list-of-membership-plan/delete', [UserController::class, 'adminDeletePlan']); 
+Route::post('/admin/membership/list-of-membership-plan/edit', [UserController::class, 'adminEditPlan']); 
+Route::post('/admin/membership/list-of-membership-plan/add', [UserController::class, 'adminAddPlan']); 
+Route::post('/admin/membership/list-of-members/approve', [UserController::class, 'adminApprovePlan']); 
+
+
+Route::post('/admin/book-trainer/add-trainer/add', [UserController::class, 'adminAddTrainor']);
+Route::post('/admin/book-trainer/booking-list/approve', [UserController::class, 'adminApproveBooking']); 
+
+Route::post('/admin/book-trainer/add-trainer/edit', [UserController::class, 'adminEditTrainer']); 
+Route::post('/admin/book-trainer/add-trainer/delete', [UserController::class, 'adminDeleteTrainer']); 

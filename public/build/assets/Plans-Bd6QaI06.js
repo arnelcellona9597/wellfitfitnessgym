@@ -1,1 +1,0 @@
-import{j as r}from"./app-BvqqgCsr.js";import{M as s}from"./Head-Dc0koQQK.js";import{H as a,F as o}from"./Footer-eiW58IP8.js";import{P as e}from"./PlansBanner-VN4SS-av.js";import{P as m}from"./Plan-BtX9Gnbl.js";function f(){return r.jsxs(r.Fragment,{children:[r.jsx(s,{}),r.jsx(a,{}),r.jsx(e,{}),r.jsx(m,{}),r.jsx(o,{})]})}export{f as default};

@@ -53,6 +53,14 @@ class UserPlan extends Model
             ->select('user_plans.*', 'users.first_name', 'users.last_name')
             ->first();
     }
+
+    public static function getAllMembers()
+    {
+        return self::leftJoin('users', 'user_plans.user_id', '=', 'users.id')
+            ->orderBy('user_plans.created_at', 'desc')
+            ->select('user_plans.*', 'users.first_name', 'users.last_name')
+            ->get();  
+    }
     
     
 

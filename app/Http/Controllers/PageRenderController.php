@@ -285,9 +285,11 @@ class PageRenderController extends Controller
             'get_membership_by_id' => UserPlan::getMembershipByID($request->query('id')),
             'get_user_latest_booktrainor'  => UserTrainer::getUserLatestBookTrainor($request->cookie('cu_user_id')),
             'get_trainer_by_id' => Trainer::getTrainerByID( $request->query('id') ),
+            'get_booktrainer_by_id' => UserTrainer::getBookTrainorByID( $request->query('id') ),
+            
         ]); 
     }
-
+ 
  
     
     public function adminIndex(Request $request)
@@ -302,6 +304,8 @@ class PageRenderController extends Controller
     {
         return Inertia::render('Admin/Membership/AvailMembershipPlan', [
             'cu_user_id' => $request->cookie('cu_user_id'),
+            'all_users' => User::users(),
+            'get_all_plans' => Plan::getAllPlans(),
         ]);
     }
 
@@ -309,6 +313,8 @@ class PageRenderController extends Controller
     {
         return Inertia::render('Admin/Membership/ListOfMembers', [
             'cu_user_id' => $request->cookie('cu_user_id'),
+            'get_all_members' =>  UserPlan::getAllMembers(),
+            'get_all_plans' => Plan::getAllPlans(),
         ]);
     }
 
@@ -317,6 +323,7 @@ class PageRenderController extends Controller
     {
         return Inertia::render('Admin/Membership/ViewMembershipDetails', [
             'cu_user_id' => $request->cookie('cu_user_id'),
+            'get_membership_by_id' => UserPlan::getMembershipByID($request->query('id')),
         ]);
     }
 
@@ -324,6 +331,8 @@ class PageRenderController extends Controller
     {
         return Inertia::render('Admin/Membership/ListOfMembershipPlan', [
             'cu_user_id' => $request->cookie('cu_user_id'),
+            'get_all_plans' => Plan::getAllPlans(),
+       
         ]);
     }
     
@@ -332,18 +341,64 @@ class PageRenderController extends Controller
     {
         return Inertia::render('Admin/Membership/AddPlan', [
             'cu_user_id' => $request->cookie('cu_user_id'),
+
         ]);
     }
 
-    public function adminAddItem(Request $request)
+
+    public function adminAddTrainor(Request $request)
     {
-        return Inertia::render('Admin/Inventory/AddItem', [
-            'cu_user_id' => $request->cookie('cu_user_id'),
+        return Inertia::render('Admin/BookTrainor/AddTrainor', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+        ]);
+    }
+
+
+    
+    
+    public function adminBookingTrainer(Request $request)
+    {
+        return Inertia::render('Admin/BookTrainor/AddBooking', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+            'all_users' => User::users(),
+            'trainers' => Trainer::trainers(),  
         ]);
     }
     
     
-    
-    
+    public function adminBookingList(Request $request)
+    {
+        return Inertia::render('Admin/BookTrainor/ListOfBookings', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+            'get_all_user_booktrainor' => UserTrainer::getAllUserBookTrainor(),
+        ]);
+    }
+
+
+    public function adminViewBookingDetails(Request $request)
+    {
+        return Inertia::render('Admin/BookTrainor/ViewBookingDetails', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+            'get_booktrainer_by_id' => UserTrainer::getBookTrainorByID( $request->query('id') ),
+        ]);
+    }
+
+
+    public function adminTrainerList(Request $request)
+    {
+        return Inertia::render('Admin/BookTrainor/ListOfTrainers', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+            'get_all_user_booktrainor' => UserTrainer::getAllUserBookTrainor(),
+            'trainers' => Trainer::trainers(),  
+        ]);
+    }
+ 
+ 
+    public function adminAddItem(Request $request)
+    {
+        return Inertia::render('Admin/Inventory/AddItem', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+        ]);
+    }
 
 }

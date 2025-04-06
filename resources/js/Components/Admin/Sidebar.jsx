@@ -27,6 +27,22 @@ export default function AdminSidebar() {
                     </ul>
                 </li>
                 
+               
+                
+                <li className="nav-item">
+                    <a className="nav-link collapsed" data-bs-toggle="collapse" href="#trainer-nav">
+                        <i className="bi bi-person" />
+                        <span>Booking for Trainer</span>
+                        <i className="bi bi-chevron-down ms-auto" />
+                    </a>
+                    <ul id="trainer-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
+                        <li><a href="/admin/book-trainer/add-trainer/"><i className="bi bi-circle" /><span>Add Trainer</span></a></li>
+                        <li><a href="/admin/book-trainer/trainer-list/"><i className="bi bi-circle" /><span>List of All Trainers</span></a></li>
+                        <li><a href="/admin/book-trainer/add-booking/"><i className="bi bi-circle" /><span>Add Booking</span></a></li>
+                        <li><a href="/admin/book-trainer/booking-list/"><i className="bi bi-circle" /><span>List of All Booking</span></a></li>
+                    </ul>
+                </li>
+                
                 <li className="nav-item">
                     <a className="nav-link collapsed" data-bs-toggle="collapse" href="#inventory-nav">
                         <i className="bi bi-box" />
@@ -36,19 +52,6 @@ export default function AdminSidebar() {
                     <ul id="inventory-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
                         <li><a href="/admin/inventory/add-item"><i className="bi bi-circle" /><span>Add Item</span></a></li>
                         <li><a href="#"><i className="bi bi-circle" /><span>List of All Items</span></a></li>
-                    </ul>
-                </li>
-                
-                <li className="nav-item">
-                    <a className="nav-link collapsed" data-bs-toggle="collapse" href="#trainer-nav">
-                        <i className="bi bi-person" />
-                        <span>Booking for Trainer</span>
-                        <i className="bi bi-chevron-down ms-auto" />
-                    </a>
-                    <ul id="trainer-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
-                        <li><a href="#"><i className="bi bi-circle" /><span>Add Trainer</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>List of All Trainers</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>List of All Booking</span></a></li>
                     </ul>
                 </li>
                 

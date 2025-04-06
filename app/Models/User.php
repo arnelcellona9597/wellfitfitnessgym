@@ -35,6 +35,11 @@ class User extends Model
     {
         return self::find($userId);
     }
+
+    public static function users()
+    {
+        return self::orderBy('id', 'desc')->get();
+    }
     
 
 }

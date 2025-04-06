@@ -49,9 +49,18 @@ class UserTrainer extends Model
             ->get();  
     }
 
+    public static function getAllUserBookTrainor()
+    {
+        return self::leftJoin('users', 'user_trainers.trainer_user_id', '=', 'users.id')
+            ->leftJoin('trainers', 'user_trainers.trainer_id', '=', 'trainers.id')
+            ->orderBy('user_trainers.created_at', 'desc')
+            ->select('user_trainers.*', 'users.first_name', 'users.last_name' ,'trainers.trainer_name') // Corrected select clause
+            ->get();  
+    } 
+
     public static function getBookTrainorByID($id)
     {
-        return self::leftJoin('users', 'user_trainers.user_id', '=', 'users.id')
+        return self::leftJoin('users', 'user_trainers.trainer_user_id', '=', 'users.id')
             ->leftJoin('trainers', 'user_trainers.trainer_id', '=', 'trainers.id')
             ->where('user_trainers.id', $id) // Ensure correct column name
             ->orderBy('user_trainers.created_at', 'desc')

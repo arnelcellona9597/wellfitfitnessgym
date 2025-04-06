@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Components\Services\User\IUserService;
 
+use App\Models\Trainer;
+use App\Models\Plan;
 use App\Models\User;
 use App\Models\UserPlan;
 use App\Models\UserTrainer;
@@ -28,7 +30,7 @@ class UserController extends Controller
     }
 
     public function createUser(Request $request)
-    {
+    { 
         $validated = $request->validate([
             'email' => 'required|email|unique:users,email',
             'first_name' => 'required|string',
@@ -371,6 +373,131 @@ class UserController extends Controller
         return response()->json([
             'message' => "success",
         ], 201);
+    }
+
+    public function adminDeletePlan(Request $request) {
+        $id = $request->input('id');
+        $query = Plan::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        $query->delete();
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+
+
+    public function adminEditPlan(Request $request) {
+        $id = $request->input('id');
+        $duration = $request->input('duration');
+        $price = $request->input('price');
+        $plan_name = $request->input('plan_name');
+        $plan_description = $request->input('plan_description');
+
+ 
+        $query = Plan::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Plan not found'], 404);
+        }
+        $query->update([
+            'duration' => $duration,
+            'price' => $price,
+            'plan_name' => $plan_name,
+            'plan_description' => $plan_description
+        ]);
+        return response()->json(['message' => 'Membership cancelled successfully', 'plan' => $query], 200);
+    }
+
+    public function adminAddPlan(Request $request)
+    {
+        $query = Plan::create($request->all());
+        return response()->json($query, 200);
+    }
+    
+
+    public function adminApprovePlan(Request $request)
+    {
+        $id = $request->query('id'); // ✅ use input() instead of query()
+        $query = UserPlan::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Plan not found'], 404);
+        }
+        $query->update(['status' => 'Approved']);
+        return response()->json(['query' => $query], 200);
+    }
+
+    
+    public function adminAddTrainor(Request $request)
+    {
+        try {
+            $filename = null;
+    
+            if ($request->hasFile('trainer_image')) {
+                $file = $request->file('trainer_image');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('template/images'), $filename);
+            }
+    
+            \App\Models\Trainer::create([
+                'trainer_name' => $request->trainer_name,
+                'trainer_image' => $filename,
+            ]);
+    
+            return response()->json(['message' => 'Trainer added successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
+    public function adminApproveBooking(Request $request)
+    {
+        $id = $request->query('id'); // ✅ use input() instead of query()
+        $query = UserTrainer::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        $query->update(['trainer_status' => 'Approved']);
+        return response()->json(['query' => $query], 200);
+    }
+
+    
+
+    public function adminEditTrainer(Request $request)
+    {
+        try {
+            // Find the trainer by ID
+            $trainer = \App\Models\Trainer::findOrFail($request->id);
+    
+            // Handle new image upload if provided
+            if ($request->hasFile('trainer_image')) {
+                $file = $request->file('trainer_image');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('template/images'), $filename);
+                $trainer->trainer_image = $filename;
+            }
+    
+            // Update trainer name
+            $trainer->trainer_name = $request->trainer_name;
+    
+            // Save the updated trainer
+            $trainer->save();
+    
+            return response()->json(['message' => 'Trainer updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    
+    
+    public function adminDeleteTrainer(Request $request) {
+        $id = $request->input('id');
+        $query = Trainer::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        $query->delete();
+        return response()->json(['message' => 'Deleted'], 200);
     }
 
 }
