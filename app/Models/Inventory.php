@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Carbon; 
 
 class Inventory extends Model
 {
@@ -31,5 +31,18 @@ class Inventory extends Model
         return self::find($id);
     }    
 
+
+    public static function getTotalItems($startDate = null, $endDate = null)
+    {
+        return self::when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [
+                    \Carbon\Carbon::parse($startDate)->startOfDay(),
+                    \Carbon\Carbon::parse($endDate)->endOfDay()
+                ]);
+            })
+            ->sum('inventory_quantity');
+    }
+    
+    
 
 }

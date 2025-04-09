@@ -301,11 +301,28 @@ class PageRenderController extends Controller
     
     public function adminIndex(Request $request)
     {
+        // http://127.0.0.1:8000/admin/?start_date=2025-03-22&end_date=2025-03-30
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+
         return Inertia::render('Admin/Index', [
             'cu_user_id' => $request->cookie('cu_user_id'),
             'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
+            'stats_total_members' => UserPlan::getTotalMembers($startDate, $endDate),
+            'stats_total_bookings' => UserTrainer::getTotalBookings($startDate, $endDate),
+            'stats_total_items' => Inventory::getTotalItems($startDate, $endDate),
+            'stats_total_trainer' => Trainer::getTotalTrainers($startDate, $endDate),
+            'stats_total_reviews' => Review::getTotalReviews($startDate, $endDate),
+
+            'stats_total_sales' => User::getTotalSales($startDate, $endDate),
+
+            'filters' => [
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+            ],
         ]);
     }
+     
 
 
     public function adminMembershipAvailMembershipPlan(Request $request)
@@ -491,4 +508,4 @@ class PageRenderController extends Controller
         ]); 
     }
   
-}
+} 

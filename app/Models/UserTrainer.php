@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Carbon; 
 
 class UserTrainer extends Model
 {
@@ -66,6 +66,18 @@ class UserTrainer extends Model
             ->orderBy('user_trainers.created_at', 'desc')
             ->select('user_trainers.*', 'users.first_name', 'users.last_name' ,'trainers.trainer_name') // Corrected select clause
             ->first();
+    }
+
+    public static function getTotalBookings($startDate = null, $endDate = null)
+    {
+        return self::where('user_trainers.trainer_status', 'Approved')
+            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [
+                    Carbon::parse($startDate)->startOfDay(),
+                    Carbon::parse($endDate)->endOfDay()
+                ]);
+            })
+            ->count();
     }
     
 

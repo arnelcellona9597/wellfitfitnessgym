@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Carbon;
 
 class UserPlan extends Model
 {
@@ -60,6 +61,19 @@ class UserPlan extends Model
             ->orderBy('user_plans.created_at', 'desc')
             ->select('user_plans.*', 'users.first_name', 'users.last_name')
             ->get();  
+    }
+    
+
+    public static function getTotalMembers($startDate = null, $endDate = null)
+    {
+        return self::where('user_plans.status', 'Approved')
+            ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [
+                    Carbon::parse($startDate)->startOfDay(),
+                    Carbon::parse($endDate)->endOfDay()
+                ]);
+            })
+            ->count();
     }
     
     
