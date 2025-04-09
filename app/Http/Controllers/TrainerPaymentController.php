@@ -9,6 +9,8 @@ use App\Models\UserPlan;
 use App\Models\UserTrainer;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Models\UserLog;
+use Carbon\Carbon;
  
 class TrainerPaymentController extends Controller
 { 
@@ -16,6 +18,13 @@ class TrainerPaymentController extends Controller
     public function trainerOverTheCounterPayment (Request $request) {
         $userPlan = UserTrainer::create($request->all());
         return redirect()->route('member.trainer.thankyou');
+
+        UserLog::create([
+            'log_user_id' => $request->input('user_id'),
+            'log_description' => 'Has requested to book a trainer for GYM class',
+            'log_date' => Carbon::now(),
+        ]);
+
     }
     
     public function createPaymentIntent(Request $request)
@@ -33,6 +42,13 @@ class TrainerPaymentController extends Controller
         $customer_name = $request->input('customer_name');
         $phone = $request->input('phone');
         $email = $request->input('email');
+
+
+        UserLog::create([
+            'log_user_id' => $request->input('user_id'),
+            'log_description' => 'Has requested to book a trainer for GYM class',
+            'log_date' => Carbon::now(),
+        ]);
 
         \Log::info('REQUEST 1:', $request->all());
  

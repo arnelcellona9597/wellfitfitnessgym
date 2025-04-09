@@ -13,6 +13,12 @@ use App\Models\UserPlan;
 use App\Models\UserTrainer;
 use App\Models\Inventory;
 use App\Models\Gallery;
+use App\Models\Review;
+
+use App\Models\UserLog;
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MembershipPlanVerificationCodeMail;
@@ -44,6 +50,8 @@ class UserController extends Controller
         try {
             $this->UserService->createUser($validated);
             return response()->json(['message' => 'User created successfully!'], 201);
+
+
         } catch (\Exception $e) {
             // Log::error('User creation failed: ' . $e->getMessage());
             return response()->json(['message' => 'Server error, please try again later.'], 500);
@@ -123,31 +131,11 @@ class UserController extends Controller
             'email_verified_at' => 'email_verified_at'
         ], 200);
 
-        }
-
-
-
-        // $validated = $request->validate([
-        //    'email' => 'required|email|exists:users,email'
-        // ]);
-    
-        // try {
-        //     $response = $this->UserService->forgotPassword($request);
-
-        //     return response()->json([
-        //         'email_verified_at' => $response['email_verified_at']
-        //     ], 200);
-
-
-        // } catch (\Exception $e) {
-        //     Log::error('User creation failed: ' . $e->getMessage());
-        //     return response()->json(['message' => 'Server error, please try again later.'], 400);
-        // }
+        } 
     }
 
     public function resetPassword(Request $request)
     {
-
 
         $user = User::where('email', $request['email'])
         ->first();
@@ -171,6 +159,9 @@ class UserController extends Controller
         $user->password =  $request['password'];
         $user->save();
 
+
+
+
         return response()->json([
             'email_verified_at' => $email_verified_at
         ], 200);
@@ -184,6 +175,13 @@ class UserController extends Controller
     {
         try {
             $response = $this->UserService->contactForm($request->all());
+
+            UserLog::create([
+                'log_user_id' => $request->user_id,
+                'log_description' => 'Has been successully submitted data from the contact form.',
+                'log_date' => Carbon::now(),
+            ]);
+
             return response()->json([
                 'message' => 'success'
             ], 200);
@@ -200,6 +198,7 @@ class UserController extends Controller
     public function updateMemberProfile(Request $request)
     {
         try {
+            \Log::error("ID:". $request->id);
             // Find the user by ID
             $user = User::findOrFail($request->id);
 
@@ -603,7 +602,61 @@ class UserController extends Controller
         return response()->json(['message' => 'Deleted successfully'], 200);
     }
 
+    public function adminReviewDelete(Request $request) {
+        $id = $request->input('id');
+        $query = Review::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        $query->delete();
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+
+    public function adminDeleteLog(Request $request) {
+        $id = $request->input('id');
+        $query = UserLog::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        $query->delete();
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+    
+    
+    public function adminDeleteAccount(Request $request) { 
+        $id = $request->input('id');
+        $query = User::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        $query->delete();
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+    
     
 
+    public function adminCreateUser(Request $request)
+    {
+        try {
+    
+            Log::error( print_r($request->all(), true) );
+            User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'password' => $request->password,
+                'verification_code' => $request->verification_code,
+                'type' => "Member",
+                'email_verified_at' => Carbon::now(),
+            ]);
+            return response()->json([
+                'message' => 'success'
+            ], 200);
+    
+        } catch (\Exception $e) {
+            Log::error('User creation failed: ' . $e->getMessage());
+            return response()->json(['message' => 'Server error, please try again later.'], 400);
+        }
+    }
 
 }

@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\UserPlan;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Models\UserLog;
+use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -15,6 +17,13 @@ class PaymentController extends Controller
 
     public function overTheCounterPayment (Request $request) {
         $userPlan = UserPlan::create($request->all());
+
+        UserLog::create([
+            'log_user_id' => $request->input('user_id'),
+            'log_description' => 'Has been requested to avail of a membership plan.',
+            'log_date' => Carbon::now(),
+        ]);
+
         return redirect()->route('member.plan.thankyou');
     }
     
@@ -37,6 +46,13 @@ class PaymentController extends Controller
  
         \Log::info('REQUEST 1:', $request->all());
 
+
+
+        UserLog::create([
+            'log_user_id' => $request->input('user_id'),
+            'log_description' => 'Has been requested to avail of a membership plan.',
+            'log_date' => Carbon::now(),
+        ]);
 
         //This is working fine ...
         UserPlan::create([

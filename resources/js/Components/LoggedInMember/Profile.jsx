@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { usePage } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react"; 
 
 export default function Profile() {
     const { get_user_info, cu_user_id } = usePage().props;

@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { usePage } from "@inertiajs/react";
 import DataTable from 'react-data-table-component';
+import moment from "moment";
 
-const ListOfGalleryImages = () => {
-    const {   get_all_images } = usePage().props;
+const ListOfAllActivityLog = () => {
+    const {   get_logs } = usePage().props;
 
     const [searchQuery, setSearchQuery] = useState(""); // Search state
  
 
     const [editForm, setEditForm] = useState({
-            galleryImage: "",
-            galleryId: ""
+            logDescription: "",
+            logDate: "",
+            logId: ""
     });
     const [selectedToEditImageId, setSelectedToEditImageId] = useState(null);
 
     const columns = [
+ 
 
         { 
-        name: 'Image',
-        selector: row => <img src={`/template/images/${row.gallery_image}`} alt="Trainer" style={{ width: '100px', height: '100px', objectFit: 'cover' }} />,
-        sortable: true,
-        },
- 
+          name: 'Description',
+          selector: row => row.first_name+" "+row.last_name+ " "+row.log_description,
+          sortable: true,
+          },
+          { 
+            name: 'Date',
+            selector: row =>    moment(row.log_date).format("MMMM D, YYYY") ,
+            sortable: true,
+            },
         {
         name: 'Option',
         cell: row => (
+    
+
             <>
                 <a
                     href="#"
@@ -40,13 +49,13 @@ const ListOfGalleryImages = () => {
         },
     ];
 
+  
 
   const handleDeleteImage = async (ImageId) => {
-    console.log("Delete membership with ID:", ImageId);
-    const isConfirmed = window.confirm("Are you sure you want to delete this image?");
+    const isConfirmed = window.confirm("Are you sure you want to delete this log?");
     if (!isConfirmed) return;
     try {
-      const response = await fetch(`/admin/gallery/add-image/delete?id=${ImageId}`, {
+      const response = await fetch(`/admin/history/delete?id=${ImageId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +65,7 @@ const ListOfGalleryImages = () => {
       });
       if (response.ok) {
         alert("Successfully deleted.");
-        window.location.href = "/admin/gallery/list-image";
+        window.location.href = "/admin/history";
       } else {
         alert("Failed to delete.");
       }
@@ -65,38 +74,35 @@ const ListOfGalleryImages = () => {
     }
   };
 
-
-//   Filter data based on search query
-  const filteredData = get_all_images.filter(item => {
-    const galleryImage = item.gallery_image.toLowerCase();
-    return (
-        galleryImage.includes(searchQuery.toLowerCase())
-     
-    );
-  });
+// Filter data based on search query
+const filteredData = get_logs.filter(log => {
+  const combinedDescription = `${log.first_name} ${log.last_name} ${log.log_description}`.toLowerCase();
+  return combinedDescription.includes(searchQuery.toLowerCase());
+});
 
 
- 
+
   return (
     <div>
       <div className="col-12">
         <div className="card recent-sales overflow-auto">
           <div className="card-body">
-            <h5 className="card-title">List Of Images</h5>
+
+            <h5 className="card-title">Activity History / Logs</h5>
             <DataTable
               columns={columns}
               pagination
               data={filteredData} 
               highlightOnHover
               subHeader
-            //   subHeaderComponent={
-            //     <input
-            //       type="text"
-            //       placeholder="Search"
-            //       onChange={(e) => setSearchQuery(e.target.value)}
-            //       style={{ width: "100%", margin: "0" }}
-            //     />
-            //   }
+              subHeaderComponent={
+                <input
+                  type="text"
+                  placeholder="Search"
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ width: "100%", margin: "0" }}
+                />
+              }
             /> 
           </div>
         </div>
@@ -106,4 +112,4 @@ const ListOfGalleryImages = () => {
   );
 };
 
-export default ListOfGalleryImages;
+export default ListOfAllActivityLog;

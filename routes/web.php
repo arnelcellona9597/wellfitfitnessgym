@@ -94,8 +94,15 @@ Route::get('/admin/inventory/list-item', [PageRenderController::class, 'adminAdd
 Route::get('/admin/gallery/add-image', [PageRenderController::class, 'adminGalleryAdd']); 
 Route::get('/admin/gallery/list-image', [PageRenderController::class, 'adminGalleryList']); 
 
-
 Route::get('/admin/reviews', [PageRenderController::class, 'adminReviews']); 
+
+Route::get('/admin/history', [PageRenderController::class, 'adminHistory']); 
+
+Route::get('/admin/profile', [PageRenderController::class, 'adminProfile']); 
+
+Route::get('/admin/list-account', [PageRenderController::class, 'adminProfileList']); 
+
+Route::get('/admin/add-account', [PageRenderController::class, 'adminAddUserAccount']); 
 
 // ADMINISTRATOR
 Route::get('/admin', [PageRenderController::class, 'adminIndex'])->name("admin.index");
@@ -129,3 +136,11 @@ Route::post('/admin/inventory/add-item/delete', [UserController::class, 'adminDe
 
 Route::post('/admin/gallery/add-image/add', [UserController::class, 'adminGalleryAdd']); 
 Route::post('/admin/gallery/add-image/delete', [UserController::class, 'adminGalleryDelete']); 
+
+Route::post('/admin/reviews/reviews/delete', [UserController::class, 'adminReviewDelete']); 
+
+Route::post('/admin/history/delete', [UserController::class, 'adminDeleteLog']); 
+
+Route::post('/admin/list-account/delete', [UserController::class, 'adminDeleteAccount']); 
+
+Route::post('/admin/signup', [UserController::class, 'adminCreateUser']);

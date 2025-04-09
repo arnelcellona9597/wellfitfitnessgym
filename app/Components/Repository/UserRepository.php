@@ -3,6 +3,7 @@ namespace App\Components\Repository;
 
 use App\Models\User;
 use App\Models\UserPlan;
+use App\Models\UserLog;
 
 use App\Mail\UserRegisteredMail;
 use App\Mail\UserForgotPasswordMail;
@@ -33,6 +34,13 @@ class UserRepository
         Cookie::queue(Cookie::make('email', $data['email'], 60, null, null, false, false));
         Cookie::queue(Cookie::make('verification_code', $data['verification_code'], 60, null, null, false, false));
 
+
+        UserLog::create([
+            'log_user_id' => $user->id,
+            'log_description' => 'Member account has been created.',
+            'log_date' => Carbon::now(),
+        ]);
+
     }
 
 
@@ -48,6 +56,7 @@ class UserRepository
         // Update email_verified_at to current timestamp
         $user->email_verified_at = Carbon::now();
         $user->save();
+        
     }
 
 

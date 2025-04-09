@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { usePage } from "@inertiajs/react"; 
 
 export default function AdminSidebar() {
+
+    const { cu_user_id } = usePage().props;
+
     return (
         <aside id="sidebar" className="sidebar">
             <ul className="sidebar-nav" id="sidebar-nav">
                 <li className="nav-item">
-                    <a className="nav-link" href="index.html">
+                    <a className="nav-link" href="/admin/">
                         <i className="bi bi-grid" />
                         <span>Dashboard</span>
                     </a>
@@ -60,9 +64,9 @@ export default function AdminSidebar() {
                         <i className="bi bi-chevron-down ms-auto" />
                     </a>
                     <ul id="account-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
-                        <li><a href="#"><i className="bi bi-circle" /><span>Profile</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>Add Customer</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>List of Customers</span></a></li>
+                        <li><a href={`/admin/profile?id=${cu_user_id}`}><i className="bi bi-circle" /><span>Profile</span></a></li>
+                        <li><a href="/admin/add-account"><i className="bi bi-circle" /><span>Add Account</span></a></li>
+                        <li><a href="/admin/list-account"><i className="bi bi-circle" /><span>List of Account</span></a></li>
                     </ul>
                 </li>
                 
@@ -93,7 +97,7 @@ export default function AdminSidebar() {
                 </li>
                 
                 <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <a className="nav-link" href="/signin/">
                         <i className="bi bi-box-arrow-right" />
                         <span>Logout</span>
                     </a>

@@ -1,11 +1,14 @@
 
 
 import React, { useState } from 'react';
+import { usePage } from "@inertiajs/react";
 
 export default function ContactForm() {
-
-
+    const { cu_user_id } = usePage().props;
+  
   const [formData, setFormData] = useState({
+    
+          user_id: cu_user_id,
           name: '',
           email: '',
           number: '',
@@ -49,6 +52,7 @@ export default function ContactForm() {
 
               setSuccessMessage('Thank you for reaching out! Your message has been received by the administrator...');
               setFormData({
+                user_id: cu_user_id,
                 name: '',
                 email: '',
                 number: '',
@@ -106,6 +110,16 @@ export default function ContactForm() {
 
           {showForm && (
               <form onSubmit={handleSubmit} className="search-404">
+
+
+                  <input
+                      type="hidden"
+                      name="user_id"
+                      value={cu_user_id}
+                      onChange={handleChange}
+                      placeholder=""
+                      required
+                  />
 
                   <input
                       type="text"

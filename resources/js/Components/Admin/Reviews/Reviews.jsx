@@ -16,7 +16,14 @@ const ListOfAllReviews = () => {
     },
     {
       name: 'Image',
-      selector: row => <img src={`/template/images/${row.profile}`} alt="Trainer" style={{ width: '75px', height: '75px', objectFit: 'cover' }} />,
+      selector: row => (
+        <img 
+          src={row.profile ? `/template/images/${row.profile}` : '/template/member/img/Portrait_Placeholder.png'} 
+          alt="No image" 
+          style={{ width: '50px' }} 
+        />
+      ),
+
       sortable: true,
     },
     {
@@ -59,11 +66,11 @@ const ListOfAllReviews = () => {
   const handleDeleteMembershipPlan = async (reviewshipId) => {
     console.log("Delete reviewship with ID:", reviewshipId);
 
-    const isConfirmed = window.confirm("Are you sure you want to delete this reviewship?");
+    const isConfirmed = window.confirm("Are you sure you want to delete this review?");
     if (!isConfirmed) return;
 
     try {
-      const response = await fetch(`/review/account-history/review-plan-delete?id=${reviewshipId}`, {
+      const response = await fetch(`/admin/reviews/reviews/delete?id=${reviewshipId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,9 +81,9 @@ const ListOfAllReviews = () => {
 
       if (response.ok) {
         alert("Successfully deleted.");
-        window.location.href = "/admin/reviewship/list-of-reviews/";
+        window.location.href = "/admin/reviews";
       } else {
-        alert("Failed to delete reviewship.");
+        alert("Failed to delete.");
       }
     } catch (error) {
       console.error("Error submitting:", error);
