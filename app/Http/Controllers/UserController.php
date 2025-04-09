@@ -11,7 +11,8 @@ use App\Models\Plan;
 use App\Models\User;
 use App\Models\UserPlan;
 use App\Models\UserTrainer;
-
+use App\Models\Inventory;
+use App\Models\Gallery;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MembershipPlanVerificationCodeMail;
@@ -499,5 +500,110 @@ class UserController extends Controller
         $query->delete();
         return response()->json(['message' => 'Deleted'], 200);
     }
+
+    
+    public function adminAddInventory(Request $request)
+    {
+        try {
+            $filename = null;
+    
+            if ($request->hasFile('inventory_image')) {
+                $file = $request->file('inventory_image');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('template/images'), $filename);
+            }
+    
+           Inventory::create([
+                'inventory_name' => $request->inventory_name,
+                'inventory_image' => $filename,
+                'inventory_description' => $request->inventory_description,
+                'inventory_quantity' => $request->inventory_quantity,
+            ]);
+    
+            return response()->json(['message' => 'Added Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function adminEditInventory(Request $request)
+    {
+        try {
+       
+            $db = \App\Models\Inventory::findOrFail($request->id);
+    
+            if ($request->hasFile('inventory_image')) {
+                $file = $request->file('inventory_image');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('template/images'), $filename);
+                $db->inventory_image = $filename;
+            }
+    
+            $db->inventory_name = $request->inventory_name;
+        
+            $db->inventory_description = $request->inventory_description;
+            $db->inventory_quantity = $request->inventory_quantity;
+
+            $db->save();
+    
+            return response()->json(['message' => 'Updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
+        
+    public function adminDeleteInventory(Request $request) {
+        $id = $request->input('id');
+        $query = Inventory::find($id);
+        if (!$query) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        $query->delete();
+        return response()->json(['message' => 'Deleted'], 200);
+    }
+
+
+    public function adminGalleryAdd(Request $request)
+    {
+        try {
+            $filename = null;
+    
+            if ($request->hasFile('gallery_image')) {
+                $file = $request->file('gallery_image');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('template/images'), $filename);
+            }
+    
+           Gallery::create([
+                'gallery_image' => $filename,
+            ]);
+    
+            return response()->json(['message' => 'Added Successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
+    public function adminGalleryList(Request $request)
+    {
+    }
+
+    public function adminGalleryDelete(Request $request) {
+        $id = $request->input('id');
+        // Find the plan by ID
+        $query = Gallery::find($id);
+        // Check if plan exists
+        if (!$query) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        // Delete the plan
+        $query->delete();
+        return response()->json(['message' => 'Deleted successfully'], 200);
+    }
+
+    
+
 
 }

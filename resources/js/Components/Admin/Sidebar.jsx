@@ -27,8 +27,6 @@ export default function AdminSidebar() {
                     </ul>
                 </li>
                 
-               
-                
                 <li className="nav-item">
                     <a className="nav-link collapsed" data-bs-toggle="collapse" href="#trainer-nav">
                         <i className="bi bi-person" />
@@ -51,7 +49,7 @@ export default function AdminSidebar() {
                     </a>
                     <ul id="inventory-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
                         <li><a href="/admin/inventory/add-item"><i className="bi bi-circle" /><span>Add Item</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>List of All Items</span></a></li>
+                        <li><a href="/admin/inventory/list-item"><i className="bi bi-circle" /><span>List of All Items</span></a></li>
                     </ul>
                 </li>
                 
@@ -75,20 +73,20 @@ export default function AdminSidebar() {
                         <i className="bi bi-chevron-down ms-auto" />
                     </a>
                     <ul id="gallery-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
-                        <li><a href="#"><i className="bi bi-circle" /><span>Add Image</span></a></li>
-                        <li><a href="#"><i className="bi bi-circle" /><span>List of All Images</span></a></li>
+                        <li><a href="/admin/gallery/add-image"><i className="bi bi-circle" /><span>Add Image</span></a></li>
+                        <li><a href="/admin/gallery/list-image"><i className="bi bi-circle" /><span>List of All Images</span></a></li>
                     </ul>
                 </li>
                 
                 <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <a className="nav-link" href="/admin/reviews">
                         <i className="bi bi-star" />
                         <span>Reviews</span>
                     </a>
                 </li>
                 
                 <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <a className="nav-link" href="/admin/history">
                         <i className="bi bi-clock-history" />
                         <span>Logs (Recent Activity)</span>
                     </a>

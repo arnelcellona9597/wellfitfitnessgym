@@ -89,7 +89,13 @@ Route::get('/admin/book-trainer/add-trainer/', [PageRenderController::class, 'ad
  
 Route::get('/admin/book-trainer/view-booking-details/', [PageRenderController::class, 'adminViewBookingDetails']); 
 Route::get('/admin/book-trainer/trainer-list/', [PageRenderController::class, 'adminTrainerList']); 
+Route::get('/admin/inventory/list-item', [PageRenderController::class, 'adminAddInventory']); 
 
+Route::get('/admin/gallery/add-image', [PageRenderController::class, 'adminGalleryAdd']); 
+Route::get('/admin/gallery/list-image', [PageRenderController::class, 'adminGalleryList']); 
+
+
+Route::get('/admin/reviews', [PageRenderController::class, 'adminReviews']); 
 
 // ADMINISTRATOR
 Route::get('/admin', [PageRenderController::class, 'adminIndex'])->name("admin.index");
@@ -115,3 +121,11 @@ Route::post('/admin/book-trainer/booking-list/approve', [UserController::class, 
 
 Route::post('/admin/book-trainer/add-trainer/edit', [UserController::class, 'adminEditTrainer']); 
 Route::post('/admin/book-trainer/add-trainer/delete', [UserController::class, 'adminDeleteTrainer']); 
+
+Route::post('/admin/inventory/add-item/add', [UserController::class, 'adminAddInventory']); 
+Route::post('/admin/inventory/add-item/edit', [UserController::class, 'adminEditInventory']); 
+Route::post('/admin/inventory/add-item/delete', [UserController::class, 'adminDeleteInventory']); 
+
+
+Route::post('/admin/gallery/add-image/add', [UserController::class, 'adminGalleryAdd']); 
+Route::post('/admin/gallery/add-image/delete', [UserController::class, 'adminGalleryDelete']); 

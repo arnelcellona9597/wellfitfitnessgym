@@ -119,9 +119,6 @@ export default function Reviews() {
                                     <div className="col-lg-12 text-center">
                                         <div className="ti_pic">
 
-                                        
-
-                                            
                                             <img 
                                                 src={review?.profile 
                                                     ? `/template/images/${review.profile}` 

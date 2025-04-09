@@ -4,7 +4,7 @@ const AddTrainor = () => {
   const [trainerName, setTrainerName] = useState("");
   const [trainerImage, setTrainerImage] = useState(null);
 
-  const handleAddPlan = async (e) => {
+  const handleAddPlan = async (e) => { 
     e.preventDefault();
 
     if (!trainerName.trim() || !trainerImage) {
@@ -29,7 +29,7 @@ const AddTrainor = () => {
       console.log(result);
       if (response.ok) {
         alert("Added Successfully.");
-        // window.location.href = "/admin/book-trainer/trainer-list/";
+        window.location.href = "/admin/book-trainer/trainer-list/";
       } else {
         alert("Failed to add trainor.");
       }

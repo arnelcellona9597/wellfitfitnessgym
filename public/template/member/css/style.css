@@ -3829,3 +3829,34 @@ ul.ul-element {
 	width: auto;
     object-fit: cover;
 }
+
+.class-item .ci-pic img {
+    transform: scale(1);
+    transition: all 0.5s linear;
+}
+
+.class-item:hover img {
+    transform: scale(1.3);
+}
+
+.class-item .ci-pic {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
+.custom-gallery-section .gs-item {
+	overflow: hidden;
+    cursor: pointer;
+}
+.custom-gallery-section .gs-item img {
+	height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: all 0.5s linear;
+}
+
+.custom-gallery-section .gs-item:hover img {
+	transform: scale(1.3);
+}

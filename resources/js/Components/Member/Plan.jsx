@@ -6,14 +6,9 @@ export default function Plan() {
 
     
     const { get_all_plans } = usePage().props;
-
+ 
     return (
        <>
-
-
-
-
-
         <section className="pricing-section spad">
             <div className="container">
             <div className="row">

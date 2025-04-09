@@ -10,7 +10,10 @@ use App\Models\Plan;
 use App\Models\UserPlan;
 use App\Models\Trainer;
 use App\Models\UserTrainer;
- 
+use App\Models\Inventory;
+use App\Models\Gallery;
+
+
 use Illuminate\Support\Facades\Log;
 
 class PageRenderController extends Controller
@@ -24,6 +27,8 @@ class PageRenderController extends Controller
             'reviews' => Review::getReviews(),
             'get_all_plans' => Plan::getAllPlans(),
             'trainers' => Trainer::trainers(),  
+            'get_all_inventory_items' => Inventory::getAllInventoryItems(),
+            'get_all_images' => Gallery::getAllGalleryImages(),
         ]);
     }
 
@@ -400,5 +405,38 @@ class PageRenderController extends Controller
             'cu_user_id' => $request->cookie('cu_user_id'), 
         ]);
     }
+
+    public function adminAddInventory(Request $request)
+    {
+        return Inertia::render('Admin/Inventory/ListItem', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+            'get_all_inventory_items' => Inventory::getAllInventoryItems(),
+        ]);
+    }
+
+
+    public function adminGalleryAdd(Request $request)
+    {
+        return Inertia::render('Admin/Gallery/AddImage', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+        ]); 
+    }
+
+    public function adminGalleryList(Request $request)
+    {
+        return Inertia::render('Admin/Gallery/ListImage', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+            'get_all_images' => Gallery::getAllGalleryImages(),
+        ]); 
+    }
+
+    public function adminReviews(Request $request)
+    {
+        return Inertia::render('Admin/Reviews/Reviews', [
+            'cu_user_id' => $request->cookie('cu_user_id'), 
+            'reviews' => Review::getReviews(),
+        ]); 
+    }
+    
 
 }
