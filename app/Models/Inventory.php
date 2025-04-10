@@ -42,7 +42,16 @@ class Inventory extends Model
             })
             ->sum('inventory_quantity');
     }
-    
-    
 
+    public static function getTotalInventoryData($startDate = null, $endDate = null)
+    {
+        return self::when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('created_at', [
+                \Carbon\Carbon::parse($startDate)->startOfDay(),
+                \Carbon\Carbon::parse($endDate)->endOfDay()
+            ]);
+        })->get();
+    }
+
+    
 }

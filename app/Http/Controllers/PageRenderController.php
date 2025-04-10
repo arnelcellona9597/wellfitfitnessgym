@@ -315,10 +315,18 @@ class PageRenderController extends Controller
             'stats_total_reviews' => Review::getTotalReviews($startDate, $endDate),
 
             'stats_total_sales' => User::getTotalSales($startDate, $endDate),
+            'stats_total_sales_by_otc' => User::getTotalSalesByOTC($startDate, $endDate),
+            'stats_total_sales_by_GCASH' => User::getTotalSalesByGCASH($startDate, $endDate),
+            'stats_total_inventory' => Inventory::getTotalInventoryData($startDate, $endDate),
 
+            'stats_total_report_membership' => User::getTotalReportMembership($startDate, $endDate),
+            'stats_total_report_booking' => User::getTotalReportBooking($startDate, $endDate),
+            
+            
+            
             'filters' => [
                 'start_date' => $startDate,
-                'end_date' => $endDate,
+                'end_date' => $endDate, 
             ],
         ]);
     }

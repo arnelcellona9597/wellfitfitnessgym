@@ -197,7 +197,7 @@ export default function TrainorForm() {
                             trainer_user_id:  get_user_info.id,
                             trainer_id:  get_trainer_by_id.id,
                             trainer_payment_method:  paymentMethod,
-                            trainer_status: "Approve",
+                            trainer_status: "Approved",
                             trainer_duration: trainerDuration,
                             trainer_time_schedule: timeSchedule,
                             trainer_total_price: trainer_total_price,

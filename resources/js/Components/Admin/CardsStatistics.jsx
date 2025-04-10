@@ -13,7 +13,7 @@ export default function AdminCardsStatistics() {
                 <div className="card info-card sales-card">
                     <div className="card-body">
                         <h5 className="card-title">
-                            Sales <span>| All-Time </span>
+                            Sales  
                         </h5>
                         <div className="d-flex align-items-center">
                             <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -33,7 +33,7 @@ export default function AdminCardsStatistics() {
                 <div className="card info-card sales-card">
                     <div className="card-body">
                         <h5 className="card-title">
-                            Total Members <span>| All-Time  </span>
+                            Total Members  
                         </h5>
                         <div className="d-flex align-items-center">
                             <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -48,13 +48,13 @@ export default function AdminCardsStatistics() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
 
             <div className="col-xxl-4 col-md-6">
                 <div className="card info-card sales-card">
                     <div className="card-body">
                         <h5 className="card-title">
-                            Book for Trainer <span>| All-Time </span>
+                            Book for Trainer 
                         </h5>
                         <div className="d-flex align-items-center">
                             <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -75,7 +75,7 @@ export default function AdminCardsStatistics() {
                 <div className="card info-card sales-card">
                     <div className="card-body">
                         <h5 className="card-title">
-                            Total Equipment <span>| All-Time </span>
+                            Total Equipment  
                         </h5>
                         <div className="d-flex align-items-center">
                             <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -96,7 +96,7 @@ export default function AdminCardsStatistics() {
                 <div className="card info-card sales-card">
                     <div className="card-body">
                         <h5 className="card-title">
-                            Staffs and Trainers <span>| All-Time </span>
+                            Staffs and Trainers  
                         </h5>
                         <div className="d-flex align-items-center">
                             <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -117,7 +117,7 @@ export default function AdminCardsStatistics() {
                 <div className="card info-card sales-card">
                     <div className="card-body">
                         <h5 className="card-title">
-                            Reviews <span>| All-Time </span>
+                            Reviews 
                         </h5>
                         <div className="d-flex align-items-center">
                             <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">

@@ -170,7 +170,7 @@ export default function MembershipForm() {
                             payment_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
                             start_date: startDate.format("YYYY-MM-DD HH:mm:ss"),
                             end_date:  endDate.format("YYYY-MM-DD HH:mm:ss"),
-                            status: 'Approve'
+                            status: 'Approved'
                       
                         }),
                     }); 

@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactECharts from "echarts-for-react";
+import { usePage } from "@inertiajs/react"; 
+
 
 const BudgetChartCard = () => {
+
+   
+  const { stats_total_sales_by_otc, stats_total_sales_by_GCASH } = usePage().props;
+
   const chartRef = useRef(null);
   const [chartReady, setChartReady] = useState(false);
 
@@ -42,13 +48,13 @@ const BudgetChartCard = () => {
       {
         name: "GCASH",
         type: "bar",
-        data: [4200],
+        data: [stats_total_sales_by_GCASH],
         itemStyle: { color: "#4CAF50" }, // Green color
       },
       {
         name: "Over The Counter",
         type: "bar",
-        data: [3000],
+        data: [stats_total_sales_by_otc], 
         itemStyle: { color: "#800080" }, // Violet color
       },
     ],
@@ -58,7 +64,8 @@ const BudgetChartCard = () => {
     <div className="card">
       <div className="card-body pb-0">
         <h5 className="card-title">
-          Payment Method Reports <span>| All-Time</span>
+  
+          Payment Method Reports 
         </h5>
         {/* Bar Chart */}
         <div style={{ minHeight: "400px" }}>
