@@ -3,7 +3,7 @@ import React from 'react';
 export default function GetInTouch() {
     return (
         <>
-        <section className="banner-section set-bg" data-setbg="/template/member/img/banner-bg.jpg">
+        <section className="banner-section set-bg banner-git-section"          >
             <div className="container">
                 <div className="row">
                 <div className="col-lg-12 text-center">

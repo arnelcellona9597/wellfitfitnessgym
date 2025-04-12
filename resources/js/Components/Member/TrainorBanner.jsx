@@ -4,11 +4,13 @@ export default function TrainorBanner() {
     return (
        <> 
  
-  
-        <section
-            className="breadcrumb-section set-bg"
-            data-setbg="/template/member/img/breadcrumb-bg.jpg"
-        >
+ <section
+            className="breadcrumb-section  "
+            style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/template/images/13.png)`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}>
             <div className="container">
             <div className="row">
                 <div className="col-lg-12 text-center">

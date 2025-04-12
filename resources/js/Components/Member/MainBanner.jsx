@@ -5,7 +5,11 @@ export default function MainBanner() {
        <> 
         <section className="hero-section">
             <div className="hs-slider owl-carousel">
-            <div className="hs-item set-bg" data-setbg="/template/member/img/hero/hero-1.jpg">
+            <div className="hs-item  "   style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/template/images/14.jpg)`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}>
                 <div className="container">
                 <div className="row">
                     <div className="col-lg-6 offset-lg-6">
@@ -22,7 +26,11 @@ export default function MainBanner() {
                 </div>
                 </div>
             </div>
-            <div className="hs-item set-bg" data-setbg="/template/member/img/hero/hero-2.jpg">
+            <div className="hs-item  "   style={{
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(/template/images/6.jpg)`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}>
                 <div className="container">
                 <div className="row">
                     <div className="col-lg-6 offset-lg-6">

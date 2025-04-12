@@ -8,17 +8,19 @@ export default function AboutWhatWeHaveDone() {
         <section className="aboutus-section">
     <div className="container-fluid">
       <div className="row">
-        <div className="col-lg-6 p-0">
-          <div className="about-video set-bg" data-setbg="/template/member/img/about-us.jpg">
-            <a
-              href="https://www.youtube.com/watch?v=Pn3BwxVh_S8"
-              className="play-btn video-popup"
-            >
-              <i className="fa fa-caret-right" />
-            </a>
-          </div>
+        <div className="col-lg-4 p-0">
+        <div className="about-video">
+  <video
+    src="/template/images/video.mov"
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{ width: '100%', height: '100%', maxHeight: '600px', padding: '30px 0', background: '#151515' }} // Optional styling
+  />
+</div>
         </div>
-        <div className="col-lg-6 p-0">
+        <div className="col-lg-8 p-0">
           <div className="about-text">
             <div className="section-title">
               <span>About Us</span>

@@ -1,1 +1,0 @@
-import{j as r}from"./app-D9cl6I5v.js";import{M as t}from"./Head-U2RSZJwe.js";import{C as o,a}from"./ContactForm-B30Y0n-n.js";import{H as s,F as e}from"./Footer-zz5htLuC.js";import"./Helmet-D5oZ0rTI.js";function p(){return r.jsxs(r.Fragment,{children:[r.jsx(t,{}),r.jsx(s,{}),r.jsx(o,{}),r.jsx(a,{}),r.jsx(e,{})]})}export{p as default};
