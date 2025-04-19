@@ -209,7 +209,9 @@ class UserController extends Controller
                 $destinationPath = public_path('template/images/'); // Dynamic path
 
                 // Move file to the destination path
-                $file->move($destinationPath, $fileName);
+                $file->move(base_path('template/images'), $filename);
+
+
 
                 // Store only the file name in the database
                 $user->profile = $fileName;
@@ -434,7 +436,8 @@ class UserController extends Controller
             if ($request->hasFile('trainer_image')) {
                 $file = $request->file('trainer_image');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('template/images'), $filename);
+                $file->move(base_path('template/images'), $filename);
+
             }
     
             \App\Models\Trainer::create([
@@ -473,7 +476,8 @@ class UserController extends Controller
             if ($request->hasFile('trainer_image')) {
                 $file = $request->file('trainer_image');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('template/images'), $filename);
+                $file->move(base_path('template/images'), $filename);
+
                 $trainer->trainer_image = $filename;
             }
     
@@ -511,7 +515,8 @@ class UserController extends Controller
             if ($request->hasFile('inventory_image')) {
                 $file = $request->file('inventory_image');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('template/images'), $filename);
+                $file->move(base_path('template/images'), $filename);
+
             }
     
            Inventory::create([
@@ -536,7 +541,9 @@ class UserController extends Controller
             if ($request->hasFile('inventory_image')) {
                 $file = $request->file('inventory_image');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('template/images'), $filename);
+                $file->move(base_path('template/images'), $filename);
+
+
                 $db->inventory_image = $filename;
             }
     
@@ -573,7 +580,9 @@ class UserController extends Controller
             if ($request->hasFile('gallery_image')) {
                 $file = $request->file('gallery_image');
                 $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('template/images'), $filename);
+                $file->move(base_path('template/images'), $filename);
+
+
             }
     
            Gallery::create([
