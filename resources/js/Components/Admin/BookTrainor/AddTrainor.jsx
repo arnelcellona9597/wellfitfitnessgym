@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 const AddTrainor = () => {
   const [trainerName, setTrainerName] = useState("");
+  const [logDescription, setLogDescription] = useState("");
+  
   const [trainerImage, setTrainerImage] = useState(null);
 
   const handleAddPlan = async (e) => { 
@@ -15,6 +17,7 @@ const AddTrainor = () => {
     const formData = new FormData();
     formData.append("trainer_name", trainerName);
     formData.append("trainer_image", trainerImage);
+    formData.append("log_description", logDescription);
 
     try {
       const response = await fetch(`/admin/book-trainer/add-trainer/add`, {
@@ -58,6 +61,22 @@ const AddTrainor = () => {
           </div>
 
           <div className="row mb-3">
+            <label htmlFor="log_description" className="col-sm-2 col-form-label">Description</label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                id="log_description"
+                name="log_description"
+                className="form-control"
+                value={logDescription}
+                onChange={(e) => setLogDescription(e.target.value)}
+              />
+            </div>
+          </div>
+
+          
+
+          <div className="row mb-3">
             <label htmlFor="trainer_image" className="col-sm-2 col-form-label">Trainor Image</label>
             <div className="col-sm-10">
               <input
@@ -69,6 +88,8 @@ const AddTrainor = () => {
               />
             </div>
           </div>
+
+
 
           <div className="row mb-3">
             <label className="col-sm-2 col-form-label"></label>

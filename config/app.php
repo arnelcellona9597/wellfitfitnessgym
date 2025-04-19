@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://127.0.0.1:8000'),
+    'url' => env('APP_URL', 'https://wellfitfitnessgym.com'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -186,7 +186,7 @@ return [
     ])->toArray(),
 
 
-    'page_account_activation' => env('PAGE_ACCOUNT_ACTIVATION', 'http://127.0.0.1:8000/activate-account'),
-    'page_reset_password' => env('PAGE_RESET_PASSWORD', 'http://127.0.0.1:8000/reset-password'),
+    'page_account_activation' => env('PAGE_ACCOUNT_ACTIVATION', 'https://wellfitfitnessgym.com/activate-account'),
+    'page_reset_password' => env('PAGE_RESET_PASSWORD', 'https://wellfitfitnessgym.com/reset-password'),
     
 ];

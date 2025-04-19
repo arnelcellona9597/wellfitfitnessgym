@@ -13,7 +13,8 @@ class Trainer extends Model
 
     protected $fillable = [
         'trainer_name', 
-        'trainer_image'
+        'trainer_image',
+        'log_description'
     ]; 
 
     public static function trainers()

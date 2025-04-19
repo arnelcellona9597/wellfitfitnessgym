@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {   useState } from "react";
 import { usePage } from "@inertiajs/react";
-import moment from "moment";
+ 
 import DataTable from 'react-data-table-component';
 
 const ListOfBookings = () => {
@@ -12,6 +12,7 @@ const ListOfBookings = () => {
     const [editForm, setEditForm] = useState({
             trainerName: "",
             trainerImage: "",
+            trainerLogDescription: "",
             trainerId: ""
     });
     const [selectedToEditPlanId, setSelectedToEditPlanId] = useState(null);
@@ -29,6 +30,11 @@ const ListOfBookings = () => {
             sortable: true,
         },
         
+        {
+          name: 'Description',
+          selector: row => `${row.log_description || 'N/A'}`,
+          sortable: true,
+      },
         {
         name: 'Option',
         cell: row => (
@@ -76,6 +82,7 @@ const ListOfBookings = () => {
     
         if (editForm.trainerImage instanceof File) {
             formData.append("trainer_image", editForm.trainerImage);
+            formData.append("log_description", editForm.trainerLogDescription);
         }
 
         console.log(editForm.trainerId+" : "+editForm.trainerName+" : "+editForm.trainerImage);
@@ -111,6 +118,7 @@ const ListOfBookings = () => {
         if (selectedTrainer) {
             setEditForm({
                 trainerName: selectedTrainer.trainer_name || "",
+                trainerLogDescription: selectedTrainer.log_description || "",
                 trainerImage: "", // Let the user choose a new image
                 trainerId: selectedTrainer.id || ""
             });
@@ -215,8 +223,23 @@ const ListOfBookings = () => {
 
                         </div>
                     </div>
+ 
+                    <div className="row mb-3">
+                        <label htmlFor="trainerLogDescription" className="col-sm-2 col-form-label">Description</label>
+                        <div className="col-sm-10">
+                        <input
+                          type="text"
+                          id="trainerLogDescription"
+                          name="trainerLogDescription"
+                          className="form-control"
+                          value={editForm.trainerLogDescription}
+                          onChange={(e) => setEditForm({ ...editForm, trainerLogDescription: e.target.value })}
+                        />
 
-                    {/* Description */}
+                        </div>
+                    </div>
+
+               
                     <div className="row mb-3">
                         <label htmlFor="trainerImage" className="col-sm-2 col-form-label">Trainer Image</label>
                         <div className="col-sm-10">

@@ -440,6 +440,7 @@ class UserController extends Controller
             \App\Models\Trainer::create([
                 'trainer_name' => $request->trainer_name,
                 'trainer_image' => $filename,
+                'log_description' => $request->log_description,
             ]);
     
             return response()->json(['message' => 'Trainer added successfully']);
@@ -478,6 +479,7 @@ class UserController extends Controller
     
             // Update trainer name
             $trainer->trainer_name = $request->trainer_name;
+            $trainer->log_description = $request->log_description;
     
             // Save the updated trainer
             $trainer->save();

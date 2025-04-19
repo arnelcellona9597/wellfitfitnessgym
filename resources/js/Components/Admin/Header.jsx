@@ -28,7 +28,7 @@ export default function AdminHeader() {
           
           <li className="nav-item dropdown pe-3">
             <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-              <img src="/template/admin/assets/img/profile-img.jpg" alt="Profile" className="rounded-circle" />
+              <img src={`/template/images/${get_user_info.profile}`} alt="Profile" className="rounded-circle" />
               <span className="d-none d-md-block dropdown-toggle ps-2">{get_user_info.first_name} {get_user_info.last_name}</span>
             </a>
             
