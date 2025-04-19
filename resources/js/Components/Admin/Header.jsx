@@ -3,6 +3,11 @@ import { usePage } from "@inertiajs/react";
 
 export default function AdminHeader() {
     const { get_user_info } = usePage().props;
+
+    if ( !get_user_info ) {
+      window.location = "/";
+    }
+
   return (
     <header id="header" className="header fixed-top d-flex align-items-center">
       <div className="d-flex align-items-center justify-content-between">

@@ -1,1 +1,0 @@
-import{j as r}from"./app-DZ0vAk-i.js";import{M as o}from"./Head-CN3LtnRe.js";import{T as s}from"./TrainorBanner-D0jSBEUT.js";import{H as a,F as m}from"./Footer-Dbln17AP.js";import{T as t}from"./Trainor-P9hbPfHn.js";import"./Helmet-Bf1uoCAg.js";function f(){return r.jsxs(r.Fragment,{children:[r.jsx(o,{}),r.jsx(a,{}),r.jsx(s,{}),r.jsx(t,{}),r.jsx(m,{})]})}export{f as default};
