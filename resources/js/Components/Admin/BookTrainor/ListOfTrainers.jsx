@@ -79,10 +79,10 @@ const ListOfBookings = () => {
         const formData = new FormData();
         formData.append("id", editForm.trainerId);
         formData.append("trainer_name", editForm.trainerName);
+        formData.append("log_description", editForm.trainerLogDescription);
     
         if (editForm.trainerImage instanceof File) {
             formData.append("trainer_image", editForm.trainerImage);
-            formData.append("log_description", editForm.trainerLogDescription);
         }
 
         console.log(editForm.trainerId+" : "+editForm.trainerName+" : "+editForm.trainerImage);

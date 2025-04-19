@@ -201,21 +201,17 @@ class UserController extends Controller
             \Log::error("ID:". $request->id);
             // Find the user by ID
             $user = User::findOrFail($request->id);
-
+ 
             // Handle profile image upload
             if ($request->hasFile('profile')) {
-                $file = $request->file('profile');
+                $file = $request->file('profile'); 
                 $fileName = time() . '_' . $file->getClientOriginalName(); // Unique filename
-                $destinationPath = public_path('template/images/'); // Dynamic path
-
-                // Move file to the destination path
-                $file->move(base_path('template/images'), $filename);
-
-
+               
+                $file->move(base_path('template/images'), $fileName);
 
                 // Store only the file name in the database
-                $user->profile = $fileName;
-            }
+                $user->profile = $fileName; 
+            } 
 
             // Update only if the field is not null
             if (!is_null($request->first_name)) {
@@ -224,7 +220,7 @@ class UserController extends Controller
             if (!is_null($request->last_name)) {
                 $user->last_name = $request->last_name;
             }
-            if (!is_null($request->email)) {
+            if (!is_null($request->email)) { 
                 $user->email = $request->email;
             }
             if (!is_null($request->phone)) {
@@ -246,7 +242,7 @@ class UserController extends Controller
 
 
             // Save changes
-            $user->save();
+            $user->save(); 
 
             return response()->json([
                 'message' => 'success',
