@@ -297,7 +297,7 @@ export default function TrainorForm() {
                             <div className="col-lg-6">
                                 <div className="section-title chart-title">
                                     <span> Wellfit Fitness Gym - Terms and Conditions</span>
-                                    <h2>By booking our gym trainor, you agree to these terms:</h2>
+                                    <h2>By booking our gym trainer, you agree to these terms:</h2>
 
                                     <ul className="ul-element">
                                         <li>Training sessions run daily from 8 AM to 5 PM.</li>

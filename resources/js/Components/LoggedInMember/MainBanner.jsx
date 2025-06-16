@@ -40,7 +40,7 @@
                            Book  <strong>Personal </strong> Trainer
                        </h1>
                        <a href="/member/trainor" className="primary-btn">
-                         View Trainor
+                         View Trainer
                        </a>
                      </div>
                      </div>
@@ -56,8 +56,8 @@
            <div className="gt-text">
              <i className="fa fa-map-marker" />
              <p>
-               2nd Crumb Street, Barangay Zone II,
-               <br /> Digos, Philippines
+                Marwasa, Poblacion, Malita, 
+               <br /> Davao Occidental
              </p>
            </div>
          </div>

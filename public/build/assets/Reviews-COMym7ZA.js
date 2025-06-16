@@ -1,0 +1,1 @@
+import{j as r}from"./app-CMSVI-JE.js";import{M as s}from"./Head-C_Aio00y.js";import{H as e,F as o}from"./Footer-BNyKXJXE.js";import{R as m}from"./ReviewsBanner-C0rWmuQ3.js";import{R as t}from"./Reviews-DR9AWV41.js";import"./Helmet-CMBpA21e.js";function f(){return r.jsxs(r.Fragment,{children:[r.jsx(s,{}),r.jsx(e,{}),r.jsx(m,{}),r.jsx(t,{}),r.jsx(o,{})]})}export{f as default};

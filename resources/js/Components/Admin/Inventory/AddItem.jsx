@@ -41,7 +41,7 @@ const AddItem = () => {
             alert("Added Successfully.");
             window.location.href = "/admin/inventory/list-item";
           } else {
-            alert("Failed to add trainor.");
+            alert("Failed to add trainer.");
           }
         } catch (error) {
           console.error("Adding failed:", error);

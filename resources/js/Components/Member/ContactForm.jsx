@@ -85,9 +85,9 @@ export default function ContactForm() {
             <div className="cw-text">
               <i className="fa fa-map-marker" />
               <p>
-              2nd Crumb Street, Barangay Zone II,
-              <br /> Digos, Philippines
-            </p>
+                Marwasa, Poblacion, Malita, 
+               <br /> Davao Occidental
+             </p>
             </div>
             <div className="cw-text">
               <i className="fa fa-mobile" />

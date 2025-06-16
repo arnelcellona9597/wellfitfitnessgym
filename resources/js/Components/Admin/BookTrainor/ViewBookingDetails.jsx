@@ -92,7 +92,7 @@ const ViewBookingDetails = () => {
           {get_booktrainer_by_id.status == "Approved" ? (
               <h5 className="mb-0">Tranor Booking Confirmation</h5>
             ) :
-              <h5 className="mb-0">Booking Trainor Request</h5>
+              <h5 className="mb-0">Booking Trainer Request</h5>
           }
         </div>
         <div className="card-body p-0 m-0 ">
@@ -115,7 +115,7 @@ const ViewBookingDetails = () => {
               <hr />
               <div className="details">
                 <p className="mb-1"><strong>Customer Name:</strong>{ get_booktrainer_by_id.first_name }  { get_booktrainer_by_id.last_name }</p>
-                <p className="mb-1"><strong>Trainor Name:</strong> { get_booktrainer_by_id.trainer_name }</p>
+                <p className="mb-1"><strong>Trainer Name:</strong> { get_booktrainer_by_id.trainer_name }</p>
 
                 <p className="mb-1"><strong>Duration:</strong>{ get_booktrainer_by_id.trainer_duration }</p>
 

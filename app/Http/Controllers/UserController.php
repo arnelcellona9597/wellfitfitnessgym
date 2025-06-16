@@ -94,7 +94,7 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
             Log::error('User creation failed: ' . $e->getMessage());
-            return response()->json(['message' => 'Server error, please try again later.'], 400);
+            return response()->json(['message' => 'Incorrect email or password.'], 400);
         }
     }
 

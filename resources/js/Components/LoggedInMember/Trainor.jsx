@@ -14,7 +14,7 @@ export default function Trainor() {
     <div className="col-lg-12">
       <div className="team-title">
         <div className="section-title">
-          <span>Our Trainors</span>
+          <span>Our Trainers</span>
           <h2>TRAIN WITH EXPERTS</h2>
         </div>
         {/* <a href="/trainor" className="primary-btn btn-normal appoinment-btn">
@@ -25,7 +25,6 @@ export default function Trainor() {
   </div>
   <div className="row">
     <div className="ts-slider owl-carousel">
-
      {trainers.map((trainer) => (
         <div className="col-lg-4">
           <div className="ts-item set-bg" data-setbg={`/template/images/${trainer.trainer_image}`}>
@@ -33,7 +32,7 @@ export default function Trainor() {
               <h4>{trainer.trainer_name}</h4>
               <span>₱2,000/Month · 1h 30m/Day</span>
               <span>{trainer.log_description}</span>
-              <a href={`/member/trainor/form?id=${trainer.id}`}  className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+              <a href={`/member/trainor/form?id=${trainer.id}`}  className="primary-btn btn-normal appoinment-btn">Book Trainer</a>
             </div>
           </div>
         </div>

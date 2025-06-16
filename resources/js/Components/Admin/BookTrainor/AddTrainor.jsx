@@ -34,7 +34,7 @@ const AddTrainor = () => {
         alert("Added Successfully.");
         window.location.href = "/admin/book-trainer/trainer-list/";
       } else {
-        alert("Failed to add trainor.");
+        alert("Failed to add trainer.");
       }
     } catch (error) {
       console.error("Adding failed:", error);
@@ -44,10 +44,10 @@ const AddTrainor = () => {
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">Add New Trainor</h5>
+        <h5 className="card-title">Add New Trainer</h5>
         <form onSubmit={handleAddPlan} encType="multipart/form-data">
           <div className="row mb-3">
-            <label htmlFor="trainer_name" className="col-sm-2 col-form-label">Trainor Name</label>
+            <label htmlFor="trainer_name" className="col-sm-2 col-form-label">Trainer Name</label>
             <div className="col-sm-10">
               <input
                 type="text"
@@ -77,7 +77,7 @@ const AddTrainor = () => {
           
 
           <div className="row mb-3">
-            <label htmlFor="trainer_image" className="col-sm-2 col-form-label">Trainor Image</label>
+            <label htmlFor="trainer_image" className="col-sm-2 col-form-label">Trainer Image</label>
             <div className="col-sm-10">
               <input
                 type="file"

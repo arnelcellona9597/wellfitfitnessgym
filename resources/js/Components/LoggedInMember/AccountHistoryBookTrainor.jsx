@@ -23,7 +23,7 @@ export default function AccountHistoryBookTrainor() {
 
                 {get_booktrainer_by_id?.trainer_status === "Pending" && (
                                         <>
-                                        <h1>Booking Trainor Request</h1>
+                                        <h1>Booking Trainer Request</h1>
                                         <p>Please sunmit receipt to the gym staff and pay.</p>
                                     </>
                     )}
@@ -31,7 +31,7 @@ export default function AccountHistoryBookTrainor() {
                     {get_booktrainer_by_id?.trainer_status === "Approved" && (
                                      <>
 
-                                     <h1>Trainor Booking Confirmation</h1>
+                                     <h1>Trainer Booking Confirmation</h1>
                                      <p>Thank you for trusting our professional gym trainer.</p>
              
                                  </>
@@ -49,19 +49,15 @@ export default function AccountHistoryBookTrainor() {
                     </div>
 
                     <div className="receipt-item">
-                        <span>Trainor Name: &nbsp;&nbsp; </span>
+                        <span>Trainer Name: &nbsp;&nbsp; </span>
                         <strong>{ get_booktrainer_by_id.trainer_name }</strong>
                     </div>
-
 
                     <div className="receipt-item">
                         <span>Duration:&nbsp;&nbsp;</span>
                         <strong>{ get_booktrainer_by_id.trainer_duration }</strong>
                     </div>
 
-
-
-              
 
                     <div className="receipt-item">
                         <span>Training Session Start:</span>

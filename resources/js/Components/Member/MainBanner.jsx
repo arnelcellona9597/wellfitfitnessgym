@@ -40,7 +40,7 @@ export default function MainBanner() {
                           Book  <strong>Personal </strong> Trainer
                       </h1>
                       <a href="/trainor" className="primary-btn">
-                        View Trainor
+                        View Trainer
                       </a>
                     </div>
                     </div>
@@ -56,9 +56,9 @@ export default function MainBanner() {
           <div className="gt-text">
             <i className="fa fa-map-marker" />
             <p>
-              2nd Crumb Street, Barangay Zone II,
-              <br /> Digos, Philippines
-            </p>
+                Marwasa, Poblacion, Malita, 
+               <br /> Davao Occidental
+             </p>
           </div>
         </div>
         <div className="col-md-4">

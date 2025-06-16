@@ -17,13 +17,13 @@ export default function adminAddBooking() {
  
   <main id="main" className="main">
     <div className="pagetitle">
-      <h1>Add Booking for Trainor</h1>
+      <h1>Add Booking for Trainers</h1>
       <nav>
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
             <a href="#">Home</a>
           </li>
-          <li className="breadcrumb-item active">Add Booking for Trainor</li>
+          <li className="breadcrumb-item active">Add Booking for Trainer</li>
         </ol>
       </nav>
     </div>

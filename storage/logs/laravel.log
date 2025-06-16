@@ -3018,3 +3018,7 @@
 [2025-04-19 18:53:50] local.ERROR: ID:2  
 [2025-04-19 18:53:50] local.ERROR: User update failed: Undefined variable $filename  
 [2025-04-19 18:57:21] local.ERROR: ID:2  
+[2025-06-16 16:23:31] local.ERROR: User creation failed: Email or password is incorrect.  
+[2025-06-16 16:26:16] local.ERROR: User creation failed: Email or password is incorrect.  
+[2025-06-16 16:26:24] local.ERROR: User creation failed: Email or password is incorrect.  
+[2025-06-16 16:26:24] local.ERROR: User creation failed: Email or password is incorrect.  

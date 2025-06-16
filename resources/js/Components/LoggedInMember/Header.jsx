@@ -39,7 +39,7 @@ export default function Header() {
                             <a href="/member/plans">Plans</a>
                         </li>
                         <li>
-                            <a href="/member/trainor">Trainor</a>
+                            <a href="/member/trainor">Trainer</a>
                         </li>
                         <li>
                             <a href="/member/reviews">Reviews</a>
@@ -84,7 +84,7 @@ export default function Header() {
                                     <a href="/member/plans">Plans</a>
                                 </li>
                                 <li>
-                                    <a href="/member/trainor">Trainor</a>
+                                    <a href="/member/trainor">Trainer</a>
                                 </li>
                                 <li>
                                     <a href="/member/reviews">Reviews</a>

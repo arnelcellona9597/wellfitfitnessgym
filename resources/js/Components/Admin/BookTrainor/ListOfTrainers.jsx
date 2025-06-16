@@ -129,7 +129,7 @@ const ListOfBookings = () => {
   const handleDeleteTrainer = async (membershipId) => {
     console.log("Delete membership with ID:", membershipId);
 
-    const isConfirmed = window.confirm("Are you sure you want to delete this trainor?");
+    const isConfirmed = window.confirm("Are you sure you want to delete this trainer?");
     if (!isConfirmed) return;
 
     try {
@@ -194,11 +194,10 @@ const ListOfBookings = () => {
       <div className="col-12">
         <div className="card recent-sales overflow-auto">
           <div className="card-body">
-            <h5 className="card-title">Edit Trainor</h5>
+            <h5 className="card-title">Edit Trainer</h5>
 
                 <form onSubmit={handleEditTrainer} encType="multipart/form-data">
-                   
-                    
+
                     <input
                         type="hidden"
                         id="trainerId"

@@ -17,13 +17,13 @@ export default function adminAddTrainor() {
  
   <main id="main" className="main">
     <div className="pagetitle">
-      <h1>Add Trainor</h1>
+      <h1>Add Trainer</h1>
       <nav>
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
             <a href="#">Home</a>
           </li>
-          <li className="breadcrumb-item active">Add Trainor</li>
+          <li className="breadcrumb-item active">Add Trainer</li>
         </ol>
       </nav>
     </div>

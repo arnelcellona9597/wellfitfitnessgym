@@ -81,7 +81,7 @@ export default function Footer() {
                 <a href="/member/about">About</a>
               </li>
               <li>
-                <a href="/member/trainor">Book Trainor</a>
+                <a href="/member/trainor">Book Trainer</a>
               </li>
               <li>
                 <a href="/member/reviews">Customer Reviews</a>

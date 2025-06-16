@@ -23,7 +23,7 @@ export default function PlanSuccess() {
 
                 {get_user_latest_booktrainor?.trainer_status === "Pending" && (
                                         <>
-                                        <h1>Booking Trainor Request</h1>
+                                        <h1>Booking Trainer Request</h1>
                                         <p>Please sunmit receipt to the gym staff and pay.</p>
                                     </>
                     )}
@@ -31,13 +31,11 @@ export default function PlanSuccess() {
                     {get_user_latest_booktrainor?.trainer_status === "Approve" && (
                                      <>
 
-                                     <h1>Trainor Booking Confirmation</h1>
+                                     <h1>Trainer Booking Confirmation</h1>
                                      <p>Thank you for trusting our professional gym trainer.</p>
              
                                  </>
                     )}
-
-
    
                 <div className="receipt">
                     <h2>Receipt #{ get_user_latest_booktrainor.id }</h2>
@@ -49,7 +47,7 @@ export default function PlanSuccess() {
                     </div>
 
                     <div className="receipt-item">
-                        <span>Trainor Name: &nbsp;&nbsp; </span>
+                        <span>Trainer Name: &nbsp;&nbsp; </span>
                         <strong>{ get_user_latest_booktrainor.trainer_name }</strong>
                     </div>
 

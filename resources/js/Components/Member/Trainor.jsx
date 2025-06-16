@@ -12,7 +12,7 @@ export default function Trainor() {
     <div className="col-lg-12">
       <div className="team-title">
         <div className="section-title">
-          <span>Our Trainors</span>
+          <span>Our Trainers</span>
           <h2>TRAIN WITH EXPERTS</h2>
         </div>
         {/* <a href="/trainor" className="primary-btn btn-normal appoinment-btn">
@@ -31,7 +31,7 @@ export default function Trainor() {
               <h4>{trainer.trainer_name}</h4>
               <span>₱2,000/Month · 1h 30m/Day</span>
               <span>{trainer.log_description}</span>
-              <a href="/signin/" className="primary-btn btn-normal appoinment-btn">Book Trainor</a>
+              <a href="/signin/" className="primary-btn btn-normal appoinment-btn">Book Trainer</a>
             </div>
           </div>
         </div>

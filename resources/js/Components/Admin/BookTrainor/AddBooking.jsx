@@ -82,7 +82,7 @@ const adminAddBooking = () => {
     return (
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">Select a member account and trainor to book a class session.</h5>
+          <h5 className="card-title">Select a member account and trainer to book a class session.</h5>
           <form>
 
             <div className="row mb-3">
