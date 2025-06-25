@@ -45,16 +45,16 @@ export default function Signup() {
             console.log("result: "+result); 
 
             setSuccessMessage('Check your email to activate your account...');
-            setFormData({
-                first_name: '',
-                last_name: '',
-                email: '',
-                password: '',
-                type: 'Member'
-            });
+            // setFormData({
+            //     first_name: '',
+            //     last_name: '',
+            //     email: '',
+            //     password: '',
+            //     type: 'Member'
+            // });
 
             // ✅ Hide form and show success message
-            setShowForm(false);
+            // setShowForm(false);
 
 
         } 
@@ -63,12 +63,8 @@ export default function Signup() {
             // console.log("error: "+error); 
         }  
         finally {
-            setIsSubmitting(false); // ✅ Re-enable submit button
+            // setIsSubmitting(false); // ✅ Re-enable submit button
         }
-
-      
-
-
 
     };
 
@@ -109,9 +105,13 @@ export default function Signup() {
                                             {errors.password && <p className="text-danger">{errors.password}</p>}
 
                                             <br />
-                                            <button type="submit" className="color-white" disabled={isSubmitting}>
+                                            {/* <button type="submit" className="color-white" disabled={isSubmitting}>
                                                 <i className="fa fa-plus"></i> {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+                                            </button> */}
+                                            <button type="submit" className="color-white"  >
+                                                <i className="fa fa-sign-in"></i> {isSubmitting ? 'Resend Verification' : 'Sign Up'}
                                             </button>
+
                                         </form>
                                     )}
                                     

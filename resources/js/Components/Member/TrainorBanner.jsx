@@ -15,10 +15,10 @@ export default function TrainorBanner() {
             <div className="row">
                 <div className="col-lg-12 text-center">
                 <div className="breadcrumb-text">
-                    <h2>Trainors</h2>
+                    <h2>Trainers</h2>
                     <div className="bt-option">
                     <a href="#">Home</a>
-                    <span>Our Trainors</span>
+                    <span>Our Trainers</span>
                     </div>
                 </div>
                 </div>
@@ -27,7 +27,6 @@ export default function TrainorBanner() {
         </section>
 
  
-
        </>
     );
 }

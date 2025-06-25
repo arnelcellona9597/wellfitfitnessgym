@@ -117,7 +117,7 @@ export default function Footer() {
         </div>
         <div className="col-lg-4 col-md-6">
           <div className="fs-widget">
-            <h4>Customer Reviews</h4>
+            <h4>Customer Reviews</h4> 
  
 
             {two_latest_reviews.map((two_latest_review) => (

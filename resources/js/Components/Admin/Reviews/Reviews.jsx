@@ -44,6 +44,18 @@ const ListOfAllReviews = () => {
         ),
         sortable: true,
       },
+
+      {
+        name: 'Comments',
+        selector: row => row.comment,
+        cell: row => (
+          <div style={{ whiteSpace: 'normal', wordBreak: 'break-word', maxWidth: '300px' }}>
+            {row.comment}
+          </div>
+        ),
+        sortable: false,
+        grow: 2, // Optional: Makes the column wider
+      },
       
     {
       name: 'Option',
@@ -105,7 +117,7 @@ const ListOfAllReviews = () => {
       <div className="col-12">
         <div className="card recent-sales overflow-auto">
           <div className="card-body">
-            <h5 className="card-title">List Of Members</h5>
+            <h5 className="card-title">List Of Reviews</h5>
             <DataTable
               columns={columns}
               data={filteredData}

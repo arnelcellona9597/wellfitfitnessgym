@@ -23,8 +23,9 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MembershipPlanVerificationCodeMail;
 use App\Mail\BookTrainerVerificationCodeMail;
- 
+use App\Mail\UserRegisteredMail;
 use App\Mail\UserForgotPasswordMail;
+ 
 
 class UserController extends Controller
 {
@@ -38,23 +39,63 @@ class UserController extends Controller
 
     public function createUser(Request $request)
     { 
-        $validated = $request->validate([
-            'email' => 'required|email|unique:users,email',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'password' => 'required|string',
-            'type' => 'required|string',
-            'verification_code' => 'required|string'
-        ]);
-    
-        try {
-            $this->UserService->createUser($validated);
+ 
+        Log::error( print_r($request->all()['first_name'], true) );
+        Log::error( print_r($request->all()['last_name'], true) );
+        Log::error( print_r($request->all()['email'], true) );
+        Log::error( print_r($request->all()['password'], true) );
+        Log::error( print_r($request->all()['type'], true) );
+        Log::error( print_r($request->all()['verification_code'], true) );
+        
+       $data = $request->all();
+
+        // Check if email exists
+        if (User::where('email', $data['email'])->whereNotNull('email_verified_at')->exists()) {
+
+            Log::error( "NOT ADDED, ALREADY EXIST" );
+
+            throw new \Exception('The email is already in use.');
+        } 
+        else if (User::where('email', $data['email'])->whereNull('email_verified_at')->exists()) {
+            // Create user
+         
+            Log::error( "RESENT CODE" );
+
+            Mail::to($data['email'])->queue(new UserRegisteredMail($data));
+
+            // Clear the PHP cookie called "Email"
+            Cookie::queue(Cookie::forget('email'));
+            Cookie::queue(Cookie::forget('verification_code'));
+
+            // Optionally, set a new cookie with the user's email (expires in 60 minutes)
+            Cookie::queue(Cookie::make('email', $data['email'], 60, null, null, false, false));
+            Cookie::queue(Cookie::make('verification_code', $data['verification_code'], 60, null, null, false, false));
+
+            return response()->json(['message' => 'Resent Verification Code!'], 201);
+        }
+        else {
+            // Create user
+
+            Log::error( "USER CREATED" );
+            $user = User::create($data);
+            Mail::to($user->email)->queue(new UserRegisteredMail($data));
+
+            // Clear the PHP cookie called "Email"
+            Cookie::queue(Cookie::forget('email'));
+            Cookie::queue(Cookie::forget('verification_code'));
+
+            // Optionally, set a new cookie with the user's email (expires in 60 minutes)
+            Cookie::queue(Cookie::make('email', $data['email'], 60, null, null, false, false));
+            Cookie::queue(Cookie::make('verification_code', $data['verification_code'], 60, null, null, false, false));
+
+
+            UserLog::create([
+                'log_user_id' => $user->id,
+                'log_description' => 'Member account has been created.',
+                'log_date' => Carbon::now(),
+            ]);
+
             return response()->json(['message' => 'User created successfully!'], 201);
-
-
-        } catch (\Exception $e) {
-            // Log::error('User creation failed: ' . $e->getMessage());
-            return response()->json(['message' => 'Server error, please try again later.'], 500);
         }
     }
 

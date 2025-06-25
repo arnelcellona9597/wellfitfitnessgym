@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import { usePage } from '@inertiajs/react';
 import { useCookies } from 'react-cookie';
 
@@ -18,6 +18,27 @@ export default function Header() {
     if (!cu_user_id) {
         window.location.href = '/signin/';
     }
+
+    useEffect(() => {
+        const handleScroll = () => {
+          const header = document.querySelector('.header-section');
+          if (!header) return;
+    
+          if (window.scrollY > 0) {
+            header.classList.add('custom-sticky-header');
+          } else {
+            header.classList.remove('custom-sticky-header');
+          }
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+    
+        // Cleanup on unmount
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+
 
     return (
         <>

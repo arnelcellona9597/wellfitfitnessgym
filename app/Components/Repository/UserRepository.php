@@ -17,10 +17,14 @@ class UserRepository
 {
     public function createUser(array $data)
     {
-        // Check if email exists
-        if (User::where('email', $data['email'])->exists()) {
-            throw new \Exception('The email is already in use.');
-        }
+        // // Check if email exists
+        // if (User::where('email', $data['email'])->whereNotNull('email_verified_at')->exists()) {
+        //     throw new \Exception('The email is already in use.');
+        // } 
+        // else if (User::where('email', $data['email'])->whereNull('email_verified_at')->exists()) {
+            
+        // }
+
 
         // Create user
         $user = User::create($data);
