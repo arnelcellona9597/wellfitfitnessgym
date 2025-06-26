@@ -122,6 +122,8 @@ const ViewBookingDetails = () => {
                 <p className="mb-1"><strong>Training Session Start:</strong> {moment(get_booktrainer_by_id.start_date).format("MMMM D, YYYY")}</p>
                 <p className="mb-1"><strong>Training Session End:</strong> {moment(get_booktrainer_by_id.end_date).format("MMMM D, YYYY")}</p>
 
+                <p className="mb-1"><strong>Training Time Schedule:</strong> {get_booktrainer_by_id.trainer_time_schedule} </p>
+
                 <p className="mb-1"><strong>Payment Method:</strong> {get_booktrainer_by_id.trainer_payment_method}</p>
 
                 <p className="mb-1"><strong>Booking Status:</strong> <span className="badge bg-success">{get_booktrainer_by_id.trainer_status}</span></p>

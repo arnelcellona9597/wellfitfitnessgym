@@ -261,6 +261,7 @@ class PageRenderController extends Controller
             'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
             'trainers' => Trainer::trainers(),  
             'get_trainer_by_id' => Trainer::getTrainerByID( $request->query('id') ),
+            'get_all_user_booktrainor' => UserTrainer::getAllUserBookTrainor(),
         ]);
     }
     
@@ -413,7 +414,7 @@ class PageRenderController extends Controller
             'get_all_user_booktrainor' => UserTrainer::getAllUserBookTrainor(),
             'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
         ]);
-    }
+    } 
 
 
     public function adminViewBookingDetails(Request $request)

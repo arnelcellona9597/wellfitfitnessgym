@@ -75,6 +75,14 @@ export default function PlanSuccess() {
                     </div>
 
                     <div className="receipt-item">
+                        <span>Time Schedule:</span>
+                        <strong>
+                            {get_user_latest_booktrainor.trainer_time_schedule}
+                        </strong>
+                    </div>
+
+
+                    <div className="receipt-item">
                         <span>Payment Method: &nbsp;&nbsp;</span>
                         <strong>{get_user_latest_booktrainor.trainer_payment_method}</strong>
                     </div>

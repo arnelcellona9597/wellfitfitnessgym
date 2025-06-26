@@ -210,6 +210,12 @@ export default function TrainorForm() {
                     }); 
                     const data = await response.json();
                     console.log("Sending Data:", data);
+
+                    if (data.message == "This trainer is already booked during the selected schedule." ) {
+                        alert("The selected date and time are not available. Please choose another schedule.");
+
+                    }
+
                     if (data.redirect_url) {
                         // Redirect user to the next step (step 2)
                         window.location.href = data.redirect_url;
@@ -260,7 +266,21 @@ export default function TrainorForm() {
                         }),
                     });
 
-            
+                    const data = await response.json();
+                    console.log(data);
+                    if (data.message == "This trainer is already booked during the selected schedule." ) {
+                        alert("The selected date and time are not available. Please choose another schedule.");
+                    }
+
+                    if (data.message == "You have already requested schedule for training." ) {
+                        alert("You have already requested schedule for training.");
+                    }
+
+                    if (data.message == "Success" ) {
+                        window.location.href = "/member/trainor/thank-you";
+                    }
+                    
+
                     if (!response.ok) {
                         const result = await response.json();
                         setErrors({ general: result.message || "Error submitting!" });

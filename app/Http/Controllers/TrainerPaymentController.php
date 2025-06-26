@@ -16,8 +16,66 @@ class TrainerPaymentController extends Controller
 { 
  
     public function trainerOverTheCounterPayment (Request $request) {
-        $userPlan = UserTrainer::create($request->all());
-        return redirect()->route('member.trainer.thankyou');
+
+        // Parse start and end dates
+        $startDate = $request->trainer_start_date;
+        $endDate = $request->trainer_end_date;
+
+        // Check for conflicts
+        $conflict = UserTrainer::where('trainer_id', $request->trainer_id)
+            ->where('trainer_time_schedule', $request->trainer_time_schedule)
+            ->where('trainer_status', 'Approved')
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('trainer_start_date', [$startDate, $endDate])
+                    ->orWhereBetween('trainer_end_date', [$startDate, $endDate])
+                    ->orWhere(function ($query) use ($startDate, $endDate) {
+                        $query->where('trainer_start_date', '<=', $startDate)
+                            ->where('trainer_end_date', '>=', $endDate);
+                    });
+            })
+            ->exists();
+
+        if ($conflict) {
+            \Log::info('Return 3');
+            return response()->json([
+                'success' => false,
+                'message' => 'This trainer is already booked during the selected schedule.'
+            ], 409); // 409 Conflict
+        }
+
+
+        // Check for conflicts
+        $conflict2 = UserTrainer::where('trainer_id', $request->trainer_id)
+            ->where('trainer_time_schedule', $request->trainer_time_schedule)
+            ->where('trainer_status', 'Pending')
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('trainer_start_date', [$startDate, $endDate])
+                    ->orWhereBetween('trainer_end_date', [$startDate, $endDate])
+                    ->orWhere(function ($query) use ($startDate, $endDate) {
+                        $query->where('trainer_start_date', '<=', $startDate)
+                            ->where('trainer_end_date', '>=', $endDate);
+                    });
+            })
+            ->exists();
+
+        if ($conflict2) {
+            \Log::info('Return 3');
+            return response()->json([
+                'success' => false,
+                'message' => 'You have already requested schedule for training.'
+            ], 409); // 409 Conflict
+        }
+
+
+        \Log::info('Return 2');
+        $userPlan = UserTrainer::create($request->all()); 
+        
+        \Log::info('Return 1');
+        // return redirect()->route('member.trainer.thankyou');
+        return response()->json([
+            'success' => false,
+            'message' => 'Success'
+        ], 200); // 409 Conflict
 
         UserLog::create([
             'log_user_id' => $request->input('user_id'),
@@ -50,9 +108,34 @@ class TrainerPaymentController extends Controller
             'log_date' => Carbon::now(),
         ]);
 
-        \Log::info('REQUEST 1:', $request->all());
+        \Log::info('REQUEST all 1:', $request->all());
  
-     
+        // Parse start and end dates
+        $startDate = $request->trainer_start_date;
+        $endDate = $request->trainer_end_date;
+
+        // Check for conflicts
+        $conflict = UserTrainer::where('trainer_id', $request->trainer_id)
+            ->where('trainer_time_schedule', $request->trainer_time_schedule)
+            ->where('trainer_status', 'Approved')
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('trainer_start_date', [$startDate, $endDate])
+                    ->orWhereBetween('trainer_end_date', [$startDate, $endDate])
+                    ->orWhere(function ($query) use ($startDate, $endDate) {
+                        $query->where('trainer_start_date', '<=', $startDate)
+                            ->where('trainer_end_date', '>=', $endDate);
+                    });
+            })
+            ->exists();
+
+        if ($conflict) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This trainer is already booked during the selected schedule.'
+            ], 409); // 409 Conflict
+        }
+       
+        
   
         UserTrainer::create([
             'trainer_user_id' => $trainer_user_id,

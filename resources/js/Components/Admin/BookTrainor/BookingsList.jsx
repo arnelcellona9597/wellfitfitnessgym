@@ -15,7 +15,7 @@ const ListOfBookings = () => {
       sortable: true,
     },
     {
-      name: 'Plan Name',
+      name: 'Trainer Name',
       selector: row => row.trainer_name,
       sortable: true,
     },
@@ -27,6 +27,11 @@ const ListOfBookings = () => {
     {
       name: 'End Date',
       selector: row => row.trainer_end_date ? moment(row.trainer_end_date).format("MMMM D, YYYY") : "N/A",
+      sortable: true,
+    },
+    {
+      name: 'Time Schedule',
+      selector: row => row.trainer_time_schedule,
       sortable: true,
     },
     {
