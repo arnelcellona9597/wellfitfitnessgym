@@ -73,6 +73,13 @@ export default function AccountHistoryBookTrainor() {
                     </div>
 
                     <div className="receipt-item">
+                        <span>Time Schedule:</span>
+                        <strong>
+                            {get_booktrainer_by_id.trainer_time_schedule}
+                        </strong>
+                    </div>
+
+                    <div className="receipt-item">
                         <span>Payment Method: &nbsp;&nbsp;</span>
                         <strong>{get_booktrainer_by_id.trainer_payment_method}</strong>
                     </div>
