@@ -3,9 +3,15 @@ import { usePage } from "@inertiajs/react";
 import Cookies from "js-cookie";
 import dayjs from "dayjs";
 
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
+
+
 export default function TrainorForm() {
 
-    const { get_trainer_by_id, get_user_info } = usePage().props;
+    const { get_trainer_by_id, get_user_info, get_all_user_booktrainor } = usePage().props;
     const [step, setStep] = useState(1);
     const [agreeChecked, setAgreeChecked] = useState(false);
     const [gcashNumber, setGcashNumber] = useState("");
@@ -58,6 +64,30 @@ export default function TrainorForm() {
     }, [trainerDuration]);
     
 
+    useEffect(() => {
+        const startDateCell = document.querySelectorAll(".priceTotal")[1];
+        const endDateCell = document.querySelectorAll(".priceTotal")[2];
+    
+        if (trainerStartDate && trainerDuration) {
+            const durationMonths = parseInt(trainerDuration); // expects values like "1 Month", "3 Months"
+            const parsedMonths = isNaN(durationMonths) ? parseInt(trainerDuration) : durationMonths;
+    
+            const startDate = dayjs(trainerStartDate);
+            const endDate = startDate.add(parsedMonths, 'month');
+    
+            if (startDateCell) {
+                startDateCell.textContent = startDate.format("YYYY-MM-DD");
+            }
+    
+            if (endDateCell) {
+                endDateCell.textContent = endDate.format("YYYY-MM-DD");
+            }
+        } else {
+            if (startDateCell) startDateCell.textContent = "";
+            if (endDateCell) endDateCell.textContent = "";
+        }
+    }, [trainerStartDate, trainerDuration]);
+    
 
     const resendVerifcation = async (event) => { 
         alert("Verification code has been RESEND.");
@@ -307,6 +337,51 @@ export default function TrainorForm() {
 
     const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
+
+    // Build a Set of taken schedule strings like "2025-07-19|8:00am - 9:30am"
+    const takenSchedules = new Set(
+        get_all_user_booktrainor.map((booking) => `${booking.trainer_start_date}|${booking.trainer_time_schedule}`)
+    );
+
+    const isDateFullyBooked = (date) => {
+        const timeSlots = [
+          "8:00am - 9:30am",
+          "9:30am - 11:00am",
+          "11:00am - 12:30pm",
+          "12:30pm - 2:00pm",
+          "2:00pm - 3:30pm"
+        ];
+      
+        return timeSlots.every((time) => takenSchedules.has(`${date}|${time}`));
+      };
+
+      const isTimeSlotTaken = (selectedDate, selectedTime) => {
+        return get_all_user_booktrainor.some((booking) => {
+            const start = dayjs(booking.trainer_start_date);
+            const end = dayjs(booking.trainer_end_date);
+            const selected = dayjs(selectedDate);
+            return (
+                booking.trainer_time_schedule === selectedTime &&
+                selected.isSameOrAfter(start, "day") &&
+                selected.isSameOrBefore(end, "day")
+            );
+        });
+    };
+    
+    const allTimeSlots = [
+        "8:00am - 9:30am",
+        "9:30am - 11:00am",
+        "11:00am - 12:30pm",
+        "12:30pm - 2:00pm",
+        "2:00pm - 3:30pm"
+      ];
+      
+      const isFullyBookedDay = trainerStartDate &&
+        allTimeSlots.every(time => isTimeSlotTaken(trainerStartDate, time));
+      
+
+      
+  
     return (
         <>
             {/* Step 1: Terms and Conditions */}
@@ -316,6 +391,9 @@ export default function TrainorForm() {
                         <div className="row">
                             <div className="col-lg-6">
                                 <div className="section-title chart-title">
+
+
+                                
                                     <span> Wellfit Fitness Gym - Terms and Conditions</span>
                                     <h2>By booking our gym trainer, you agree to these terms:</h2>
 
@@ -328,10 +406,8 @@ export default function TrainorForm() {
                                         <li>Proper gym attire is required during training sessions.</li>
                                         <li>Clients must follow the trainer’s guidance to ensure safety and effectiveness.</li>
                                         <li>Wellfit is not liable for injuries sustained during training sessions.</li>
-                                        <li>All personal information is kept confidential and will not be shared without consent.</li>
+                                        <li>All personal information is handled in compliance with Republic Act No. 10173 (Data Privacy Act of 2012).</li>
                                     </ul>
-
-
 
                                     <label className="agree-checkbox">
                                         <input
@@ -458,32 +534,90 @@ export default function TrainorForm() {
                                                 <td className="priceTotal"> ₱2000 Total Amount</td>
                                             </tr>
 
+
+                                            <tr>
+                                                <td className="point">Start Date:</td>
+                                                <td>{trainerStartDate ? dayjs(trainerStartDate).format("MMMM D, YYYY") : ""}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td className="point">End Date:</td>
+                                                <td>{trainerStartDate && trainerDuration ? dayjs(trainerStartDate).add(parseInt(trainerDuration), 'month').format("MMMM D, YYYY") : ""}</td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
+{/* 
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Trainer User ID</th>
+                                            <th>Trainer ID</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Time Schedule</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {get_all_user_booktrainor.map((allBookings) => (
+                                            <tr key={allBookings.id}>
+                                                <td>{allBookings.trainer_user_id}</td>
+                                                <td>{allBookings.trainer_id}</td>
+                                                <td>{allBookings.trainer_start_date}</td>
+                                                <td>{allBookings.trainer_end_date}</td>
+                                                <td>{allBookings.trainer_time_schedule}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table> */}
 
 
                                 <div className="payment-element-block mt-3 pt-2">
                                     <span className="orange-label">Select Schedule:</span>
-                                   
+                                
+                                    <input
+  className="trainer_start_date"
+  value={trainerStartDate}
+  onChange={(e) => setTrainerStartDate(e.target.value)}
+  type="date"
+  min={minDate}
+  style={{ backgroundColor: isDateFullyBooked(trainerStartDate) ? "#f8d7da" : "" }}
+  disabled={isDateFullyBooked(trainerStartDate)}
+/>
 
-                                    <input 
-                                    className="trainer_start_date" 
-                                    value={trainerStartDate}  
-                                    onChange={(e) => setTrainerStartDate(e.target.value)}  
-                                    type="date" min={minDate} />
 
-                                    <select name="trainer_time_schedule"
-                                    className="trainer_time_schedule" 
-                                    value={timeSchedule} // Use trainerDuration instead of paymentMethod
-                                    onChange={(e) => setTimeSchedule(e.target.value)} // Update trainerDuration correctly
-                                    >
-                                        <option value="8:00am - 9:30am">8:00am - 9:30am</option>
-                                        <option value="9:30am - 11:00am">9:30am - 11:00am</option>
-                                        <option value="11:00am - 12:30pm">11:00am - 12:30pm</option>
-                                        <option value="12:30pm - 2:00pm">12:30pm - 2:00pm</option>
-                                        <option value="2:00pm - 3:30pm">2:00pm - 3:30pm</option>
-                                    </select>
+{isFullyBookedDay && (
+  <p className="alert alert-warning mt-2">
+    All time slots for this date are already booked. Please choose another date.
+  </p>
+)}
+
+
+
+<select
+  name="trainer_time_schedule"
+  className="trainer_time_schedule"
+  value={timeSchedule}
+  onChange={(e) => setTimeSchedule(e.target.value)}
+>
+  {[
+    "8:00am - 9:30am",
+    "9:30am - 11:00am",
+    "11:00am - 12:30pm",
+    "12:30pm - 2:00pm",
+    "2:00pm - 3:30pm",
+  ].map((time) => {
+    const isTaken = trainerStartDate && isTimeSlotTaken(trainerStartDate, time);
+    return (
+      <option key={time} value={time} disabled={isTaken}>
+        {time} {isTaken ? "(Taken)" : ""}
+      </option>
+    );
+  })}
+</select>
+
+ 
 
 
                                     <select 

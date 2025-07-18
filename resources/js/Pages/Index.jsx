@@ -24,7 +24,7 @@ export default function Index() {
       <MemberWhyChooseUs />
       <MemberTrainor/>
       <MemberGetInTouch />
-            <MemberReviews />
+      <MemberReviews />
       <MemberFooter />
 
     </>

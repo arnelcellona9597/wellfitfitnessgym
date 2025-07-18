@@ -268,7 +268,7 @@ export default function MembershipForm() {
                                         <li>Proper attire and adherence to gym rules are required.</li>
                                         <li>Wellfit is not liable for injuries or lost items.</li>
                                         <li>Membership may be terminated for policy violations.</li>
-                                        <li>Privacy is respected; data will not be shared without consent.</li>
+                                        <li>All personal information is handled in compliance with Republic Act No. 10173 (Data Privacy Act of 2012).</li>
                                     </ul>
 
                                     <label className="agree-checkbox">
@@ -383,6 +383,17 @@ export default function MembershipForm() {
                                                 <td className="point">Duration:</td>
                                                 <td>{get_plan_by_id.duration}</td>
                                             </tr>
+
+                                            <tr>
+                                                <td className="point">Start Date:</td>
+                                                <td>{startDate.format("MMMM D, YYYY")}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td className="point">End Date:</td>
+                                                <td>{endDate.format("MMMM D, YYYY")}</td>
+                                            </tr>
+                                                                                        
                                         </tbody>
                                     </table>
                                 </div>

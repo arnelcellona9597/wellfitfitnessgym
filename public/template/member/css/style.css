@@ -3883,3 +3883,12 @@ ul.ul-element {
 	width: 25px;
     height: 25px;
 }
+
+.activeNav a {
+	color: #f36100 !important;
+}
+
+.profile-dropdown-content .activeNav,
+.profile-dropdown-content li {
+	display: block !important;
+}

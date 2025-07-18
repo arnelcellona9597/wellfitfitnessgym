@@ -3,9 +3,11 @@ import { usePage } from '@inertiajs/react';
 import { useCookies } from 'react-cookie';
 
 export default function Header() {
+
+    const { url } = usePage(); // Get the current page URL
+
     const { cu_user_id, get_user_info } = usePage().props;
     
-
     const [cookies, setCookie, removeCookie] = useCookies(['cu_user_id']);
 
     const handleLogout = () => {
@@ -40,6 +42,60 @@ export default function Header() {
       }, []);
 
 
+      const navItemsDesktop = [
+        { href: '/member/', label: 'Home' },
+        { href: '/member/about', label: 'About' },
+        { href: '/member/plans', label: 'Plans' },
+        { href: '/member/trainor', label: 'Trainer' },
+        { href: '/member/reviews', label: 'Reviews' },
+        { href: '/member/contact', label: 'Contact' },
+        ];
+
+        const renderNavLinksDesktop = () =>
+            navItemsDesktop.map((item) => (
+                <li key={item.href} className={url === item.href ? 'activeNav' : ''}>
+                    <a href={item.href}>{item.label}</a>
+                </li>
+        ));
+
+
+
+      const navItemsDropdownDesktop = [
+        { href: '/member/profile', label: 'Profile' },
+        { href: '/member/account-history', label: 'Account History' },
+        ];
+
+        const renderNavLinksDropdownDesktop = () =>
+            navItemsDropdownDesktop.map((item) => (
+                <li key={item.href} className={url === item.href ? 'activeNav' : ''}>
+                    <a href={item.href}>
+                        <i className="fa fa-sign-in" /> &nbsp;{item.label}
+                    </a>
+                </li>
+             
+        ));
+
+
+
+        const navItemsMobile= [
+            { href: '/member/', label: 'Home' },
+            { href: '/member/about', label: 'About' },
+            { href: '/member/plans', label: 'Plans' },
+            { href: '/member/trainor', label: 'Trainer' },
+            { href: '/member/reviews', label: 'Reviews' },
+            { href: '/member/contact', label: 'Contact' },
+            { href: '/member/profile', label: 'Profile' },
+            { href: '/member/account-history', label: 'Account History' },
+            ];
+    
+            const renderNavLinksMobile = () =>
+                navItemsMobile.map((item) => (
+                    <li key={item.href} className={url === item.href ? 'activeNav' : ''}>
+                        <a href={item.href}>{item.label}</a>
+                    </li>
+            ));
+
+
     return (
         <>
             <div className="offcanvas-menu-overlay" />
@@ -50,7 +106,7 @@ export default function Header() {
 
                 <nav className="canvas-menu mobile-menu">
                     <ul>
-                        <li>
+                        {/* <li>
                             <a href="/member/">Home  </a>
                         </li>
                         <li>
@@ -71,9 +127,12 @@ export default function Header() {
                         <li>
                             <a href="/member/profile">Profile</a>
                         </li>
+                
                         <a href="/member/account-history">
-                                            <i className="fa fa-sign-in" /> &nbsp;Account History
-                                        </a>
+                            <i className="fa fa-sign-in" /> &nbsp;Account History
+                        </a> */}
+                        
+                        {renderNavLinksMobile()}
                         <li>
                             <a href="#"  className='logout'  onClick={handleLogout}>Logout</a>
                         </li>
@@ -95,8 +154,8 @@ export default function Header() {
                         <div className="col-lg-6">
                             <nav className="nav-menu">
                                 <ul>
-                                <li>
-                            <a href="/member/">Home </a>
+                                {/*  <li>
+                           <a href="/member/">Home </a>
                                 </li>
                                 <li>
                                     <a href="/member/about">About</a>
@@ -112,8 +171,10 @@ export default function Header() {
                                 </li>
                                 <li>
                                     <a href="/member/contact">Contact</a>
-                                </li>
-    
+                                </li> */}
+
+                                {renderNavLinksDesktop()}
+                                    
                                 </ul>
                             </nav>
                         </div>
@@ -121,9 +182,6 @@ export default function Header() {
                             <div className="top-option">
                                 <div className="to-social profile-dropdown-label">
                                     <a href="#">
-
-
-
                                     <img 
                                         src={get_user_info?.profile 
                                             ? `/template/images/${get_user_info.profile}` 
@@ -135,14 +193,16 @@ export default function Header() {
                                     </a>
                                     <br />
                                     <div className="profile-dropdown-content">
-                                        <a href="/member/profile">
+                                        {/* <a href="/member/profile">
                                             <i className="fa fa-sign-in" /> &nbsp;Profile
                                         </a>
 
                                         <a href="/member/account-history">
                                             <i className="fa fa-sign-in" /> &nbsp;Account History
-                                        </a>
+                                        </a> */}
 
+
+                                        {renderNavLinksDropdownDesktop()}
 
                                         <a href="#"  className='logout'  onClick={handleLogout}> 
                                             <i className="fa fa-sign-in" /> &nbsp;Logout
