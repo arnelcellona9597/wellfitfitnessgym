@@ -40,12 +40,12 @@ class UserController extends Controller
     public function createUser(Request $request)
     { 
  
-        Log::error( print_r($request->all()['first_name'], true) );
-        Log::error( print_r($request->all()['last_name'], true) );
-        Log::error( print_r($request->all()['email'], true) );
-        Log::error( print_r($request->all()['password'], true) );
-        Log::error( print_r($request->all()['type'], true) );
-        Log::error( print_r($request->all()['verification_code'], true) );
+        // Log::error( print_r($request->all()['first_name'], true) );
+        // Log::error( print_r($request->all()['last_name'], true) );
+        // Log::error( print_r($request->all()['email'], true) );
+        // Log::error( print_r($request->all()['password'], true) );
+        // Log::error( print_r($request->all()['type'], true) );
+        // Log::error( print_r($request->all()['verification_code'], true) );
         
        $data = $request->all();
 
@@ -453,16 +453,45 @@ class UserController extends Controller
     }
     
 
+ 
+    
     public function adminApprovePlan(Request $request)
     {
-        $id = $request->query('id'); // ✅ use input() instead of query()
+        $id = $request->query('id');
         $query = UserPlan::find($id);
+    
         if (!$query) {
             return response()->json(['error' => 'Plan not found'], 404);
         }
-        $query->update(['status' => 'Approved']);
+    
+        // Set the start date as now with time
+        $startDate = Carbon::now();
+    
+        // Extract number of months from plan_duration (e.g. "3 Months")
+        preg_match('/(\d+)/', $query->plan_duration, $matches);
+        $months = isset($matches[1]) ? (int) $matches[1] : 0;
+    
+        // Calculate end date with time
+        $endDate = $startDate->copy()->addMonths($months);
+    
+        // Log full datetime
+        Log::error("UserPlan ID {$id}");
+        Log::error("Previous status: {$query->status}");
+        Log::error("Setting start_date to: {$startDate->format('Y-m-d H:i:s')}");
+        Log::error("Setting end_date to: {$endDate->format('Y-m-d H:i:s')}");
+        Log::error("plan_duration: {$query->plan_duration}");
+    
+        // Update the record with datetime format
+        $query->update([
+            'status' => 'Approved',
+            'start_date' => $startDate, // Carbon will automatically cast this correctly
+            'end_date' => $endDate,
+            'payment_date' =>  $startDate,
+        ]);
+    
         return response()->json(['query' => $query], 200);
     }
+    
 
     
     public function adminAddTrainor(Request $request)

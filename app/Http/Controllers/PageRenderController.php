@@ -131,6 +131,7 @@ class PageRenderController extends Controller
             'trainers' => Trainer::trainers(),  
             'get_all_inventory_items' => Inventory::getAllInventoryItems(),
             'get_all_images' => Gallery::getAllGalleryImages(),
+            'get_user_membership' => UserPlan::getUserMembership($request->cookie('cu_user_id')),
         ]);
     }
 
@@ -190,6 +191,8 @@ class PageRenderController extends Controller
             'get_all_plans' => Plan::getAllPlans(),
             'get_user_info' => User::getUserInfo($request->cookie('cu_user_id')),
             'membership_verification_code' => $request->cookie('membership_verification_code'),
+            'get_user_membership' => UserPlan::getUserMembership($request->cookie('cu_user_id')),
+       
         ]);
     }
 
@@ -298,7 +301,14 @@ class PageRenderController extends Controller
         ]); 
     }
  
- 
+    public function memberPrivacyPolicy(Request $request)
+    {
+        return Inertia::render('Member/PrivacyPolicy', [
+            'cu_user_id' => $request->cookie('cu_user_id'),
+            'two_latest_reviews' => Review::getTwoLatestReviews(),
+        ]); 
+    }
+
     
     public function adminIndex(Request $request)
     {

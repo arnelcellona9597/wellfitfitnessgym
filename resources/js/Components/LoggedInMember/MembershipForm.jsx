@@ -13,6 +13,11 @@ export default function MembershipForm() {
     const [paymentMethod, setPaymentMethod] = useState("GCASH");
     const [errors, setErrors] = useState({});
 
+    const [resendDisabled, setResendDisabled] = useState(false);
+    const [resendCountdown, setResendCountdown] = useState(60);
+
+
+
      // Extract number of months
      const durationMonths = parseInt(get_plan_by_id.duration);
 
@@ -36,12 +41,17 @@ export default function MembershipForm() {
 
     // Function to go to the next step with validation
 
-    const resendVerifcation = async (event) => { 
-        alert("Verification code has been RESEND.");
+    const resendVerifcation = async (event) => {
         event.preventDefault();
-       
+    
+        if (resendDisabled) return;
+    
+        setResendDisabled(true);
+    
+        alert("Verification code has been RESENT.");
+    
         try {
-            const response = await fetch("/member/plan/form", {  
+            const response = await fetch("/member/plan/form", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -54,20 +64,17 @@ export default function MembershipForm() {
                     duration: get_plan_by_id.duration,
                 }),
             });
-        
+    
             if (!response.ok) {
                 const result = await response.json();
-              
                 setErrors({ general: result.message || "Error submitting!" });
-                return;
             }
         } catch (error) {
             console.error("Error submitting:", error);
             setErrors({ general: "Something went wrong. Please try again!" });
-            return;
         }
-
-    }
+    };
+    
 
     const nextStep = async (event) => {
 
@@ -250,6 +257,21 @@ export default function MembershipForm() {
 
     const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
+
+    useEffect(() => {
+        let timer;
+        if (resendDisabled && resendCountdown > 0) {
+            timer = setTimeout(() => {
+                setResendCountdown((prev) => prev - 1);
+            }, 1000);
+        } else if (resendCountdown === 0) {
+            setResendDisabled(false);
+            setResendCountdown(60);
+        }
+        return () => clearTimeout(timer);
+    }, [resendDisabled, resendCountdown]);
+
+    
     return (
         <>
             {/* Step 1: Terms and Conditions */}
@@ -268,7 +290,8 @@ export default function MembershipForm() {
                                         <li>Proper attire and adherence to gym rules are required.</li>
                                         <li>Wellfit is not liable for injuries or lost items.</li>
                                         <li>Membership may be terminated for policy violations.</li>
-                                        <li>All personal information is handled in compliance with Republic Act No. 10173 (Data Privacy Act of 2012).</li>
+                                        <li><a href="/member/privacy-policy/" target="_blank" rel="noopener noreferrer">
+                                        All personal information is handled in compliance with Republic Act No. 10173 (Data Privacy Act of 2012). </a></li>
                                     </ul>
 
                                     <label className="agree-checkbox">
@@ -335,8 +358,13 @@ export default function MembershipForm() {
                                         Continue
                                     </button>
 
-                                    <button className="custom-orange-btn mt-3" onClick={resendVerifcation}>
-                                        Resend Verification Code
+
+                                    <button
+                                        className="custom-orange-btn mt-3"
+                                        onClick={resendVerifcation}
+                                        disabled={resendDisabled}
+                                    >
+                                        {resendDisabled ? `Resend in ${resendCountdown}s` : "Resend Verification Code"}
                                     </button>
 
                                     <button className="custom-orange-btn mt-3" onClick={prevStep}>

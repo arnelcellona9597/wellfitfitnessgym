@@ -3892,3 +3892,23 @@ ul.ul-element {
 .profile-dropdown-content li {
 	display: block !important;
 }
+
+.ul-element li a{
+	color: #f36100 !important;
+}
+
+.ul-element li a:hover {
+	color: #111 !important;
+}
+
+.colorWhite * {
+	color: #fff !important;
+}
+
+.colorWhite p {
+	font-size: 16px;
+}
+.colorWhite h5 {
+	margin-top: 20px;
+	color: #f36100 !important;
+}

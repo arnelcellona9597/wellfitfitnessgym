@@ -129,7 +129,7 @@ const ListOfMembershipPlan = () => {
     try {
       const response = await fetch(`/admin/membership/list-of-members/approve?id=${membershipId}`, {
         method: "POST",
-        headers: {
+        headers: { 
           "Content-Type": "application/json",
           "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
         },

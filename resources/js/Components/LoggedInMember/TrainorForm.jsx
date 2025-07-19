@@ -22,6 +22,8 @@ export default function TrainorForm() {
     const [timeSchedule, setTimeSchedule] = useState("8:00am - 9:30am");
     const [trainerStartDate, setTrainerStartDate] = useState("");
     
+    const [resendCooldown, setResendCooldown] = useState(0);
+
 
     const [errors, setErrors] = useState({});
 
@@ -90,9 +92,13 @@ export default function TrainorForm() {
     
 
     const resendVerifcation = async (event) => { 
-        alert("Verification code has been RESEND.");
         event.preventDefault();
-
+    
+        if (resendCooldown > 0) return; // Prevent if still in cooldown
+    
+        alert("Verification code has been RESEND.");
+        setResendCooldown(60); // Start countdown
+    
         try {
             const response = await fetch("/member/trainor/form", {  
                 method: "POST",
@@ -101,17 +107,14 @@ export default function TrainorForm() {
                     "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content"),
                 },
                 body: JSON.stringify({
-
                     email: get_user_info.email,
                     trainer_name: get_trainer_by_id.trainer_name,
                     trainer_image: get_trainer_by_id.trainer_image
-                    
                 }),
             });
-        
+    
             if (!response.ok) {
                 const result = await response.json();
-          
                 setErrors({ general: result.message || "Error submitting!" });
                 return;
             }
@@ -120,8 +123,20 @@ export default function TrainorForm() {
             setErrors({ general: "Something went wrong. Please try again!" });
             return;
         }
+    };
 
-    }
+    useEffect(() => {
+        let interval;
+    
+        if (resendCooldown > 0) {
+            interval = setInterval(() => {
+                setResendCooldown(prev => prev - 1);
+            }, 1000);
+        }
+    
+        return () => clearInterval(interval);
+    }, [resendCooldown]);
+    
 
 
  
@@ -345,28 +360,40 @@ export default function TrainorForm() {
 
     const isDateFullyBooked = (date) => {
         const timeSlots = [
-          "8:00am - 9:30am",
-          "9:30am - 11:00am",
-          "11:00am - 12:30pm",
-          "12:30pm - 2:00pm",
-          "2:00pm - 3:30pm"
+            "8:00am - 9:30am",
+            "9:30am - 11:00am",
+            "11:00am - 12:30pm",
+            "12:30pm - 2:00pm",
+            "2:00pm - 3:30pm"
         ];
-      
-        return timeSlots.every((time) => takenSchedules.has(`${date}|${time}`));
-      };
-
-      const isTimeSlotTaken = (selectedDate, selectedTime) => {
+    
+        return timeSlots.every((time) => {
+            return get_all_user_booktrainor.some((booking) => {
+                return (
+                    booking.trainer_id === get_trainer_by_id.id &&
+                    booking.trainer_start_date === date &&
+                    booking.trainer_time_schedule === time
+                );
+            });
+        });
+    };
+    
+    const isTimeSlotTaken = (selectedDate, selectedTime) => {
         return get_all_user_booktrainor.some((booking) => {
             const start = dayjs(booking.trainer_start_date);
             const end = dayjs(booking.trainer_end_date);
             const selected = dayjs(selectedDate);
+    
             return (
-                booking.trainer_time_schedule === selectedTime &&
+                Number(booking.trainer_user_id) === Number(get_user_info.id) && // same user
+                booking.trainer_time_schedule === selectedTime &&               // same time
                 selected.isSameOrAfter(start, "day") &&
                 selected.isSameOrBefore(end, "day")
             );
         });
     };
+    
+    
     
     const allTimeSlots = [
         "8:00am - 9:30am",
@@ -406,7 +433,12 @@ export default function TrainorForm() {
                                         <li>Proper gym attire is required during training sessions.</li>
                                         <li>Clients must follow the trainer’s guidance to ensure safety and effectiveness.</li>
                                         <li>Wellfit is not liable for injuries sustained during training sessions.</li>
-                                        <li>All personal information is handled in compliance with Republic Act No. 10173 (Data Privacy Act of 2012).</li>
+                                        <li>
+                                            <a href="/member/privacy-policy/" target="_blank" rel="noopener noreferrer">
+                                                All personal information is handled in compliance with Republic Act No. 10173 (Data Privacy Act of 2012).
+                                            </a>
+                                        </li>
+
                                     </ul>
 
                                     <label className="agree-checkbox">
@@ -474,9 +506,16 @@ export default function TrainorForm() {
                                         Continue
                                     </button>
 
-                                    <button className="custom-orange-btn mt-3" onClick={resendVerifcation}>
-                                        Resend Verification Code
+                                    <button
+                                        className="custom-orange-btn mt-3"
+                                        onClick={resendVerifcation}
+                                        disabled={resendCooldown > 0}
+                                    >
+                                        {resendCooldown > 0
+                                            ? `Resend Code (${resendCooldown}s)`
+                                            : "Resend Verification Code"}
                                     </button>
+
 
                                     
                                     <button className="custom-orange-btn mt-3" onClick={prevStep}>
@@ -548,29 +587,8 @@ export default function TrainorForm() {
                                         </tbody>
                                     </table>
                                 </div>
-{/* 
-                                <table className="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Trainer User ID</th>
-                                            <th>Trainer ID</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Time Schedule</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {get_all_user_booktrainor.map((allBookings) => (
-                                            <tr key={allBookings.id}>
-                                                <td>{allBookings.trainer_user_id}</td>
-                                                <td>{allBookings.trainer_id}</td>
-                                                <td>{allBookings.trainer_start_date}</td>
-                                                <td>{allBookings.trainer_end_date}</td>
-                                                <td>{allBookings.trainer_time_schedule}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table> */}
+
+  
 
 
                                 <div className="payment-element-block mt-3 pt-2">

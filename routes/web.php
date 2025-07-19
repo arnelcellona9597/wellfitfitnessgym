@@ -55,6 +55,7 @@ Route::get('/member/account-history', [PageRenderController::class, 'memberAccou
 Route::get('/member/account-history/membership', [PageRenderController::class, 'memberAccountHistoryMembership']);
 Route::get('/member/trainor', [PageRenderController::class, 'MemberTrainer']);
 Route::get('/member/trainor/form', [PageRenderController::class, 'memberTrainorForm']);
+Route::get('/member/privacy-policy', [PageRenderController::class, 'memberPrivacyPolicy']);
 
 
 Route::get('/trainer-gcash-payment/step2', [TrainerPaymentController::class, 'createPaymentMethod'])->name('trainerpayment.step2');

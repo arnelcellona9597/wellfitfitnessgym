@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Signup() {
-
     const generateVerificationCode = () => {
         return Math.floor(1000000000 + Math.random() * 9000000000).toString();
     };
@@ -18,7 +17,17 @@ export default function Signup() {
     const [errors, setErrors] = useState({});
     const [successMessage, setSuccessMessage] = useState('');
     const [showForm, setShowForm] = useState(true);
-    const [isSubmitting, setIsSubmitting] = useState(false); // ✅ Prevent multiple submissions
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [resendTimer, setResendTimer] = useState(0); // ⏱️ Countdown
+    const [formSubmitted, setFormSubmitted] = useState(false); // 🆕 Tracks if form was submitted
+
+    useEffect(() => {
+        if (resendTimer > 0) {
+            const timer = setTimeout(() => setResendTimer(resendTimer - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [resendTimer]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,7 +37,7 @@ export default function Signup() {
         e.preventDefault();
         setErrors({});
         setSuccessMessage('');
-        setIsSubmitting(true); // ✅ Disable submit button
+        setIsSubmitting(true);
 
         try {
             const response = await fetch('/signup', {
@@ -41,35 +50,31 @@ export default function Signup() {
             });
 
             const result = await response.json();
-            console.log("response: "+response); 
-            console.log("result: "+result); 
+            console.log("response: ", response);
+            console.log("result: ", result);
 
             setSuccessMessage('Check your email to activate your account...');
-            // setFormData({
-            //     first_name: '',
-            //     last_name: '',
-            //     email: '',
-            //     password: '',
-            //     type: 'Member'
-            // });
-
-            // ✅ Hide form and show success message
-            // setShowForm(false);
-
-
+            setResendTimer(60); // ⏱️ Start cooldown
+            setFormSubmitted(true); // 🆕 Flag as submitted
         } 
         catch (error) {
-            setErrors({ general: 'Email already exist, Try to create new one.' });
-            // console.log("error: "+error); 
+            setErrors({ general: 'Email already exists, try to create a new one.' });
         }  
         finally {
-            // setIsSubmitting(false); // ✅ Re-enable submit button
+            setIsSubmitting(false);
         }
+    };
 
+    // 🆕 Dynamic button label
+    const getButtonLabel = () => {
+        if (isSubmitting) return 'Submitting...';
+        if (resendTimer > 0) return `Resend in ${resendTimer}s`;
+        if (formSubmitted) return 'Resend Verification Code';
+        return 'Sign Up';
     };
 
     return (
-        <>  
+        <>
             <span className='bg-img-v-2'>
                 <section className="section-404">
                     <div className="container">
@@ -85,12 +90,8 @@ export default function Signup() {
                                     
                                     {showForm && (
                                         <form onSubmit={handleSubmit} className="search-404">
-
-
                                             <input type="hidden" name="type" value={formData.type} />
-                                            <input type="hidden" name="type" value={formData.verification_code} />
-
-
+                                            <input type="hidden" name="verification_code" value={formData.verification_code} />
 
                                             <input type="text" name="first_name" placeholder="Enter your First Name" value={formData.first_name} onChange={handleChange} required />
                                             {errors.first_name && <p className="text-danger">{errors.first_name}</p>}
@@ -105,20 +106,18 @@ export default function Signup() {
                                             {errors.password && <p className="text-danger">{errors.password}</p>}
 
                                             <br />
-                                            {/* <button type="submit" className="color-white" disabled={isSubmitting}>
-                                                <i className="fa fa-plus"></i> {isSubmitting ? 'Signing Up...' : 'Sign Up'}
-                                            </button> */}
-                                            <button type="submit" className="color-white"  >
-                                                <i className="fa fa-sign-in"></i> {isSubmitting ? 'Resend Verification' : 'Sign Up'}
+                                            <button 
+                                                type="submit" 
+                                                className="color-white" 
+                                                disabled={isSubmitting || resendTimer > 0}
+                                            >
+                                                <i className="fa fa-sign-in"></i> {getButtonLabel()}
                                             </button>
-
                                         </form>
                                     )}
-                                    
-                                    <a href="/signin" className="fs-11 color-orange"><i className="fa fa-sign-in"></i> Already have an account? Sign In</a>
-                                    <br />
-                                    <a href="/forgot" className="fs-11 color-orange"><i className="fa fa-question"></i> Forgot Account?</a>
-                                    <br />
+
+                                    <a href="/signin" className="fs-11 color-orange"><i className="fa fa-sign-in"></i> Already have an account? Sign In</a><br />
+                                    <a href="/forgot" className="fs-11 color-orange"><i className="fa fa-question"></i> Forgot Account?</a><br />
                                     <a href="/" className="fs-11 color-orange"><i className="fa fa-home"></i> Home Page</a>
                                 </div>
                             </div>
